@@ -26,7 +26,7 @@ class Location:
         id of the node, used for the distance matrix
     """
 
-    def __init__(self, requestID, xLoc, yLoc, demand, startTW, endTW, servTime, servStartTime, typeLoc, nodeID):
+    def __init__(self, requestID, xLoc, yLoc, demand, startTW, endTW, servTime, servStartTime, typeLoc, nodeID, stringId):
         self.requestID = requestID
         self.xLoc = xLoc
         self.yLoc = yLoc
@@ -37,15 +37,22 @@ class Location:
         self.servStartTime = servStartTime
         self.typeLoc = typeLoc
         self.nodeID = nodeID
+        self.stringId = stringId
 
     def __str__(self):
-        return (f"requestID: {self.requestID}; demand: {self.demand}; startTW: {self.startTW}; endTW: {self.endTW}; servTime:{self.servTime}; servStartTime: {self.servStartTime}; typeLoc: {self.typeLoc}, nodeID: {self.nodeID}")
+        return (f"requestID: {self.requestID}; demand: {self.demand}; startTW: {self.startTW}; endTW: {self.endTW}; servTime:{self.servTime}; servStartTime: {self.servStartTime}; typeLoc: {self.typeLoc}, nodeID: {self.nodeID}, stringId: {self.stringId}")
 
     def print(self):
         """
         Method that prints the location
         """
-        print(" (" + str(self.requestID) + "," + str(self.typeLoc) + ")", end = '')
+        print(f" ( StringId: {self.stringId}, LocType: {self.typeLoc}, demand: {self.demand}; startTW: {self.startTW}; endTW: {self.endTW}; servTime:{self.servTime} ) ", end='')
+
+    def printOnlyRoute(self):
+        """
+        Method that prints the location
+        """
+        print(f" ( {self.stringId}, {self.servStartTime}, {self.typeLoc} ) ", end='')
 
     def getDistance(l1, l2):
         """
