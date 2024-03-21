@@ -34,7 +34,7 @@ class ALNS:
         Distance of the best solution
     """
 
-    def __init__(self, problem, nDestroyOps, nRepairOps, nIterations, minSizeNBH, maxPercentageNHB, tau, coolingRate, decayParameter, noise):
+    def __init__(self, problem, nDestroyOps, nRepairOps, nIterations, minSizeNBH, maxPercentageNHB, decayParameter, noise):
         self.problem = problem
         self.nDestroyOps = nDestroyOps
         self.nRepairOps = nRepairOps
@@ -51,8 +51,6 @@ class ALNS:
         self.nIterations = nIterations
         self.minSizeNBH = minSizeNBH
         self.maxPercentageNHB = maxPercentageNHB
-        self.tau = tau
-        self.coolingRate = coolingRate
         self.decayParameter = decayParameter
         self.noise = noise
 
@@ -95,12 +93,12 @@ class ALNS:
         self.maxSizeNBH = max(1, int(np.floor(self.maxPercentageNHB/100*number_of_request)))
 
         # Find starting temperature
-        self.T = self.findStartingTemperature(self.tau, self.bestDistance)
+        # self.T = self.findStartingTemperature(self.tau, self.bestDistance)
 
-    def findStartingTemperature(self, startTempControlParam, starting_solution):
-        delta = startTempControlParam*starting_solution
-        T = float(-delta/ln(0.5))
-        return round(T, 4)
+    # def findStartingTemperature(self, startTempControlParam, starting_solution):
+    #     delta = startTempControlParam*starting_solution
+    #     T = float(-delta/ln(0.5))
+    #     return round(T, 4)
             
 
     def execute(self):
@@ -110,10 +108,10 @@ class ALNS:
         starttime = time.time()  # get the start time
         self.starttime_best_objective = time.time()
         self.real_dist = np.inf
-        
+
         self.constructInitialSolution()
         
-        for i in range(self.nIterations):
+        for i in range(self.nIterations): #Iteration count
             self.max_arc_length = self.currentSolution.calculateMaxArc()
             # Simulated annealing
             self.iteration_number = i
@@ -139,12 +137,16 @@ class ALNS:
         cpuTime = round(endtime - starttime, 3)
         
         # Print status at termination
+
         print("Terminated. Final distance: " + str(self.bestSolution.distance) + ", cpuTime: " + str(cpuTime) + " seconds")
         
         time_best_objective = self.time_best_objective_found - self.starttime_best_objective
         
         print(f'Best objective value found after: {round(time_best_objective, 3)} seconds')
-        
+
+        print(self.bestSolution.print())
+
+
         print(f'Best objective value found after: {self.optimal_iteration_number} iterations')
         
         # print(self.repairUseTimes)
@@ -252,19 +254,19 @@ class ALNS:
                 self.destroyScore[destroyOpNr] += Parameters.w2
                 self.repairScore[repairOpNr] += Parameters.w2  # the new solution is better than the current one 1.2
         else:
-            if self.randomGen.random() < np.exp(
-                    - (self.tempSolution.distance - self.currentSolution.distance) / self.T):
-                self.currentSolution = self.tempSolution.copy()
-                self.destroyScore[destroyOpNr] += Parameters.w3  # the new solution is accepted 0.8
-                self.repairScore[repairOpNr] += Parameters.w3
-            else:
-                self.destroyScore[destroyOpNr] += Parameters.w4  # the new solution is rejected 0.6
-                self.repairScore[repairOpNr] += Parameters.w4
+            # if self.randomGen.random() < np.exp(
+            #         - (self.tempSolution.distance - self.currentSolution.distance) / self.T):
+            #     self.currentSolution = self.tempSolution.copy()
+            #     self.destroyScore[destroyOpNr] += Parameters.w3  # the new solution is accepted 0.8
+            #     self.repairScore[repairOpNr] += Parameters.w3
+            # else:
+            self.destroyScore[destroyOpNr] += Parameters.w4  # the new solution is rejected 0.6
+            self.repairScore[repairOpNr] += Parameters.w4
 
         # Update the ALNS weights
         self.updateWeights(destroyOpNr, repairOpNr)
         # Update temperature
-        self.T = self.coolingRate * self.T  
+        # self.T = self.coolingRate * self.T
 
     def updateWeights(self, destroyOpNr, repairOpNr):
         """

@@ -56,9 +56,10 @@ class Solution:
             self.distanceType = 1  # Noise is used in the objective solution
         return self.distance
 
+    # en uzun rotayı bul
     def calculateMaxArc(self):
         max_arc_length = 0
-        for route in self.routes:
+        for route in self.routes: # tüm routeları al
             for i in range(1, len(route.locations)):
                 first_node_ID = route.locations[i - 1].nodeID
                 second_node_ID = route.locations[i].nodeID

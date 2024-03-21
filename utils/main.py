@@ -1,21 +1,19 @@
 from pdptw import PDPTW
 from alns import ALNS
 
-data = "Instances/lrc206.txt"
+data = "Instances/lrc104.txt" # datayı yükle
 problem = PDPTW.readInstance(data)
 
 # Static parameters
-nDestroyOps = 9
-nRepairOps = 3
-minSizeNBH = 1
-nIterations = 2800
+nDestroyOps = 9  #number of destroy operations
+nRepairOps = 3  # number of repair operations
+minSizeNBH = 1  #Minimum size of neighborhood
+nIterations = 500  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
 
 # Parameters to tune:
-maxPercentageNHB = 5
-tau = 0.03
-coolingRate = 0.9990
+maxPercentageNHB = 5  #Maximum Percentage for Neighborhood
 decayParameter = 0.15
-noise = 0.015
+noise = 0.015  #gürültü ekleme, çözüm uzayında daha çeşitli noktaları keşfetmeye yardımcı olur.
 
-alns = ALNS(problem, nDestroyOps, nRepairOps, nIterations, minSizeNBH, maxPercentageNHB, tau, coolingRate, decayParameter, noise)
+alns = ALNS(problem, nDestroyOps, nRepairOps, nIterations, minSizeNBH, maxPercentageNHB, decayParameter, noise)
 alns.execute()

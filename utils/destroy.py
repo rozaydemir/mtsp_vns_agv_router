@@ -50,7 +50,7 @@ class Destroy:
         for route in self.solution.routes:
             route.calculateServiceStartTime()
             for location in route.locations:
-                if location.typeLoc != 0:
+                if location.typeLoc != "depot":
                     difference = location.servStartTime - location.startTW
                     service_time_difference.append([location.requestID, difference])
         # Sort list with time differences
@@ -113,7 +113,7 @@ class Destroy:
             if len(route.locations) > 2:
                 # From this route, choose a random location which is not the depot
                 location = randomGen.choice(
-                    [location for location in route.locations if location.typeLoc != 0])
+                    [location for location in route.locations if location.typeLoc != "depot"])
                 break
             else:
                 potentialRoutes.remove(route)
@@ -129,7 +129,7 @@ class Destroy:
         for route in self.solution.routes:
             for loc_j in route.locations:
                 # Only consider locations which are not depots
-                if loc_j.typeLoc != 0:
+                if loc_j.typeLoc != "depot":
                     locations.append(loc_j)
                     location_j, start_tw_j, demand_j = loc_j.nodeID, loc_j.startTW, loc_j.demand
                     # Find difference of the two nodes in terms of the key variables
@@ -184,7 +184,7 @@ class Destroy:
         for route in self.solution.routes:
             for loc_j in route.locations:
                 # Only consider locations which are not depots
-                if loc_j.typeLoc != 0:
+                if loc_j.typeLoc != "depot":
                     distance_diff = self.problem.distMatrix[loc_i.nodeID][loc_j.nodeID]
                     if distance_diff < closest:
                         chosen_location = loc_j
@@ -210,7 +210,7 @@ class Destroy:
         for route in self.solution.routes:
             for loc_j in route.locations:
                 # Only consider locations which are not depots
-                if loc_j.typeLoc != 0:
+                if loc_j.typeLoc != "depot":
                     tw_diff = abs(loc_i.startTW - loc_j.startTW)
                     if tw_diff < smallest_diff:
                         chosen_location = loc_j
@@ -234,7 +234,7 @@ class Destroy:
         for route in self.solution.routes:
             for loc_j in route.locations:
                 # Only consider locations which are not depots
-                if loc_j.typeLoc != 0:
+                if loc_j.typeLoc != "depot":
                     demand_diff = abs(loc_i.demand - loc_j.demand)
                     if demand_diff < smallest_diff:
                         chosen_location = loc_j

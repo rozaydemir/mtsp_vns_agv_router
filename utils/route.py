@@ -85,7 +85,7 @@ class Route:
         """
         print("Route", end = '')
         for loc in self.locations:
-            loc.print()
+            loc.printOnlyRoute()
         print(" dist=" + str(self.distance))
 
     def isFeasible(self):
@@ -117,7 +117,7 @@ class Route:
             if curLoad > self.problem.capacity:
                 return False
             # check if we don't do a delivery before a pickup
-            if curNode.typeLoc == 1:
+            if curNode.typeLoc == "pickup":
                 # it is a pickup
                 pickedUp.add(curNode.requestID)
             else:
