@@ -18,12 +18,13 @@ class Solution:
         total distance of the current solution
     """
 
-    def __init__(self, problem, routes, served, notServed):
+    def __init__(self, problem, routes, served, notServed, vehicle):
         self.problem = problem
         self.routes = routes
         self.served = served
         self.notServed = notServed
         self.distance = self.computeDistance()
+        self.vehicle = vehicle
 
     def computeDistance(self):
         """
@@ -134,6 +135,7 @@ class Solution:
             newRoute = Route(locList, {request}, self.problem)
             self.routes.append(newRoute)
             self.distance += newRoute.distance
+            newRoute.print()
         else:
             for route in self.routes:
                 if route == insertRoute:
@@ -143,6 +145,7 @@ class Solution:
                         newRoute = Route(locList, {request}, self.problem)
                         self.routes.append(newRoute)
                         self.distance += newRoute.distance
+                        newRoute.print()
                     else:
                         self.distance += res
         # update lists with served and unserved requests
@@ -159,7 +162,7 @@ class Solution:
         routesCopy = list()
         for route in self.routes:
             routesCopy.append(route.copy())
-        copy = Solution(self.problem, routesCopy, self.served.copy(), self.notServed.copy())
+        copy = Solution(self.problem, routesCopy, self.served.copy(), self.notServed.copy(), self.vehicle.copy())
         copy.computeDistance()
         return copy
 
@@ -198,15 +201,18 @@ class Solution:
                     self.routes.remove(randomRoute)
                     self.routes.append(afterInsertion)
                     self.distance += cost
+                    afterInsertion.print()
                     break
 
             # if we were not able to insert, create a new route
             if not inserted:
                 # create a new route with the request
+                # ilk route burada ekleniyor
                 locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
                 newRoute = Route(locList, {req}, self.problem)
                 self.routes.append(newRoute)
                 self.distance += newRoute.distance
+                newRoute.print()
             # update the lists with served and notServed requests
             self.served.append(req)
             self.notServed.remove(req)

@@ -5,10 +5,10 @@ data = "Instances/lrc104.txt" # datayı yükle
 problem = PDPTW.readInstance(data)
 
 # Static parameters
-nDestroyOps = 9  #number of destroy operations
-nRepairOps = 3  # number of repair operations
+nDestroyOps = 9  #number of destroy operations, çeşitlilik sağlanmak istenirse 9 a çıkar
+nRepairOps = 3  # number of repair operations # çeşitlilik sağlanmak istenirse 3 e çıkar
 minSizeNBH = 1  #Minimum size of neighborhood
-nIterations = 500  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
+nIterations = 100  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
 
 # Parameters to tune:
 maxPercentageNHB = 5  #Maximum Percentage for Neighborhood

@@ -110,9 +110,11 @@ class Route:
             curTime = max(curNode.startTW, curTime + prevNode.servTime + dist)
 
             # check if time window is respected
+            # TODO : early time late tiems burada yapılacak
             if curTime > curNode.endTW:
                 return False
             # check if capacity not exceeded
+            # TODO : araca ait trolley capacity  çok iseye çevrilecek
             curLoad += curNode.demand
             if curLoad > self.problem.capacity:
                 return False

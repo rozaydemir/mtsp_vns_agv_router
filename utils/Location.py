@@ -52,7 +52,7 @@ class Location:
         """
         Method that prints the location
         """
-        print(f" ( {self.stringId}, {self.servStartTime}, {self.typeLoc} ) ", end='')
+        print(f" ( {self.stringId}, {self.demand}, {self.servStartTime}, {self.typeLoc} ) ", end='')
 
     def getDistance(l1, l2):
         """

@@ -1,6 +1,7 @@
 import numpy as np
 from request import Request
 from location import Location
+from vehicle import Vehicle
 
 class PDPTW:
     """
@@ -22,11 +23,14 @@ class PDPTW:
     
     """
 
-    def __init__(self, name, requests, depot, vehicleCapacity):
+    def __init__(self, name, requests, depot, vehicleCapacity, vehicleCount):
         self.name = name
         self.requests = requests
         self.depot = depot
         self.capacity = vehicleCapacity
+        self.vehicles = set()
+        for i in range(vehicleCount):
+            self.vehicles.add(Vehicle(i, 0, 3,  50))
         ##construct the set with all locations
         self.locations = set()
         self.locations.add(depot)
@@ -116,6 +120,12 @@ class PDPTW:
         # read the vehicle capacity 
         f = open(fileName)
         capLine = f.readlines()[-4]
-        capacity = int(capLine[-7:-3].strip())
+        perTrolleyCapacity = int(capLine[-7:-3].strip())  # her trolleyin alabileceği max capacity
 
-        return PDPTW(fileName, requests, depot, capacity)
+        # ftwo = open(fileName)
+        # vehicleCountLine = ftwo.readlines()[-1]
+        vehicleCount = 3
+
+        totalCapacity = perTrolleyCapacity * vehicleCount # total capacity   vehicleCount * perTrolleyCapacity
+
+        return PDPTW(fileName, requests, depot, totalCapacity, vehicleCount)

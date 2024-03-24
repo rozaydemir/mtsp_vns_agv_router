@@ -10,6 +10,7 @@ from destroy import Destroy
 from solution import Solution
 from repair import Repair
 from parameters import Parameters
+from vehicle import Vehicle
 
 
 class ALNS:
@@ -76,7 +77,7 @@ class ALNS:
         """
         Method that constructs an initial solution using random insertion
         """
-        self.currentSolution = Solution(self.problem, list(), list(), list(self.problem.requests.copy()))
+        self.currentSolution = Solution(self.problem, list(), list(), list(self.problem.requests.copy()), list())
         self.currentSolution.executeRandomInsertion(self.randomGen)
         self.currentSolution.computeDistance()
         self.bestSolution = self.currentSolution.copy()
@@ -219,9 +220,9 @@ class ALNS:
         # self.tempSolution.print()
         # decide on the size of the neighbourhood
         sizeNBH = self.randomGen.randint(self.minSizeNBH, self.maxSizeNBH)
-        destroyOpNr = self.determineDestroyOpNr()
+        destroyOpNr = self.determineDestroyOpNr() # çeşitlilik sağlanmak istenirse 9 a çıkar
         # print('destroyOpNr ', destroyOpNr)
-        repairOpNr = self.determineRepairOpNr()
+        repairOpNr = self.determineRepairOpNr() # çeşitlilik sağlanmak istenirse yorum satırından kaldır
         # print('repairOpNr ', repairOpNr)
         self.destroyAndRepair(destroyOpNr, repairOpNr, sizeNBH)
 
@@ -247,7 +248,7 @@ class ALNS:
                 new_real_dist = self.tempSolution.computeDistance()
                 if new_real_dist < self.real_dist:
                     self.real_dist = new_real_dist
-                    # print(f'New best global solution found: {real_dist}')
+                    print(f'New best global solution found: {self.real_dist}')
                     self.time_best_objective_found = time.time()
                     self.optimal_iteration_number = self.iteration_number
             else:
