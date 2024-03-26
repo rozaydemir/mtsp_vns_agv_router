@@ -28,9 +28,9 @@ class PDPTW:
         self.requests = requests
         self.depot = depot
         self.capacity = vehicleCapacity
-        self.vehicles = set()
+        self.vehicles = []
         for i in range(vehicleCount):
-            self.vehicles.add(Vehicle(i, 0, 3,  50))
+            self.vehicles.append(Vehicle(i, 0, 3,  50))
         ##construct the set with all locations
         self.locations = set()
         self.locations.add(depot)

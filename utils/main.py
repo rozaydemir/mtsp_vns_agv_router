@@ -5,8 +5,8 @@ data = "Instances/lrc104.txt" # datayı yükle
 problem = PDPTW.readInstance(data)
 
 # Static parameters
-nDestroyOps = 9  #number of destroy operations, çeşitlilik sağlanmak istenirse 9 a çıkar
-nRepairOps = 3  # number of repair operations # çeşitlilik sağlanmak istenirse 3 e çıkar
+nDestroyOps = 6  #number of destroy operations, çeşitlilik sağlanmak istenirse 9 a çıkar
+nRepairOps = 2  # number of repair operations # çeşitlilik sağlanmak istenirse 3 e çıkar
 minSizeNBH = 1  #Minimum size of neighborhood
 nIterations = 100  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
 

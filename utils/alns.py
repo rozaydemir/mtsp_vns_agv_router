@@ -351,19 +351,20 @@ class ALNS:
             # print('after destroy')
             # destroySolution.solution.print()
         elif destroyHeuristicNr == 4:
-            destroySolution.executeShawRequestRemoval(sizeNBH, self.randomGen)
+            destroySolution.executeTimeBasedRemoval(sizeNBH, self.randomGen)
+            # destroySolution.executeShawRequestRemoval(sizeNBH, self.randomGen)
             # print('after destroy')
             # destroySolution.solution.print()
         elif destroyHeuristicNr == 5:
-            destroySolution.executeProximityBasedRemoval(sizeNBH, self.randomGen)
-            # print('after destroy')
-            # destroySolution.solution.print()
-        elif destroyHeuristicNr == 6:
-            destroySolution.executeTimeBasedRemoval(sizeNBH, self.randomGen)
-            # print('after destroy')
-            # destroySolution.solution.print()
-        elif destroyHeuristicNr == 7:
             destroySolution.executeDemandBasedRemoval(sizeNBH, self.randomGen)
+             # print('after destroy')
+            # destroySolution.solution.print()
+        # elif destroyHeuristicNr == 6:
+        #     destroySolution.executeShawRequestRemoval(sizeNBH, self.randomGen)
+            # print('after destroy')
+            # destroySolution.solution.print()
+        # elif destroyHeuristicNr == 7:
+            # destroySolution.executeProximityBasedRemoval(sizeNBH, self.randomGen)
             # print('after destroy')
             # destroySolution.solution.print()
             
@@ -383,7 +384,7 @@ class ALNS:
             repairSolution.executeGreedyInsertion()
             # print('after repair')
             # self.tempSolution.print()
-        elif repairHeuristicNr == 2:
-            repairSolution.executeRegretInsertion()
+        # elif repairHeuristicNr == 2:
+        #     repairSolution.executeRegretInsertion()
             # print('after repair')
             # self.tempSolution.print()

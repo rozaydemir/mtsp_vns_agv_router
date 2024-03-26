@@ -1,4 +1,8 @@
 from route import Route
+import random
+
+from utils import route
+
 
 class Solution:
     """
@@ -23,8 +27,8 @@ class Solution:
         self.routes = routes
         self.served = served
         self.notServed = notServed
+        self.vehicle = self.problem.vehicles
         self.distance = self.computeDistance()
-        self.vehicle = vehicle
 
     def computeDistance(self):
         """
@@ -69,6 +73,17 @@ class Solution:
                     max_arc_length = arc_length
         return max_arc_length
 
+    def sortAndSetVehicles(self):
+        self.routes = sorted(self.routes, key=lambda route: route.distance)
+        vehicleIndex = 0;
+        for route in self.routes:
+            self.vehicle[vehicleIndex].routes.append(route)
+            vehicleIndex += 1
+            if vehicleIndex == len(self.vehicle):
+                vehicleIndex = 0
+
+
+
     def print(self):
         """
         Method that prints the solution
@@ -79,6 +94,11 @@ class Solution:
             nNotServed) + " unserved requests: ")
         for route in self.routes:
             route.print()
+        print('========================================')
+        print("\n\n")
+        for vehicle in self.vehicle:
+            for route in vehicle.routes:
+                route.printVehicle(vehicle.id)
 
         print("\n\n")
 

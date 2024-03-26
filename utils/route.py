@@ -88,6 +88,15 @@ class Route:
             loc.printOnlyRoute()
         print(" dist=" + str(self.distance))
 
+    def printVehicle(self, vehicleId):
+        """
+        Method that prints the route
+        """
+        print("Vehicle - "+ str(vehicleId), end = '')
+        for loc in self.locations:
+            loc.printOnlyRoute()
+        print(" dist=" + str(self.distance))
+
     def isFeasible(self):
         """
         Method that checks feasbility. Returns True if feasible, else False
