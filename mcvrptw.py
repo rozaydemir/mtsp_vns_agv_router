@@ -1,522 +1,780 @@
-import copy
-from dataclasses import dataclass
-from typing import List,Any,Dict,Optional
-
-import matplotlib
-matplotlib.use('TkAgg')
-import matplotlib.pyplot as plt
 import numpy as np
-import numpy.random as rnd
-from haversine import haversine
-from alns import ALNS, State
-from alns.accept import *
-from alns.select import *
-from alns.stop import *
+import random as rnd
+import math as mt
+import matplotlib.pyplot as plt
+from typing import List, Dict, Optional, TypeVar
 
-# from read_data import read_vrp_data
-
-
-SEED = 1234
-speed = 60/3600
+Customer = TypeVar('Customer')
+Index = TypeVar('Index')
 
 
-#-----------------
-# Initialize Data
-#-----------------
-vrp_data,vehicle_data = read_vrp_data(batch=6)
-customers = list(vrp_data["收货地编码"])
-num_customers = len(customers)
-corr_xy = [(list(vrp_data["纬度"])[i],list(vrp_data["经度"])[i]) for i in range(num_customers)]
-demands = list(vrp_data["订单总体积"])
-start_time = list(vrp_data["开始时间"])
-end_time = list(vrp_data["结束时间"])
-serve_time = list(vrp_data["服务时间"])
+# useful for describing the inputs
 
-vehicles = list(vehicle_data["车牌号"])
-num_vehicle = len(list(vehicle_data["车牌号"]))
-capacitys_type = list(vehicle_data["车厢体积"].unique())
-capacitys = list(map(lambda x: x * 0.9, list(vehicle_data["车厢体积"])))
-vehicle_lens_capacity_mapping = {
-    "4.2":[12,13,14,14.4,15.23,15.45,15.53,15.55,15.96,16,16.01,16.2,16.22,16.35,16.55,16.88,16,18,20,22],
-    "3":[],
-    "2.8":[]
-}
 
-def get_distance():
-    # 计算距离矩阵
-    distance_matrix = np.zeros((num_customers, num_customers))
-    for i in range(num_customers):
-        for j in range(i + 1, num_customers):
-            dis = haversine(corr_xy[i], corr_xy[j])
-            distance_matrix[i][j] = distance_matrix[j][i] = dis
-    return distance_matrix
-
-distance = get_distance()
-
-# ------------------------
-# Solution state
-# ------------------------
-class CvrpState(State):
+class MCVRPTW():
     """
-    Solution state for CVRP. It has two data members, routes and unassigned.
-    Routes is a list of list of integers, where each inner list corresponds to
-    a single route denoting the sequence of customers to be visited. A route
-    does not contain the start and end depot. Unassigned is a list of integers,
-    each integer representing an unassigned customer.
+     -----
+    Input :
+    # exemple : for 10 customers and  5 different products
+    Coordinate : dict --> {0: (-4, -6), 1: (-3, -10), 2: (0, -6), 3: (-6, 5), 4: (1, -2), 5: (-9, 8), 6: (10, -9), 7: (5, 7), 8: (-9, 9), 9: (6, -3), 10: (-7, -5)}
+    Customer_demands : dict --> {0: [0,0,0,0,0], 1: [6, 8, 3, 2, 4], 2: [4, 8, 5, 7, 2], 3: [7, 1, 4, 9, 3], 4: [8, 3, 2, 9, 1], 5: [7, 2, 1, 5, 8], 6: [1, 7, 5, 8, 9], 7: [7, 9, 1, 6, 3], 8: [1, 3, 9, 6, 5], 9: [9, 4, 2, 1, 7], 10: [2, 5, 9, 7, 8]}
+    Vehicle_parameter : dict --> {'lenght_capacity' : 100, 'speed' : 100, 'product_capacity' : {0:50,1:50,2:50,3:50,4:50}}
+    Distance_between_customers : List --> Distance_between_customer[i][j] gives the distance between customer i and j
+                                            [[0.0, 5.0990195135927845, 11.40175425099138, 5.830951894845301, 8.54400374531753, 13.038404810405298, 10.295630140987, 27.294688127912362, 24.515301344262525, 5.0990195135927845, 37.21558813185679], [5.0990195135927845, 0.0, 12.165525060596439, 10.198039027185569, 9.219544457292887, 14.560219778561036, 15.231546211727817, 28.0178514522438, 26.92582403567252, 10.0, 39.05124837953327], [11.40175425099138, 12.165525060596439, 0.0, 16.1245154965971, 3.0, 2.8284271247461903, 13.416407864998739, 16.0312195418814, 15.264337522473747, 14.422205101855956, 26.92582403567252], [5.830951894845301, 10.198039027185569, 16.1245154965971, 0.0, 13.601470508735444, 17.08800749063506, 8.94427190999916, 31.32091952673165, 27.0, 2.0, 40.01249804748511], [8.54400374531753, 9.219544457292887, 3.0, 13.601470508735444, 0.0, 5.385164807134504, 12.36931687685298, 19.026297590440446, 17.88854381999832, 12.041594578792296, 29.832867780352597], [13.038404810405298, 14.560219778561036, 2.8284271247461903, 17.08800749063506, 5.385164807134504, 0.0, 12.806248474865697, 14.317821063276353, 12.529964086141668, 15.231546211727817, 24.515301344262525], [10.295630140987, 15.231546211727817, 13.416407864998739, 8.94427190999916, 12.36931687685298, 12.806248474865697, 0.0, 25.553864678361276, 19.4164878389476, 7.211102550927978, 32.38826948140329], [27.294688127912362, 28.0178514522438, 16.0312195418814, 31.32091952673165, 19.026297590440446, 14.317821063276353, 25.553864678361276, 0.0, 9.486832980505138, 29.410882339705484, 12.806248474865697], [24.515301344262525, 26.92582403567252, 15.264337522473747, 27.0, 17.88854381999832, 12.529964086141668, 19.4164878389476, 9.486832980505138, 0.0, 25.0, 13.038404810405298], [5.0990195135927845, 10.0, 14.422205101855956, 2.0, 12.041594578792296, 15.231546211727817, 7.211102550927978, 29.410882339705484, 25.0, 0.0, 38.01315561749642], [37.21558813185679, 39.05124837953327, 26.92582403567252, 40.01249804748511, 29.832867780352597, 24.515301344262525, 32.38826948140329, 12.806248474865697, 13.038404810405298, 38.01315561749642, 0.0]]
+    Earliest_service_time : dict --> Earliest_serice_time[i] gives the lower bound of the arrival time for the delivery for customer i
+                                    [0, 779, 499, 749, 131, 439, 16, 409, 73, 498, 532, 0]
+                                    the first value indicates when the vehicle can leave at first the depot to deliver the first client
+                                    the last value of Earliest_serice_time is necessery. 0 is a good choice. We could get ride of it but it is usefull to avoid to make case disjunctions according to the fact we are at the end of the route or not
+    Latest_service_time : dict --> Latest_serice_time[i] gives the upper bound of the arrival time for the delivery for customer i
+                                    [1000, 923, 549, 841, 254, 588, 86, 533, 161, 621, 671, 1000]
+                                    the first value is not veru important but I set it up as the maximal value of the set in order to avoid any problems
+                                    the last value of Latest_service_time is useless but it allows to have the same lenght than Earliest_serice_time
+    Service_time : List --> [s1,s2,...,sp] give for each products the time needed for delivering for one unit of product
+                            [10,1,15,35,5]
+    -----
+    Remarks :
+    Arrival_time : list --> Arrival_time[i] refers to the arrival time of vehicle i
+    Feasible_insertion_places : list --> (Ir) set of all feasible insertion places of customer u into route r
+    -----
+    Hyperparameters :
+    hyperparameter_impact1
+    hyperparameter_impact2
+    hyperparameter_impact3
+    hyperparameter_impact4
+    --> hyperparameter_impact1 + hyperparameter_impact2 + hyperparameter_impact3 + hyperparameter_impact4 = 1
+    hyperparameter_metric1
+    hyperparameter_metric2
+    hyperparameter_metric3
+    --> hyperparameter_metric1 + hyperparameter_metric2 + hyperparameter_metric3 = 1
+    -----
+    Impact functions :
+    Impact1_time_window_coverage (ISu)
+    Impact2_total_waiting_time (IWu)
+    Impact3_non_routed_customers (IUu)
+    Impact4_metrics_summation (LDu)
+    Impact4_already_assigned_customers (IRu)
+
+    Metrics functions :
+    metric1_distance_increase (c1u : Clark & Wrighte)
+    metric2_time_delay (c2u : time delay for customer j after inserting a new customer u between customer i and j)
+    metric3_time_gap (c3u : define a time gap between the latest service time lu of the customer u and the time of the vehicle arrival at customer u)
+    ---------------------
+    ---------------------
+    Output:
+    -self.Routes --> give each route one by one (0 is the depot, so the begining and the end of each route is 0)
+    -self.number_of_vehicle
+    -self.Arrival_time --> give the delivery time of each customer in the same order than the inputs
+    -self.Arrival_time_with_same_order_than_Routes --> give the delivery time of each customer in the same order than the routes (very useful also)
+    -self.Capacity_related_to_Routes --> give such a table [[[product1,product2,....],traveled distance by vehicle1]#route1,...] in which each element matchs with the needed capacity for each product (table) to deliver each clustomers of the route and the traveled distance during the route
+    -self.Distance_done [total traveled distance,[traveled distance by vehicle1,traveled distance by vehicle2,...]]--> similar to the previous one, it give the total traveled distance and
+    -----
+    if you just need to run the algorithm without understanding it, just run the function all_run
+    -----
     """
 
-    def __init__(self, routes, unassigned=None):
-        self.routes = routes
-        self.unassigned = unassigned if unassigned is not None else []
+    def __init__(self, Coordinates, Customer_demands, Vehicle_parameters, Earliest_service_time, Latest_service_time,
+                 Service_time, hyperparameter_impact1=0.1, hyperparameter_impact2=0.2, hyperparameter_impact3=0.1,
+                 hyperparameter_impact4=0.6, Distance=None):
 
-    def copy(self):
-        return CvrpState(copy.deepcopy(self.routes), self.unassigned.copy())
-
-    def objective(self):
-        """
-        Computes the total route costs.
-        """
-        #TODO 最小车辆数
-        return sum(route_cost(route) for route in self.routes)
-
-    @property
-    def cost(self):
-        """
-        Alias for objective method. Used for plotting.
-        """
-        return self.objective()
-
-    def find_route(self, customer):
-        """
-        Return the route that contains the passed-in customer.
-        """
-        for route in self.routes:
-            if customer in route:
-                return route
-
-        raise ValueError(f"Solution does not contain customer {customer}.")
-
-
-def route_cost(route):
-    tour = [0] + route + [0]
-    return sum(distance[tour[idx]][tour[idx + 1]] for idx in range(len(tour) - 1))
-
-
-# ------------------------
-# Repair operators
-# ------------------------
-def greedy_repair(state, rnd_state, vehicle_id):
-    """
-    Inserts the unassigned customers in the best route. If there are no
-    feasible insertions, then a new route is created.
-    """
-    rnd_state.shuffle(state.unassigned)
-
-    while len(state.unassigned) != 0:
-        customer = state.unassigned.pop()
-        route, idx = best_insert(customer, state, vehicle_id)
-
-        if route is not None:
-            route.insert(idx, customer)
+        # Input :
+        self.number_of_customer = len(Customer_demands) - 1
+        self.Coordinates = Coordinates
+        if Distance != None:
+            self.Distance_between_customers = Distance
         else:
-            state.routes.append([customer])
+            self.Distance_between_customers = self.Distance()
+        self.number_of_products = len(Customer_demands[1])
+        self.customer_demands = Customer_demands
+        self.Vehicle_parameters = Vehicle_parameters
+        self.Earliest_service_time = Earliest_service_time
+        self.Latest_service_time = Latest_service_time
+        self.Service_time = Service_time
+        # self.Service_time = {i:sum(Service_time[p]*self.customer_demands[i][p] for p in range(len(self.number_of_products))) for i in range(len(self.number_of_customer)+1}
+        # dict --> Service_time[i] gives the needed time for delivering the services and goods at location of customer i (it has to be approximated) {0:0, 1: 10, 2: 10, 3: 10, 4: 10, 5: 10, 6: 10, 7: 10, 8: 10, 9: 10, 10: 10}
 
-    return state
+        # Eu <= Au & Au + Su <= Lu
 
+        # additional Set
+        self.J_non_routed_customers_set = [i for i in range(1, self.number_of_customer + 1) if
+                                           sum(self.customer_demands[i]) > 0]
+        # we do not add a customer to the non routed_customers_set if it does not need to be delivered
+        self.Routes = []  # [[#route1],[#route2],...]
+        self.number_of_vehicle = 0
+        ### ___ output
+        self.Capacity_related_to_Routes = []  # [[[products],distance]#route1,...]
+        ### ___ output : give the required capacity and distance traveled for each vehicle to deliver each customer of the route
+        self.Feasible_insertion_places = []
 
-def best_insert(customer, state, vehicle_id):
-    """
-    Finds the best feasible route and insertion idx for the customer.
-    Return (None, None) if no feasible route insertions are found.
-    """
-    best_cost, best_route, best_idx = None, None, None
+        # additional Variable :
+        self.Arrival_time = [self.Earliest_service_time[0]] + [self.Latest_service_time[-1] for i in
+                                                               range(self.number_of_customer)] + [
+                                max(self.Latest_service_time)]
+        self.Arrival_time_with_same_order_than_Routes = []
+        self.number_of_customer_with_needs = len(self.J_non_routed_customers_set)
+        self.Distance_done = [0, []]
+        ### ___ output : give the distance traveled [global distance done,[distance traveled by vehicle 1,distance traveled by vehicle 2,...]
+        self.Problems = []
 
-    for route in state.routes:
-        for idx in range(len(route) + 1):
+        # geometry
+        # self.average_distance_between_two_customers = sum(self.Distance_between_customers)/2/self.number_of_customer**2
+        # self.estimation_number_vehicles_regarding_demand = sum(self.customer_demands)/(0.9*self.Vehicle_parameters['product_capacity'])
+        # self.estimation_number_vehicles_regarding_distance = int(self.Vehicle_parameters['lenght_capacity']/self.average_distance_between_two_customers)
+        self.Barycenter = self.barycenter()
+        self.Customers_polar_coordinates_set = []
+        self.angle_rotation_for_new_route = 0
+        self.hyperparameter_angle_window = np.pi / 6
+        self.current_angle_for_route = 0
 
-            if can_insert(customer, route, vehicle_id):
-                cost = insert_cost(customer, route, idx)
+        # Parameter :
+        self.hyperparameter_metric1 = 1 / 3
+        self.hyperparameter_metric2 = 1 / 3
+        self.hyperparameter_metric3 = 1 / 3
+        self.hyperparameter_impact1 = hyperparameter_impact1
+        self.hyperparameter_impact3 = hyperparameter_impact3
+        self.hyperparameter_impact2 = hyperparameter_impact2  # [0.2 - 0.4]
+        self.hyperparameter_impact4 = hyperparameter_impact4  # [0.3 - 0.6]
 
-                if best_cost is None or cost < best_cost:
-                    best_cost, best_route, best_idx = cost, route, idx
+    # % Plot
+    def display_customers(self) -> None:
+        """if needed, this function can be useful for showing only the customers"""
+        annotation_treshold = 1 / 60 * (max([self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]) - min(
+            [self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]))
+        plt.scatter([self.Coordinates[i][0] for i in range(1, self.number_of_customer + 1)],
+                    [self.Coordinates[i][1] for i in range(1, self.number_of_customer + 1)], c='b')
+        # for i in range(1, self.number_of_customer + 1):
+        #     plt.annotate(self.customer_demands[i],
+        #                  (self.Coordinates[i][0] + annotation_treshold, self.Coordinates[i][1]))
+        plt.plot(self.Coordinates[0][0], self.Coordinates[0][1], c='r', marker='s')
+        plt.annotate('Depot', (self.Coordinates[0][0] + annotation_treshold, self.Coordinates[0][1]))
+        # plt.axis('equal')
+        plt.show()
 
-    return best_route, best_idx
+    def display_some_clients(self, Set: list) -> None:
+        """show only the customers you want to see """
+        plt.plot(self.loc_x[0], self.loc_y[0], c='r', marker='s')
+        for i in Set:
+            plt.scatter(self.loc_x[i], self.loc_y[i], c='g')
+            plt.annotate('$q_{%d}=%d$' % (i, self.q[str(i)]), (self.loc_x[i] + 2, self.loc_y[i]))
+        plt.axis('equal')
 
+    def display_solution(self) -> None:
+        "diplay the solution"
+        plt.figure(dpi=100)
+        annotation_treshold = 1 / 60 * (max([self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]) - min(
+            [self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]))
+        N = [i for i in range(1, self.number_of_customer + 1)]
+        plt.scatter([self.Coordinates[i][0] for i in range(1, self.number_of_customer + 1)],
+                    [self.Coordinates[i][1] for i in range(1, self.number_of_customer + 1)], c='b')
+        active_arcs = []
+        color = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'b', 'g', 'r', 'c', 'm', 'y', 'k', 'b', 'g', 'r', 'c', 'm', 'y',
+                 'k', 'b', 'g', 'r', 'c', 'm', 'y', 'k']
+        color_index = 0
+        for route in self.Routes:
+            active_arcs.append([color[color_index]])
+            for index_route in range(0, len(route) - 1):
+                active_arcs[color_index].append((route[index_route], route[index_route + 1]))
+            color_index += 1
+        # for i in N:
+        #     plt.annotate(self.customer_demands[i],
+        #                  (self.Coordinates[i][0] + annotation_treshold, self.Coordinates[i][1]))
+        for arc in active_arcs:
+            for i, j in arc[1:]:
+                plt.plot([self.Coordinates[i % (self.number_of_customer + 1)][0],
+                          self.Coordinates[j % (self.number_of_customer + 1)][0]],
+                         [self.Coordinates[i % (self.number_of_customer + 1)][1],
+                          self.Coordinates[j % (self.number_of_customer + 1)][1]], c=arc[0], alpha=0.3)
+        plt.plot(self.Coordinates[0][0], self.Coordinates[0][1], c='r', marker='s')
+        plt.annotate('Depot', (self.Coordinates[0][0] + annotation_treshold, self.Coordinates[0][1]))
+        plt.axis('equal')
+        plt.show()
 
-# TODO capacity 不同， 其他約束也應該在這裏考慮
-def can_insert(customer, route, vehicle_id):
-    """
-    Checks if inserting customer does not exceed vehicle capacity.
-    """
-    # TODO 需求容量
-    total = sum(demands[cust] for cust in route) + demands[customer]
-    return total <= capacitys[vehicle_id]
+    def display_current_solution(self, route) -> None:
+        "diplay the current solution to help understanding the construction"
+        plt.close('all')
+        Route = self.Routes + [route]
+        plt.figure(dpi=100)
+        annotation_treshold = 1 / 60 * (max([self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]) - min(
+            [self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]))
+        N = [i for i in range(1, self.number_of_customer + 1)]
+        plt.scatter([self.Coordinates[i][0] for i in range(1, self.number_of_customer + 1)],
+                    [self.Coordinates[i][1] for i in range(1, self.number_of_customer + 1)], c='b')
+        active_arcs = []
+        color = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'b', 'g', 'r', 'c', 'm', 'y', 'k', 'b', 'g', 'r', 'c', 'm', 'y',
+                 'k', 'b', 'g', 'r', 'c', 'm', 'y', 'k']
+        color_index = 0
+        for route in Route:
+            active_arcs.append([color[color_index]])
+            for index_route in range(0, len(route) - 1):
+                active_arcs[color_index].append((route[index_route], route[index_route + 1]))
+            color_index += 1
+        for i in N:
+            plt.annotate(self.customer_demands[i],
+                         (self.Coordinates[i][0] + annotation_treshold, self.Coordinates[i][1]))
+        for arc in active_arcs:
+            for i, j in arc[1:]:
+                plt.plot([self.Coordinates[i % (self.number_of_customer + 1)][0],
+                          self.Coordinates[j % (self.number_of_customer + 1)][0]],
+                         [self.Coordinates[i % (self.number_of_customer + 1)][1],
+                          self.Coordinates[j % (self.number_of_customer + 1)][1]], c=arc[0], alpha=0.3)
+        plt.plot(self.Coordinates[0][0], self.Coordinates[0][1], c='r', marker='s')
+        plt.annotate('Depot', (self.Coordinates[0][0] + annotation_treshold, self.Coordinates[0][1]))
+        plt.axis('equal')
+        plt.show()
 
+    def display_one_route(self, route) -> None:
+        "diplay one chosen route to help understanding the construction"
+        plt.figure(dpi=100)
+        annotation_treshold = 1 / 60 * (max([self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]) - min(
+            [self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]))
+        N = [i for i in range(1, self.number_of_customer + 1)]
+        plt.scatter([self.Coordinates[i][0] for i in range(1, self.number_of_customer + 1)],
+                    [self.Coordinates[i][1] for i in range(1, self.number_of_customer + 1)], c='b')
+        active_arcs = []
+        color = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'b', 'g', 'r', 'c', 'm', 'y', 'k', 'b', 'g', 'r', 'c', 'm', 'y',
+                 'k', 'b', 'g', 'r', 'c', 'm', 'y', 'k']
+        color_index = 0
 
-def insert_cost(customer, route, idx):
-    """
-    Computes the insertion cost for inserting customer in route at idx.
-    """
-    pred = 0 if idx == 0 else route[idx - 1]
-    succ = 0 if idx == len(route) else route[idx]
+        active_arcs.append([color[color_index]])
+        for index_route in range(0, len(route) - 1):
+            active_arcs[color_index].append((route[index_route], route[index_route + 1]))
+        color_index += 1
+        for i in N:
+            plt.annotate(self.customer_demands[i],
+                         (self.Coordinates[i][0] + annotation_treshold, self.Coordinates[i][1]))
+        for arc in active_arcs:
+            for i, j in arc[1:]:
+                plt.plot([self.Coordinates[i % (self.number_of_customer + 1)][0],
+                          self.Coordinates[j % (self.number_of_customer + 1)][0]],
+                         [self.Coordinates[i % (self.number_of_customer + 1)][1],
+                          self.Coordinates[j % (self.number_of_customer + 1)][1]], c=arc[0], alpha=0.3)
+        plt.plot(self.Coordinates[0][0], self.Coordinates[0][1], c='r', marker='s')
+        plt.annotate('Depot', (self.Coordinates[0][0] + annotation_treshold, self.Coordinates[0][1]))
+        plt.axis('equal')
+        plt.show()
 
-    # Increase in cost by adding the customer
-    cost = distance[pred][customer] + distance[customer][succ]
-    cost -= distance[pred][succ]
-    return cost
+    # % geometry
+    def change_to_polar_coordinate_with_given_center(self, center: tuple, point: tuple) -> tuple:
+        """
+        Inputs :
+        center : tuple of coordinates of the point which will be the center for the polar coordinates of the other point
+        point : tuple of coordinates of the point which we want to know the polar coordinates according to the center
+        -----
+        return the radius and the angle
+        """
+        x_relativ = point[0] - center[0]
+        y_relativ = point[1] - center[1]
+        radius = np.hypot(x_relativ, y_relativ)
+        theta = self.theta(x_relativ, y_relativ)
+        return (radius, theta)
 
+    def furthest_from_the_depot(self) -> None:
+        """
+        compute the customers_polar_coordinates_set for all customer with the depot as center
+        self.Customers_polar_coordinates_set give the following table : [[polar coordinates,index of customer],...]
+        """
+        self.Customers_polar_coordinates_set = []
+        Customers_polar_coordinates_set = []
+        for u in range(1, self.number_of_customer + 1):
+            Customers_polar_coordinates_set.append(
+                [self.change_to_polar_coordinate_with_given_center(self.Coordinates[0], self.Coordinates[u]), u])
+        self.Customers_polar_coordinates_set = Customers_polar_coordinates_set
+        # [[polar coordinates,index of customer],...]
 
-def repair(state, rnd_state):
-    """
-    Applies a set of repair operators to the solution state until all
-    constraints are satisfied.
-    """
-    for vehicle_type in range(num_vehicle):
-        state = greedy_repair(state, rnd_state, vehicle_type)
-        # state = intra_relocate(state)#, rnd_state, vehicle_type)
-        # state = inter_relocate(state)#, rnd_state, vehicle_type)
-        # state = exchange(state)#, rnd_state, vehicle_type)
-
-    return state
-
-
-def intra_relocate(state: CvrpState) -> CvrpState:
-    """
-    Perform intra-route relocation operator. This operator removes a customer from one route and inserts it
-    into another position in the same route.
-    """
-    # 随机选择一个路线
-    route_idx = np.random.choice(len(state.routes))
-    route = state.routes[route_idx]
-
-    # 确保至少有两个顾客
-    if len(route) < 3:
-        return state
-
-    # 随机选择一个顾客
-    customer_idx = np.random.choice(range(1, len(route) - 1))
-    customer = route[customer_idx]
-
-    # 随机选择插入的位置
-    insert_idx = np.random.choice(range(1, len(route)))
-
-    # 如果插入位置和顾客所在位置相同，则不进行操作
-    if insert_idx == customer_idx:
-        return state
-
-    # 计算插入后新的路线
-    new_route = route[:customer_idx] + route[customer_idx + 1:]
-    new_route = new_route[:insert_idx] + [customer] + new_route[insert_idx:]
-
-    # 计算修改后的代价
-    old_cost = sum(route_cost(_route) for _route in route)
-    new_cost = sum(route_cost(_new_route) for _new_route in new_route)
-
-    # 如果修改后的代价更优，则接受修改
-    if new_cost < old_cost:
-        state.routes[route_idx] = new_route
-
-    return state
-
-
-def inter_relocate(state: CvrpState) -> CvrpState:
-    """
-    Perform inter-route relocation operator. This operator removes a customer from one route and inserts it
-    into another route at a different position.
-    """
-    # 确保有至少两条路线
-    if len(state.routes) < 2:
-        return state
-
-    # 随机选择两条不同的路线
-    route_idxs = np.random.choice(len(state.routes), size=2, replace=False)
-    route1, route2 = state.routes[route_idxs[0]], state.routes[route_idxs[1]]
-    # 确保两条路线都至少有一个顾客
-    if len(route1) < 2 or len(route2) < 2:
-        return state
-
-    # 随机选择一个顾客
-
-    customer_idx = np.random.choice(range(1, len(route1) - 1))
-    customer = route1[customer_idx]
-
-    # 随机选择插入的位置
-    insert_idx = np.random.choice(range(1, len(route2)))
-
-    # 计算插入后新的路线
-    new_route1 = route1[:customer_idx] + route1[customer_idx + 1:]
-    new_route2 = route2[:insert_idx] + [customer] + route2[insert_idx:]
-
-    # 计算修改后的代价
-    old_cost = sum(route_cost(_route1) for _route1 in route1) + sum(route_cost(_route2) for _route2 in route2)
-    new_cost = sum(route_cost(_new_route1) for _new_route1 in new_route1)+sum(route_cost(_new_route2) for _new_route2 in new_route2)
-
-    if new_cost < old_cost:
-        state.routes[route_idxs[0]] = new_route1
-        state.routes[route_idxs[1]] = new_route2
-
-    return state
-
-def exchange(state):
-    """
-    Exchange the customers between two positions in two different routes.
-    """
-    # Check if the exchange is valid
-    # 随机选择两条不同的路线
-    route_idxs = np.random.choice(len(state.routes), size=2, replace=False)
-    route1, route2 = state.routes[route_idxs[0]], state.routes[route_idxs[1]]
-    pos1 = np.random.choice(range(0, len(route1)))
-    pos2 = np.random.choice(range(0, len(route2)))
-
-    if route1 == route2 or pos1 == 0 or pos2 == 0:
-        return None
-
-    route1_demand = sum(demands[i] for i in route1)
-    route2_demand = sum(demands[i] for i in route2)
-
-    if route1_demand - demands[route1[pos1]] + demands[route2[pos2]] > capacitys[route_idxs[0]] or \
-            route2_demand - demands[route2[pos2]] + demands[route1[pos1]] > capacitys[route_idxs[1]]:
-        return None
-
-    # Perform the exchange
-    state.routes[route_idxs[0]][pos1], state.routes[route_idxs[1]][pos2] = state.routes[route_idxs[1]][pos2], state.routes[route_idxs[0]][pos1]
-    return state
-
-
-# ------------------------
-# Initial solution
-# ------------------------
-# demands_all = demands
-#
-# # # 简单初始化解
-# def initial_solution():
-#     # 根据每个客户和depot之间的距离排序客户列表
-#     # sorted_customers = sorted(problem.customers, key=lambda c: problem.distance(c.location, problem.customers[0].location))
-#     dis_order = [haversine(corr_xy[0], corr_xy[i]) for i in range(1,num_customers)]
-#     cus_loc_mapping = dict(zip(list(range(1,num_customers)), dis_order))
-#
-#     def sort_dict_by_value(d):
-#         sorted_dict = {}
-#         sorted_keys = sorted(d, key=d.get)
-#         for key in sorted_keys:
-#             sorted_dict[key] = d[key]
-#         return sorted_dict
-#
-#     customers_order = list(sort_dict_by_value(cus_loc_mapping).keys())
-#
-#     sorted_customers = [0]+customers_order
-#
-#     # 按需求分类
-#     class_demands = [[] for _ in range(num_vehicle)]
-#     for cus_id in sorted_customers[1:]:  # 跳过depot
-#         for i in range(num_vehicle):
-#             if demands_all[cus_id] <= capacitys[i]:
-#                 print(demands_all[cus_id],capacitys[i])
-#                 class_demands[i].append(cus_id)
-#                 break
-#         else:
-#             class_demands[0].append(cus_id)  # 如果没有合适的车辆，则将其分配给第一个车辆
-#
-#     print("class_demands",class_demands)
-#     # 为每个车辆分配路径
-#     solution = [[] for _ in range(num_vehicle)]
-#     for vehicle_idx, demands in enumerate(class_demands):
-#         route = []
-#         capacity_left = capacitys[vehicle_idx]
-#         time_left = 0
-#         depot_loc = corr_xy[0]#0  # 初始位置为depot
-#         # for _demand in demands:
-#         for inx in range(1,len(demands)):
-#             demand_loc = corr_xy[inx]
-#             distance_to_demand = haversine(depot_loc, demand_loc)
-#             distance_from_demand = haversine(depot_loc, demand_loc)  # 回到depot的距离
-#             time_to_demand = time_left + distance_to_demand
-#             start_tw, end_tw = start_time[inx],end_time[inx]
-#             if time_to_demand + serve_time[inx] <= end_tw and capacity_left >= demands[inx]:
-#                 # 可以满足要求，添加到路径中
-#                 route.append(inx)
-#                 capacity_left -= demands[inx]
-#                 time_left += distance_to_demand + serve_time[inx]
-#                 location = demand_loc
-#             else:
-#                 # 无法满足要求，结束路径
-#                 solution[vehicle_idx].append(route)# + [0])  # 添加回到depot的路径
-#                 route = []
-#                 capacity_left = capacitys[vehicle_idx]
-#                 time_left = 0
-#                 location = 0
-#         if route:
-#             # 添加最后一个路径
-#             solution[vehicle_idx].append(route) #+ [0])
-#
-#     # 删除空路径
-#     solution = [s for s in solution if s]
-#     print(solution)
-#     return solution
-
-def neighbors(customer):
-    """
-    Return the nearest neighbors of the customer, excluding the depot.
-    """
-    locations = np.argsort(distance[customer])
-    return locations[locations != 0]
-
-
-def nearest_neighbor():
-    """
-    Build a solution by iteratively constructing routes, where the nearest
-    customer is added until the route has met the vehicle capacity and TW limit.
-    """
-
-    routes = []
-    unvisited = list(range(1, num_customers))
-    time_remaining = [0] * num_customers
-
-    while unvisited:
-        route = [0]  # Start at the depot
-        route_demands = 0
-        vehicle_id = 0
-        time_elapsed = start_time[0]  # depot开始时间
-
-
-        while unvisited:
-            # Add the nearest unvisited customer to the route till max capacity
-            current = route[-1]
-            nearest = [nb for nb in neighbors(current) if nb in unvisited][0]
-
-            # ------------------
-            # 容 量 约 束
-            # ------------------
-            # Check if adding the nearest customer violates the capacity constraint of the current vehicle
-            if route_demands + demands[nearest] > capacitys[vehicle_id]:
-                # If it does, try the next vehicle
-                vehicle_id += 1
-                if vehicle_id >= num_vehicle:
-                    break
-                continue
-
-            # # ------------------
-            # # 时 间 窗 约 束
-            # # ------------------
-            if capacitys[vehicle_id] in vehicle_lens_capacity_mapping.get("4.2"):
-                time_elapsed += 1.5 * 60 * 60
+    def theta(self, x: float, y: float) -> float:
+        """compute the angle component of the polar coordinates
+        (x,y) is the cartesian coordinate
+        """
+        if x == 0 and y != 0:
+            return y / abs(y) * np.pi / 2
+        elif x != 0 and y != 0:
+            if x > 0:
+                return np.arctan(y / x)
             else:
-                time_elapsed += 1.0 * 60 * 60
+                return np.arctan(-y / x) + y / abs(y) * np.pi / 2
+        elif y == 0:
+            if x >= 0:
+                return 0
+            else:
+                return np.pi
 
-            if time_elapsed + distance[current][nearest] / speed + serve_time[nearest] > end_time[nearest]:
-                break
-            if time_elapsed + distance[current][nearest] / speed + serve_time[nearest] < start_time[nearest]:
-                time_elapsed = start_time[nearest]
+    def barycenter(self) -> tuple:
+        """return the barycenter of all customers weighted by their demands"""
+        mean_x = 0
+        mean_y = 0
+        sum_customers_demands = 0
+        for i in range(1, len(self.customer_demands)):
+            sum_customers_demands += sum(self.customer_demands[i])
+        for i in range(1, self.number_of_customer + 1):
+            mean_x += sum(self.customer_demands[i]) * self.Coordinates[i][0]
+            mean_y += sum(self.customer_demands[i]) * self.Coordinates[i][1]
+        return (mean_x / sum_customers_demands, mean_y / sum_customers_demands)
 
-            route.append(nearest)
-            unvisited.remove(nearest)
-            route_demands += demands[nearest]
-            time_elapsed += distance[current][nearest] / speed + serve_time[nearest]
-            time_remaining[nearest] = end_time[nearest] - time_elapsed
+    def depot_as_barycenter(self) -> None:
+        """change the coordinate of the depot to those of the barycenter"""
+        self.Coordinates[0] = self.Barycenter
+
+    def Distance(self) -> List[List[float]]:
+        """return the distance between two customers (includes the depot) : D[i][j] is the distance between customers i and j"""
+        Distance = []
+        for i in range(self.number_of_customer + 1):
+            distance = []
+            for j in range(self.number_of_customer + 1):
+                distance.append(np.hypot(self.Coordinates[i][0] - self.Coordinates[j][0],
+                                         self.Coordinates[i][1] - self.Coordinates[j][1]))
+            Distance.append(distance)
+        return Distance
+
+    def next_seed_customer(self) -> list:
+        """
+        compute the next customer which has to be picked according to the current "seed" customer
+        the next customer to be chosed is the one which has the biggest radius and which angle is not closer
+        than self.hyperparameter_angle_window to the current "seed" customer
+        return the furthest one with the following format : [polar coordinates,index of customer]
+        """
+        Next_customers = []
+        for customer in self.Customers_polar_coordinates_set:
+            # for all customers, we check if it is too close to the "seed" customer
+            if self.current_angle_for_route + self.hyperparameter_angle_window > np.pi:
+                if customer[0][1] >= (self.current_angle_for_route + self.hyperparameter_angle_window - 2 * np.pi) or \
+                        customer[0][1] <= (self.current_angle_for_route - self.hyperparameter_angle_window):
+                    Next_customers.append(customer)
+            elif self.current_angle_for_route - self.hyperparameter_angle_window <= -np.pi:
+                if customer[0][1] >= (self.current_angle_for_route + self.hyperparameter_angle_window) or customer[0][
+                    1] <= (self.current_angle_for_route - self.hyperparameter_angle_window + 2 * np.pi):
+                    Next_customers.append(customer)
+            else:
+                if customer[0][1] >= (self.current_angle_for_route + self.hyperparameter_angle_window) or customer[0][
+                    1] <= (self.current_angle_for_route - self.hyperparameter_angle_window):
+                    Next_customers.append(customer)
+        if Next_customers == []:
+            # then the angle constraints does not make sens anymore
+            return max(self.Customers_polar_coordinates_set)
+        return max(Next_customers)
+        # [polar coordinates,index of customer]
+
+    def get_arrival_time_from_previous_customer(self, previous_customer: Customer, current_customer: Customer) -> float:
+        """
+        simplify the text in making it shorter. It computes the arrival time of a selected customer according to the last one
+        :param previous_customer: the index of the customer which is the last one before the current customer
+        :param current_customer: the index of the customer we need the arrival time
+        :return: Acurrent_customer
+        """
+        return max(self.Earliest_service_time[current_customer],
+                   self.Arrival_time[previous_customer] + self.Service_time[previous_customer] +
+                   self.Distance_between_customers[previous_customer][current_customer % (self.number_of_customer + 1)]
+                   / self.Vehicle_parameters['speed'])
+
+    def update_Feasible_insertion_places(self, u: Customer, route: list) -> None:
+        """
+        update self.Feasible_insertion_places for a specific route with the feasible insertion location index of u in the route.
+        index = i => customer u is insert after customer route[i]
+        -----
+        condition for feasible insertion :
+        -Ai + Si + Dui/v + Su < Lu
+        -capacity condition
+        -distance condition
+        -max(Eu,Ai + Si + Diu/v) + Du(i+1)/v + Su < A(i+1)
+        -Anc + Su + (Dui + Du(i+1) - Di(i+1))/v < Lnc
+        -----
+        Eu <= Au & Au + Su <= Lu
+        """
+        self.Feasible_insertion_places = []
+        self.arrival_time_has_to_be_update = []
+        for index in range(len(route) - 1):
+            Arrival_time_u = self.get_arrival_time_from_previous_customer(previous_customer=route[index],
+                                                                          current_customer=u)
+            # Au = max(Eu,Ai + Si + Diu/v)
+            if Arrival_time_u <= self.Latest_service_time[u]:
+                # Au <= Lu => there is time for delivering customer u after customer i (here we work with index so customer i is route[index])
+                if self.check_products_constraints(u, route):
+                    # the capacity has to be check next
+                    if self.Capacity_related_to_Routes[-1][1] + self.Distance_between_customers[route[index]][u] + \
+                            self.Distance_between_customers[route[index + 1] % (self.number_of_customer + 1)][u] - \
+                            self.Distance_between_customers[route[index]][
+                                route[index + 1] % (self.number_of_customer + 1)] <= self.Vehicle_parameters[
+                        'lenght_capacity']:
+                        # the distance constraint has to be check also
+                        # total distance traveled by the vehicle + Diu + Du(i+1) - Di(i+1) <= max capacity
+                        # test if it will disturb the next customer already assigned to the route
+                        i1 = route[index]
+                        i2 = route[index + 1]
+                        ti1 = self.Arrival_time[i1]
+                        tu = max(self.Earliest_service_time[u], ti1 + self.Service_time[i1] +
+                                 self.Distance_between_customers[u][i1]
+                                 / self.Vehicle_parameters['speed'])
+                        ti2_u = max(self.Earliest_service_time[i2], tu + self.Service_time[u] +
+                                    self.Distance_between_customers[u][
+                                        i2 % (self.number_of_customer + 1)]
+                                    / self.Vehicle_parameters['speed'])
+                        ti2 = max(self.Earliest_service_time[i2], ti1 + self.Service_time[i1] +
+                                  self.Distance_between_customers[i1][
+                                      i2 % (self.number_of_customer + 1)]
+                                  / self.Vehicle_parameters['speed'])
+                        delta = ti2_u - ti1 - ti2 + ti1
+                        # delta = i->u + u->i+1 - i->i+1
+                        # max between E and A is very important !!!!
+                        # ti2 = max(Ei+1,ti1 + Si + Dii+1/v)
+                        # tu = max(Eu, ti1 + Si + Diu/v)
+                        # ti2_u = max(Eu, ti1 + Si + Diu/v)
+                        sumation = 0
+                        for next_customer in range(index + 1, len(route) - 1):
+                            # we have to check next if all following customers, route[-1] is the depot again
+                            if delta <= self.Latest_service_time[route[next_customer]] - self.Arrival_time[
+                                route[next_customer]]:
+                                # delta < Lnc - Anc  (nc= next customer)
+                                # we have to check if for all next customer, the additional time is smaller than Lnc - Anc
+                                sumation += 1
+                        if sumation == len(route) - index - 2:
+                            # the condition has to be checked for all next customer, ie len(route) - 2 - (index + 1 - 1)
+                            # at the end of the route, len(route) - index - 2 = 0, so all customers can be accepted
+                            self.Feasible_insertion_places.append(index)
+
+    # % Metric functions
+    def metric1_distance_increase(self, u: Customer, i: Customer, j: Customer) -> float:
+        """return the distance increase by adding customer u between customer i and customer j"""
+        return self.Distance_between_customers[i][u] + self.Distance_between_customers[u][j] - \
+            self.Distance_between_customers[i][j]
+
+    def metric2_time_delay(self, u: Customer, i: Customer, j: Customer) -> float:
+        """return the time increase regarding customer j by adding customer u between customers i and j. This time delay, expresses the marginal time feasibility of customer u"""
+        # return (Au + Su + Duj/v) - (Ai + Si + Dij/v)
+        return self.get_arrival_time_from_previous_customer(i, u) + self.Service_time[u] + (
+                    self.Distance_between_customers[u][j] -
+                    self.Distance_between_customers[i][j]) / self.Vehicle_parameters['speed'] - \
+            self.Arrival_time[i] - self.Service_time[i]
+
+    def metric3_time_gap(self, u: Customer, i: Customer, j: Customer) -> float:
+        """Return the time margin (by adding customer u between customers i and j) between the arrival of the vehicle at customer j and its upper bound of service time (it can be negative, which means it is too late). This measure expresses the compatibility of the time window of the selected customer with respect to a particular insertion position of the current route."""
+        # return Lu - (Ai + Si + Diu/v)
+        return self.Latest_service_time[u] - (self.Arrival_time[i] +
+                                              self.Service_time[i] + self.Distance_between_customers[i][u] /
+                                              self.Vehicle_parameters['speed'])
+
+    # % Impact functions
+    def Impact1_time_window_coverage(self, u: Customer, i: Customer) -> float:
+        """provides a measure of the coverage of the selected customer’s time window, which results from the insertion of u into the partial constructed route. The goal is to minimize this difference in order to come as close as possible at the lower bound service time.
+        customer u is inserted just after customer i"""
+        return self.Arrival_time[i] + self.Service_time[i] + self.Distance_between_customers[u][i] / \
+            self.Vehicle_parameters['speed'] - self.Earliest_service_time[u]
+
+    def Impact2_total_waiting_time(self, u: Customer, route: list) -> float:
+        """represents the waiting time if the arrival time for each customer is below the lower bound of service time after having inserted customer u ."""
+        sum = 0
+        for i in route:
+            if self.Earliest_service_time[i] - self.Arrival_time[i] > 0:
+                sum += self.Earliest_service_time[i] - self.Arrival_time[i]
+                # sum (Ei-Ai)+
+        return sum
+
+    def Impact3_non_routed_customers(self, u: Customer) -> float:
+        """return the impact of inserting non-routed customer u on the other non-routed customer, goal : minimizing the sum of the difference between the lower bound of service time + distance of customer u to j and the upper bound of service time of customer j"""
+        sum = 0
+        if len(self.J_non_routed_customers_set) == 1:
+            return 0
+        for j in self.J_non_routed_customers_set:
+            if j != u:
+                sum += max(
+                    self.Latest_service_time[j] - self.Earliest_service_time[u] - self.Distance_between_customers[u][
+                        j] / self.Vehicle_parameters['speed'],
+                    self.Latest_service_time[u] - self.Earliest_service_time[j] - self.Distance_between_customers[u][
+                        j] / self.Vehicle_parameters['speed'])
+                # sum j!= u (max(Lj - Eu -Duj/v), Lu - Ej - Duj/v))
+        return sum / (len(self.J_non_routed_customers_set) - 1)
+
+    def Impact4_metrics_summation(self, u: Customer, i: Customer, j: Customer) -> float:
+        """return the summation of all metric functions with weights (local disturbances)"""
+        return self.hyperparameter_metric1 * self.metric1_distance_increase(u, i,
+                                                                            j) + self.hyperparameter_metric2 * self.metric2_time_delay(
+            u, i, j) + self.hyperparameter_metric3 * self.metric3_time_gap(u, i, j)
+
+    def Impact4_already_assigned_customers(self, u: int) -> float:
+        """return the summation of all local disturbances divided by the number of feasible insertion places"""
+        sum = 0
+        for i in self.Feasible_insertion_places:
+            sum += self.Impact4_metrics_summation(u, i, i + 1)
+        return sum / len(self.Feasible_insertion_places)
+
+    def Impact(self, u: int) -> float:
+        """return the global impact of inserting customer u. goal : minimize the output """
+        return self.hyperparameter_impact1 * self.Impact1_time_window_coverage(
+            u) + self.hyperparameter_impact3 * self.Impact3_non_routed_customers(
+            u) + self.hyperparameter_impact2 * self.Impact2_total_waiting_time(
+            u) + self.hyperparameter_impact4 * self.Impact4_already_assigned_customers(u)
+
+    # % other
+
+    def get_number_of_customer_in_Routes(self) -> int:
+        """return the number of customer in Routes (set of all routes)"""
+        counter = 0
+        for R in self.Routes:
+            for r in R[1:-1]:
+                counter += 1
+        return counter
+
+    def compute_done_distance(self) -> None:
+        """compute the distance which has been done by all vehicles and pro vehicles
+        [total distance,[distance vehicle 1,distance vehicle 1,....]]
+        """
+        done_distance = 0
+        for route in self.Routes:
+            self.Distance_done[1].append(sum(
+                self.Distance_between_customers[route[i]][route[(i + 1)] % (self.number_of_customer + 1)] for i in
+                range(len(route) - 1)))
+        self.Distance_done[0] = sum([i for i in self.Distance_done[1]])
+
+    def update_Capacity_related_to_Routes(self, i: Index, u: Customer, route: list) -> None:
+        """update the capacity needed to deliver the current customers part of the current route"""
+        for product in range(self.number_of_products):
+            self.Capacity_related_to_Routes[-1][0][product] += self.customer_demands[u][product]
+        self.Capacity_related_to_Routes[-1][1] += self.Distance_between_customers[route[i]][u] + \
+                                                  self.Distance_between_customers[
+                                                      route[i + 1] % (self.number_of_customer + 1)][u] - \
+                                                  self.Distance_between_customers[route[i]][
+                                                      route[i + 1] % (self.number_of_customer + 1)]
+
+    def check_products_constraints(self, u: Customer, route: list) -> None:
+        """check if the constraint about the products is respected"""
+        for product in range(self.number_of_products):
+            if self.Capacity_related_to_Routes[-1][0][product] + self.customer_demands[u][product] > \
+                    self.Vehicle_parameters['product_capacity'][product]:
+                return False
+        return True
+
+    def update_Arrival_time_with_same_order_than_Routes(self):
+        """based on the customer order of the route, it show instead the arrival time. It is usefull to check if the is no time window constraint violation"""
+        self.Arrival_time_with_same_order_than_Routes = []
+        for i in range(len(self.Routes)):
+            self.Arrival_time_with_same_order_than_Routes.append([self.Arrival_time[i] for i in self.Routes[i]])
+            self.Arrival_time_with_same_order_than_Routes[-1][-1] = self.Arrival_time_with_same_order_than_Routes[-1][
+                                                                        -2] + \
+                                                                    self.Service_time[self.Routes[i][-2]] + \
+                                                                    self.Distance_between_customers[self.Routes[i][-2]][
+                                                                        self.Routes[i][0]] / self.Vehicle_parameters[
+                                                                        'speed']
+
+    def update_arrival_time(self, i_best: Index, route: list) -> None:
+        """shift the arrival time of all customer after customer u_best"""
+        for index in range(i_best, len(route) - 2):
+            self.Arrival_time[route[index + 1]] = max(
+                self.Arrival_time[route[index]] + self.Service_time[route[index]] +
+                self.Distance_between_customers[route[index]][route[index + 1]] / self.Vehicle_parameters['speed'],
+                self.Earliest_service_time[route[index + 1]])
+            # Au = max(Ai + Si + Dui/v,Eu) (i = route[i_best])
+
+    def check_all_is_allright(self) -> None:
+        """function to check if everything is right"""
+        number_of_customers = 0
+        for route in self.Routes:
+            capacity = [0 for i in range(self.number_of_products)]
+            number_of_customers += len(route) - 2
+            if sum([self.Distance_between_customers[route[i]][route[i + 1] % (self.number_of_customer + 1)] for i in
+                    range(len(route) - 1)]) > self.Vehicle_parameters['lenght_capacity']:
+                self.Problems.append('the lenght capacity is overwhelmed')
+                print('the lenght capacity is overwhelmed')
+            if max([self.Arrival_time[route[i]] - self.Arrival_time[route[i + 1]] for i in range(len(route) - 2)]) > 0:
+                print('error timing between customers')
+                self.Problems.append('error timing between customers')
+            for customer in route[1:-1]:
+                if self.Arrival_time[customer] < self.Earliest_service_time[customer] or self.Arrival_time[customer] > \
+                        self.Latest_service_time[customer]:
+                    print('error timing', customer)
+                    self.Problems.append(['error timing', customer, route])
+                    print(self.Earliest_service_time[customer], self.Arrival_time[customer],
+                          self.Latest_service_time[customer], route, self.Routes.index(route))
+                for product in range(self.number_of_products):
+                    capacity[product] += self.customer_demands[customer][product]
+        for product in range(self.number_of_products):
+            if capacity[product] > self.Vehicle_parameters['product_capacity'][product]:
+                print('the capacity is overwhelmed')
+                self.Problems.append('the capacity is overwhelmed')
+        if number_of_customers != self.number_of_customer_with_needs:
+            print('the number of routed customers does not match with the number of customer')
+            self.Problems.append('the number of routed customers does not match with the number of customer')
+        for customer in [i for i in range(1, self.number_of_customer + 1) if
+                         sum(self.customer_demands[i]) > 0]:
+            sumation = 0
+            for route in self.Routes:
+                if customer in route:
+                    sumation += 1
+            if sumation != 1:
+                print('there is a problem with customer %f' % customer)
+                self.Problems.append('there is a problem with customer %f' % customer)
+
+    def change_last_by_0(self) -> None:
+        """to make it easier to understand, the last index of each route is replaced by 0"""
+        for r in range(len(self.Routes)):
+            self.Routes[r][-1] = self.Routes[r][-1] % (self.number_of_customer + 1)
+
+    def heuristic(self):
+        """
+        Methodology :
+        Step 0 : Initialization
+        Step 1 : Select a ‘seed’ customer to start a router.
+        Step 2 : Find the feasible non-routed customer u that minimizes the composite criterion Impact(u):
+            Step2 a : Examine all possible feasible insertions i of customer u into the current route under construction
+            Step 2b : Calculate local disturbances LDu (extra distance, marginal time feasibility and time window compatibility)
+            Step 2c : Calculate global disturbance IRu of customer u
+            Step 2d : Calculate the coverage customer u time window ISu
+            Step 2e : Calculate the real coverage of time windows of the non-routed customers result- ing from the insertion of u into the current route IUu
+            Step 2f : Calculate the total waiting time of route IWu
+            Step 2g : Calculate Impact(u)
+            Step 2h : Select insertion location i that results in minimum LDu for customer u
+            Step 2i : Select customer u with minimum Impact(u)
+        Step 3 : Insert the selected customer u to the insertion location with minimum local disturbance LDu of the current route r. Update the route and set u as a routed customer and remove u from set J
+        Step 4 : If there are non-routed customers that are feasible for insertion in to the current router,return to Step1; otherwise proceed to Step5
+        Step 5 : If all customers have been scheduled, go to Step6. Otherwise, go to Step 1 - initiate new route
+        Step 6 : Terminate Output number of routes (active vehicles), sequence of customers visited by each vehicle, total distance (time) travelled and total cost.
+        """
+        # step0 : creating of a 'seed' customer set in which all customer are far from the depot because they are the most difficult to insert in a route
+        self.furthest_from_the_depot()
+        # compute self.customers_polar_coordinates_set
+        return_to_step1_with_new_route = 1
+        index_for_seed_customer_choice = 0
+        seed_customer = [[0, 0], 0]
+        while self.J_non_routed_customers_set != []:  # while not all customers are served :
+            ### step 1 : Select a‘seed’customer to start a router
+            if return_to_step1_with_new_route == 1:
+                self.current_angle_for_route += seed_customer[0][1]
+                # as there is a new route (or not for the begining but it doesn't matter where we start), the currant_angle_for_new_route has to be set as the previous "seed" customer angle
+                if self.current_angle_for_route > np.pi:
+                    self.current_angle_for_route -= 2 * np.pi
+                # we have to check if the current angle is in (-pi,pi]
+                seed_customer = self.next_seed_customer()
+                # the seed_customer will create the new route because it is one of the furthest one from the depot and it is always difficult at the end to integer them in the route
+                # we choose the customer which has the largest radius and an angle between self.current_angle_for_route and self.current_angle_for_route+self.angle_rotation_for_new_route
+                while seed_customer[1] not in self.J_non_routed_customers_set:
+                    # we have to check if the customer picked in the 'seed' customer set is not already assigned to a route
+                    self.Customers_polar_coordinates_set = [element for element in self.Customers_polar_coordinates_set
+                                                            if element[1] != seed_customer[1]]
+                    # we remove the current seed_customer as it is not J_non_routed_customer_set
+                    seed_customer = self.next_seed_customer()
+                route = [0, seed_customer[1], self.number_of_customer + 1]
+                # self.number_of_customer+1 | self.number_of_customer + 1 = 0
+                self.Capacity_related_to_Routes.append(
+                    [[self.customer_demands[seed_customer[1]][product] for product in range(self.number_of_products)],
+                     2 * self.Distance_between_customers[0][seed_customer[1]]])
+                self.J_non_routed_customers_set.remove(seed_customer[1])
+                # the picked 'seed' customer is not anymore non-routed
+                self.Arrival_time[seed_customer[1]] = max(self.Earliest_service_time[seed_customer[1]],
+                                                          self.Arrival_time[0] + self.Distance_between_customers[0][
+                                                              route[1]] / self.Vehicle_parameters['speed'])
+                # for this 'seed' customer, the best is when there it starts at its lower bound of service time to let as much as possible time for other customers
+                if self.Arrival_time[seed_customer[1]] > self.Latest_service_time[seed_customer[1]]:
+                    print('the vehicle is too slow to deliver customer %f' % int(seed_customer[1]))
+                if 2 * self.Distance_between_customers[0][seed_customer[1]] > self.Vehicle_parameters[
+                    'lenght_capacity']:
+                    print('the distance capacity of the vehicle does not allow to reach the customer %f' % int(
+                        seed_customer[1]))
+                # we have to check if it feasible to reach the "seed" customer regarding the time windows. If not, either the speed is too low or the customer is too far
+            Impact_table = []
+            # creation of an Impact table to save all value in order to be able to choose the minimal one
+            if not (self.J_non_routed_customers_set):
+                ### step 6
+                self.Routes.append(route)
+                self.update_Arrival_time_with_same_order_than_Routes()
+                self.number_of_vehicle = len(self.Routes)
+                return self.Routes
+            ### Step2:Find the feasible non-routed customer u that minimizes the composite criterion Impact(u):
+            for u in self.J_non_routed_customers_set:
+                self.update_Feasible_insertion_places(u, route)
+                ## Step 2a : Examine all possible feasible insertions i of customer u into the current route under construction
+                if not (self.Feasible_insertion_places):
+                    Impact_table.append((10 ** 5, 0, u))
+                else:
+                    Impact4__metrics_summation__table = []
+                    # table for local disturbances
+                    for insertion_place in self.Feasible_insertion_places:
+                        ## Step 2b : Calculate local disturbances LDu for each position
+                        Impact4__metrics_summation__table.append(
+                            self.Impact4_metrics_summation(u, route[insertion_place],
+                                                           route[insertion_place + 1] % (self.number_of_customer + 1)))
+                        # saving of the value in this table
+                    Impact4_already_assigned_customers = sum(Impact4__metrics_summation__table) / len(
+                        self.Feasible_insertion_places)
+                    # computation of the global disturbances
+                    insertion_index = self.Feasible_insertion_places[
+                        Impact4__metrics_summation__table.index(min(Impact4__metrics_summation__table))]
+                    # looking for the insertion index of the minimum value related to the global disturbance
+                    Impact_table.append((self.hyperparameter_impact1 * self.Impact1_time_window_coverage(u, route[
+                        insertion_index]) + self.hyperparameter_impact3 * self.Impact3_non_routed_customers(
+                        u) + self.hyperparameter_impact2 * self.Impact2_total_waiting_time(u,
+                                                                                           route) + self.hyperparameter_impact4 * Impact4_already_assigned_customers,
+                                         insertion_index, u))
+                    # computation of the Impact with at the end the index of insertion and u
+            if min(Impact_table)[0] != 10 ** 5:
+                u_best_customer = Impact_table[Impact_table.index(min(Impact_table))][2]
+                i_best_index = Impact_table[Impact_table.index(min(Impact_table))][
+                    1]  # insertion between i and i+1 element
+                ### step 3 : Insert the selected customer u to the insertion location with minimum local disturbance LDu of the current route r. Update the route and set u as a routed customer and remove u from set J
+                self.J_non_routed_customers_set.remove(u_best_customer)
+                self.update_Capacity_related_to_Routes(i_best_index, u_best_customer, route)
+                route.insert(i_best_index + 1, u_best_customer)
+                # self.display_current_solution(route)
+                self.update_arrival_time(i_best_index, route)
+                # step 4 : test if there are non-routed customers that are feasible for insertion into the current router
+                compt = 0
+                for u in self.J_non_routed_customers_set:
+                    self.update_Feasible_insertion_places(u, route)
+                    if self.Feasible_insertion_places != []:
+                        break
+                    else:
+                        compt += 1
+                if compt == len(self.J_non_routed_customers_set):
+                    # it means that there is now feasible insertion for route "route"
+                    self.Routes.append(route)
+                    # route is closed
+                    if not (self.J_non_routed_customers_set):
+                        ### step 6 beacuse there is now more non-routed customers
+                        self.update_Arrival_time_with_same_order_than_Routes()
+                        self.number_of_vehicle = len(self.Routes)
+                        return self.Routes
+                    else:
+                        # back to step 1 with new route
+                        return_to_step1_with_new_route = 1
+                        # needed for picking the next 'seed' customer
+                else:
+                    # back to step 1 without new route
+                    return_to_step1_with_new_route = 0
+            else:
+                # back to step 1 with new route
+                self.Routes.append(route)
+                return_to_step1_with_new_route = 1
+                # needed for picking the next 'seed' customer
+        self.update_Arrival_time_with_same_order_than_Routes()
+        self.number_of_vehicle = len(self.Routes)
+        # while loop is over, it means it is the end
+
+    def all_run(self):
+        self.heuristic()
+        self.compute_done_distance()
+        self.change_last_by_0()
+        print('Number of Vehicles:', self.number_of_vehicle)
+        print('Routes:', self.Routes)
+        print('Delivery time for each customers in the same order than the route:',
+              self.Arrival_time_with_same_order_than_Routes)
+        print('Products Capacity needed by each vehicle:',
+              [self.Capacity_related_to_Routes[i][0] for i in range(self.number_of_vehicle)])
+        print('Traveled Distance by each vehicle:',
+              [self.Capacity_related_to_Routes[i][1] for i in range(self.number_of_vehicle)])
+        print('Traveled Distance:', self.Distance_done[0])
 
 
-        customers = route[1:]  # Remove the depot
-        print("customers",customers)
-        routes.append(customers)
-    print("routes:>>>>>>>>>>",routes) #初始解
-
-    return CvrpState(routes)
-
-# ------------------------
-# Slack-induced substring removal
-# ------------------------
-MAX_STRING_REMOVALS = 3
-MAX_STRING_SIZE = 10
-
-def string_removal(state, rnd_state):
-    """
-    Remove partial routes around a randomly chosen customer.
-    """
-    destroyed = state.copy()
-
-    avg_route_size = int(np.mean([len(route) for route in state.routes]))
-    max_string_size = max(MAX_STRING_SIZE, avg_route_size)
-    max_string_removals = min(len(state.routes), MAX_STRING_REMOVALS)
-
-    destroyed_routes = []
-    center = rnd_state.randint(1, num_customers) # TODO
-
-    for customer in neighbors(center):
-        if len(destroyed_routes) >= max_string_removals:
-            break
-
-        if customer in destroyed.unassigned:
-            continue
-
-        route = destroyed.find_route(customer)
-        if route in destroyed_routes:
-            continue
-
-        customers = remove_string(route, customer, max_string_size, rnd_state)
-        destroyed.unassigned.extend(customers)
-        destroyed_routes.append(route)
-
-    return destroyed
-
-
-def remove_string(route, cust, max_string_size, rnd_state):
-    """
-    Remove a string that constains the passed-in customer.
-    """
-    # Find consecutive indices to remove that contain the customer
-    size = rnd_state.randint(1, min(len(route), max_string_size) + 1)
-    start = route.index(cust) - rnd_state.randint(size)
-    idcs = [idx % len(route) for idx in range(start, start + size)]
-
-    # Remove indices in descending order
-    removed_customers = []
-    for idx in sorted(idcs, reverse=True):
-        removed_customers.append(route.pop(idx))
-
-    return removed_customers
-
-
-# ------------------------
-# Heuristic solution
-# ------------------------
-alns = ALNS(rnd.RandomState(SEED))
-alns.add_destroy_operator(string_removal)
-#alns.add_repair_operator(greedy_repair)
-alns.add_repair_operator(repair)
-
-init = nearest_neighbor()
-select = RouletteWheel([25, 5, 1, 0], 0.8, 1, 1)
-accept = RecordToRecordTravel.autofit(init.objective(), 0.02, 0, 6000)
-stop = MaxRuntime(60*15)
-
-result = alns.iterate(init, select, accept, stop)
-
-solution = result.best_state
-objective = solution.objective()
-
-print(f"Customer numer is {num_customers}")
-print(f"Best heuristic objective is {objective}.")
-print(f"solution: {solution.routes}")
-
-routes_solutions = [i for i in solution.routes if len(i) != 0]
-print(f"solution: {routes_solutions}")
-# 计算每条route的容量
-routes_loads = [sum(demands[cus] for cus in route) for route in routes_solutions]
-print("routes_loads",routes_loads)
-# 为每条route的loads匹配最佳车型，准则:对于车而言在容量内装得越多越好
-def find_match_vehicle_type(route_load,capacitys_type):
-    best_vehicle_type = 10000
-    for ty in capacitys_type:
-        if ty >= route_load:
-            best_vehicle_type = min(best_vehicle_type,ty-route_load)
-    return best_vehicle_type+route_load
-
-routes_vehicle_type = [find_match_vehicle_type(route_load,capacitys_type) for route_load in routes_loads]
-print(f"routes_type: {routes_vehicle_type}")
-
-# 随机选择车id,车型数量多的话用更大车型匹配
-from collections import Counter
-print(f"所有车型统计数量:{Counter(routes_vehicle_type)}")
-
-print(f"验证所有节点是否都包含{len(sum(solution.routes,[]))} ,{num_customers}")
-print(f"最小车辆数: {len(routes_solutions)}")
+n = 50
+p = 5
+Coordinates = {i: (rnd.randint(-10, 10), rnd.randint(-10, 10)) for i in range(n + 1)}
+Customer_demands = {i: [int(rnd.random() + 0.75) * rnd.randint(0, 10) for product in range(p)] for i in range(1, n + 1)}
+Customer_demands[0] = 0
+Vehicle_parameters = {'lenght_capacity': 100, 'speed': 100,
+                      'product_capacity': {product: 50 for product in range(p)}}
+Earliest_service_time = [5] + [6 + rnd.randint(0, 10) for i in range(n)] + [20]
+Latest_service_time = [7] + [Earliest_service_time[i + 1] + rnd.randint(1, 4) for i in range(n)] + [22]
+Service_time = {i: rnd.randint(0, 10) / 60 for i in range(1, n + 1)}
+Service_time[0] = 0
+VRP = MCVRPTW(Coordinates=Coordinates, Customer_demands=Customer_demands, Vehicle_parameters=Vehicle_parameters,
+              Earliest_service_time=Earliest_service_time, Latest_service_time=Latest_service_time,
+              Service_time=Service_time)
+VRP.all_run()
+VRP.display_solution()
+print(VRP.Routes)
+print(VRP.Arrival_time_with_same_order_than_Routes)
+# #
