@@ -4,10 +4,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import sys
-from alns import ALNS, State
-from alns.accept import *
-from alns.select import *
-from alns.stop import *
 class Request:
     def __init__(self, pickUpLoc, deliveryLoc, ID):
         self.pickUpLoc = pickUpLoc
@@ -558,12 +554,12 @@ class Route:
         total distance driven, extremely large number if infeasible
     """
 
-    def __init__(self, locations, requests, problem):
+    def __init__(self, locations, requests, problem, routeCount = 0):
         self.locations = locations
         self.requests = requests
         self.problem = problem
         # check the feasibility and compute the distance
-        self.feasible = self.isFeasible()
+        self.feasible = self.isFeasible(routeCount)
         if self.feasible:
             self.distance = self.computeDistance()
         else:
@@ -642,7 +638,7 @@ class Route:
             loc.printOnlyRoute()
         print(" dist=" + str(self.distance))
 
-    def isFeasible(self):
+    def isFeasible(self, routeCount):
         """
         Method that checks feasbility. Returns True if feasible, else False
         """
@@ -662,6 +658,10 @@ class Route:
             dist = self.problem.distMatrix[prevNode.nodeID][curNode.nodeID]
             # velocity = 1 dist = time
             curTime = max(curNode.startTW, curTime + prevNode.servTime + dist)
+
+            print(routeCount)
+            # if(routeCount > 3):
+            #     return False
 
             # check if time window is respected
             # TODO : early time late tiems burada yapılacak
@@ -702,7 +702,7 @@ class Route:
 
         # *** add this method
 
-    def addRequest(self, request, preNode_index, afterNode_index):
+    def addRequest(self, request, preNode_index, afterNode_index, cnt):
         """
         Method that add a request to the route.
          """
@@ -712,7 +712,7 @@ class Route:
         requestsCopy.add(request)
         locationsCopy.insert(preNode_index, request.pickUpLoc)
         locationsCopy.insert(afterNode_index, request.deliveryLoc)
-        afterInsertion = Route(locationsCopy, requestsCopy, self.problem)
+        afterInsertion = Route(locationsCopy, requestsCopy, self.problem, cnt)
         if afterInsertion.feasible:
             self.requests.add(request)
             self.locations.insert(preNode_index, request.pickUpLoc)
@@ -724,15 +724,15 @@ class Route:
         else:
             return - 1
 
-    def copy(self):
+    def copy(self, routeCnt):
         """
         Method that returns a copy of the route
         """
         locationsCopy = self.locations.copy()
         requestsCopy = self.requests.copy()
-        return Route(locationsCopy, requestsCopy, self.problem)
+        return Route(locationsCopy, requestsCopy, self.problem, routeCnt)
 
-    def greedyInsert(self, request):
+    def greedyInsert(self, request, routeCnt = 0):
         """
         Method that inserts the pickup and delivery of a request at the positions
         that give the shortest total distance. Returns best route.
@@ -762,7 +762,7 @@ class Route:
                 locationsCopy = self.locations.copy()
                 locationsCopy.insert(i, request.pickUpLoc)
                 locationsCopy.insert(j, request.deliveryLoc)  # depot at the end
-                afterInsertion = Route(locationsCopy, requestsCopy, self.problem)
+                afterInsertion = Route(locationsCopy, requestsCopy, self.problem, routeCnt)
                 # check if insertion is feasible
                 if afterInsertion.feasible:
                     # check if cheapest
@@ -833,7 +833,7 @@ class Repair:
                         cost = route.compute_cost_add_one_request(i, j, request)
                         locationsCopy.insert(i, request.pickUpLoc)
                         locationsCopy.insert(j, request.deliveryLoc)  # depot at the end
-                        afterInsertion = Route(locationsCopy, requestsCopy, self.problem)
+                        afterInsertion = Route(locationsCopy, requestsCopy, self.problem, len(self.solution.routes))
                         if afterInsertion == None:
                             continue
                         # check if insertion is feasible
@@ -844,7 +844,7 @@ class Repair:
             # if we have only one feasible insertion
             if len(tempCost) == 1:
                 locList = [self.problem.depot, request.pickUpLoc, request.deliveryLoc, self.problem.depot]
-                newRoute = Route(locList, {request}, self.problem)
+                newRoute = Route(locList, {request}, self.problem, len(self.solution.routes))
                 diff = newRoute.distance
                 tempCost.append([diff, None, 0, 0])
 
@@ -853,7 +853,7 @@ class Repair:
                 # print('not insert')
                 # create a new route with the request
                 locList = [self.problem.depot, request.pickUpLoc, request.deliveryLoc, self.problem.depot]
-                newRoute = Route(locList, {request}, self.problem)
+                newRoute = Route(locList, {request}, self.problem, len(self.solution.routes))
                 diff = newRoute.distance
                 tempCost.append([diff, None, 0, 0])
 
@@ -889,7 +889,7 @@ class Repair:
         while len(self.solution.notServed) > 0:
             insertRequest, insertRoute, preNode_index, afterNode_index = self.findRegretInsertion()
             # print(insertRequest, insertRoute, preNode_index, afterNode_index)
-            self.solution.addRequest(insertRequest, insertRoute, preNode_index, afterNode_index)
+            self.solution.addRequest(insertRequest, insertRoute, preNode_index, afterNode_index, len(self.solution.routes))
 
             # for route in self.solution.routes:
             #     route.print()
@@ -909,7 +909,7 @@ class Repair:
                 minCost = sys.maxsize  # initialize as extremely large number
                 bestInsert = None  # if infeasible the bestInsert will be None
                 for route in self.solution.routes:
-                    afterInsertion, cost = route.greedyInsert(req)
+                    afterInsertion, cost = route.greedyInsert(req, len(self.solution.routes))
                     if afterInsertion == None:
                         continue
                     if cost < minCost:
@@ -921,10 +921,15 @@ class Repair:
                 # if we were not able to insert, create a new route
                 if not inserted:
                     # create a new route with the request
-                    locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
-                    newRoute = Route(locList, {req}, self.problem)
-                    self.solution.routes.append(newRoute)
-                    self.solution.distance += newRoute.distance
+                    if(len(self.solution.routes) > 2):
+                        random_number = random.randint(0, 2)
+                        self.solution.routes[random_number].requests.add(req)
+
+                    else:
+                        locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
+                        newRoute = Route(locList, {req}, self.problem)
+                        self.solution.routes.append(newRoute)
+                        self.solution.distance += newRoute.distance
                 else:
                     self.solution.routes.remove(removedRoute)
                     self.solution.routes.append(bestInsert)
@@ -959,7 +964,7 @@ class Repair:
             while len(potentialRoutes) > 0:
                 # pick a random route
                 randomRoute = randomGen.choice(potentialRoutes)
-                afterInsertion, cost = randomRoute.greedyInsert(req)
+                afterInsertion, cost = randomRoute.greedyInsert(req, len(self.solution.routes))
                 if afterInsertion == None:
                     # insertion not feasible, remove route from potential routes
                     potentialRoutes.remove(randomRoute)
@@ -974,11 +979,17 @@ class Repair:
 
             # if we were not able to insert, create a new route
             if not inserted:
-                # create a new route with the request
-                locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
-                newRoute = Route(locList, {req}, self.problem)
-                self.solution.routes.append(newRoute)
-                self.solution.distance += newRoute.distance
+                if (len(self.solution.routes) > 2):
+                    random_number = random.randint(0, 2)
+                    self.solution.routes[random_number].requests.add(req)
+
+                else:
+                    # create a new route with the request
+                    locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
+                    newRoute = Route(locList, {req}, self.problem, len(self.solution.routes))
+                    self.solution.routes.append(newRoute)
+                    self.solution.distance += newRoute.distance
+
             # update the lists with served and notServed requests
             self.solution.served.append(req)
             self.solution.notServed.remove(req)
@@ -1015,6 +1026,9 @@ class Solution:
         self.served = served
         self.notServed = notServed
         self.distance = self.computeDistance()
+        
+    def getRoutes(self):
+        return self.routes
 
     def computeDistance(self):
         """
@@ -1113,23 +1127,23 @@ class Solution:
         self.served.remove(request)
         self.notServed.append(request)
 
-    def addRequest(self, request, insertRoute, prevNode_index, afterNode_index):
+    def addRequest(self, request, insertRoute, prevNode_index, afterNode_index, cnt):
         '''
         Method that add a request to the solution
         '''
         if insertRoute == None:
             locList = [self.problem.depot, request.pickUpLoc, request.deliveryLoc, self.problem.depot]
-            newRoute = Route(locList, {request}, self.problem)
+            newRoute = Route(locList, {request}, self.problem, cnt)
             self.routes.append(newRoute)
             self.distance += newRoute.distance
             newRoute.print()
         else:
             for route in self.routes:
                 if route == insertRoute:
-                    res = route.addRequest(request, prevNode_index, afterNode_index)
+                    res = route.addRequest(request, prevNode_index, afterNode_index, cnt)
                     if res == -1:
                         locList = [self.problem.depot, request.pickUpLoc, request.deliveryLoc, self.problem.depot]
-                        newRoute = Route(locList, {request}, self.problem)
+                        newRoute = Route(locList, {request}, self.problem, cnt)
                         self.routes.append(newRoute)
                         self.distance += newRoute.distance
                         newRoute.print()
@@ -1147,12 +1161,12 @@ class Solution:
         # need a deep copy of routes because routes are modifiable
         routesCopy = list()
         for route in self.routes:
-            routesCopy.append(route.copy())
+            routesCopy.append(route.copy(len(routesCopy)))
         copy = Solution(self.problem, routesCopy, self.served.copy(), self.notServed.copy())
         copy.computeDistance()
         return copy
 
-    def executeRandomInsertion(self, randomGen):
+    def executeRandomInsertion(self, randomGen, routeCnt = 0):
         """
         Method that randomly inserts the unserved requests in the solution
 
@@ -1176,7 +1190,7 @@ class Solution:
                 # pick a random route
                 randomRoute = randomGen.choice(potentialRoutes)
 
-                afterInsertion, cost = randomRoute.greedyInsert(req)
+                afterInsertion, cost = randomRoute.greedyInsert(req, routeCnt)
                 if afterInsertion == None:
                     # insertion not feasible, remove route from potential routes
                     potentialRoutes.remove(randomRoute)
@@ -1194,8 +1208,13 @@ class Solution:
             if not inserted:
                 # create a new route with the request
                 # ilk route burada ekleniyor
+                # if (len(self.solution.routes) == 3):
+                #     max_distance_index = max(range(len(self.routes)),
+                #                              key=lambda index: self.routes[index].distance)
+                #     self.routes.pop(max_distance_index)
+                # else:
                 locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
-                newRoute = Route(locList, {req}, self.problem)
+                newRoute = Route(locList, {req}, self.problem, routeCnt)
                 self.routes.append(newRoute)
                 self.distance += newRoute.distance
                 newRoute.print()
