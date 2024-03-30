@@ -1,4 +1,5 @@
-
+import random
+import math
 import vrplib
 import matplotlib
 matplotlib.use('TkAgg')
@@ -123,6 +124,7 @@ class MCVRPPDTWState(State):
         self.vehicles = vehicles
 
 
+
     def copy(self):
         return MCVRPPDTWState(copy.deepcopy(self.routes))
 
@@ -161,12 +163,8 @@ def neighbors(current, unvisitedLocation):
     if current.typeLoc == 'depot':
         # 'depot' için, 'pickup' olanları seç
         return filter(lambda u: u.typeLoc == 'pickup', unvisitedLocation)
-    elif current.typeLoc == 'pickup':
-        # 'pickup' için, 'delivery' olanları seç (örnekte 'delivery' yok, varsayım)
-        return filter(lambda u: u.typeLoc == 'delivery', unvisitedLocation)
-    elif current.typeLoc == 'delivery':
-        # 'delivery' için, 'pickup' olanları seç
-        return filter(lambda u: u.typeLoc == 'pickup', unvisitedLocation)
+    else:
+        return filter(lambda u: u.typeLoc != 'depot', unvisitedLocation)
 def init_solution():
 
     global vehiclesList
@@ -209,7 +207,8 @@ def init_solution():
         vehicle_id = 0
         while unvisitedLocation:
             current = route[-1]
-            nearest = [nb for nb in neighbors(current, unvisitedLocation) if nb in unvisitedLocation][0]
+            nearests = [nb for nb in neighbors(current, unvisitedLocation) if nb in unvisitedLocation]
+            nearest = random.choice(nearests)
 
             currentDemand = route_demands + nearest.demand
             totalCapacity = vehicles[vehicle_id].getVehicleTotalCapacity()
@@ -220,10 +219,13 @@ def init_solution():
                     if vehicle_id >= vehicleCount:
                         break
                 else:
-                    vehicles[vehicle_id].vehicleCurrentDemand += currentDemand
-                    if vehicles[vehicle_id].vehicleCurrentDemand >= (vehicles[vehicle_id].maxTrolleyCount / vehicles[vehicle_id].trolleyCount) * vehicles[vehicle_id].trolleyCapacity:
+                    vehicles[vehicle_id].vehicleCurrentDemand = currentDemand
+                    if vehicles[vehicle_id].vehicleCurrentDemand >= vehicles[vehicle_id].trolleyCount * vehicles[vehicle_id].trolleyCapacity:
                         vehicles[vehicle_id].increaseTrolleyCapacity()
-
+            else:
+                vehicles[vehicle_id].vehicleCurrentDemand = currentDemand
+                if vehicles[vehicle_id].vehicleCurrentDemand >= vehicles[vehicle_id].trolleyCount * vehicles[vehicle_id].trolleyCapacity:
+                    vehicles[vehicle_id].increaseTrolleyCapacity()
 
             route.append(nearest)
             unvisitedLocation.remove(nearest)
@@ -233,6 +235,17 @@ def init_solution():
         customers = route[1:]  # Remove the depot
         routes.append(customers)
         print(routes)
+
+    for vehicle in vehicles:
+        finalTrolleyCnt = 0
+        if vehicle.vehicleCurrentDemand <= vehicle.trolleyCapacity:
+            finalTrolleyCnt = 1
+        elif vehicle.vehicleCurrentDemand >= vehicle.maxTrolleyCount * vehicle.trolleyCapacity:
+            finalTrolleyCnt = vehicle.maxTrolleyCount
+        else:
+            finalTrolleyCnt = vehicle.vehicleCurrentDemand // vehicle.trolleyCapacity
+
+        vehicle.trolleyCount = finalTrolleyCnt
 
     # read the vehicle capacity
     return MCVRPPDTWState(locations, depot, vehicles)
