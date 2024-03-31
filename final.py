@@ -21,10 +21,6 @@ class Vehicles:
         return self.trolleyCount * self.trolleyCapacity
 
     def print(self):
-        # print("Route", end='')
-        # for loc in self.locations:
-        #     loc.printOnlyRoute()
-        # print(" dist=" + str(self.distance) + ", demand=" + str(self.demand))
         print("Vehicle " + str(self.vehiclesId) + " - dist=" + str(self.totalDistance) + ", demand="+ str(self.totalDemand))
         print("\t")
         for route in self.routes:
@@ -253,9 +249,7 @@ class Destroy:
             normalized_demands = list(map(lambda x: x / sum(demands), demands))
         else:
             normalized_demands = demands
-        # normalized_distances = list(map(lambda x:x/sum(distances), distances))
-        # normalized_start_tws = list(map(lambda x:x/sum(start_tws), start_tws))
-        # normalized_demands = list(map(lambda x:x/sum(demands), demands))
+
 
         # Calculate relatednesses to each location based on the normalized values
         relatednesses = []
@@ -368,7 +362,6 @@ class Destroy:
                 cost.append([request, ditstances[index]/total_dist])
         # Sort cost
         cost = sorted(cost, key = lambda d: d[1], reverse = True)
-        # print(cost)
         # Get request object that corresponds to worst cost
         worst_average_cost_request_ID = cost[0][0]
         chosen_request = None
@@ -381,65 +374,53 @@ class Destroy:
 
     '''Destroy method number 1'''
 
-    # @Log('time_output.csv')
+
     def executeRandomRemoval(self, nRemove, randomGen):
-        # print('nRemove = ' + str(nRemove))
         for i in range(nRemove):
             # terminate if no more requests are served
             if len(self.solution.served) == 0:
                 break
             # pick a random request and remove it from the solutoin
-            # print(self.solution.served)
             req = randomGen.choice(self.solution.served)
             if req != None:
                 self.solution.removeRequest(req)
 
     '''Destroy method number 2'''
 
-    # @Log('time_output.csv')
+
     def executeWorstCostRemoval(self, nRemove):
         for i in range(nRemove):
             if len(self.solution.served) == 0:
                 break
             chosen_req = self.findWorstCostRequest()
-            # print("Chosen request:")
-            # print(chosen_req)
-            # print("\n")
             if chosen_req != None:
                 self.solution.removeRequest(chosen_req)
 
     '''Destroy method number 3'''
 
-    # @Log('time_output.csv')
+
     def executeWorstTimeRemoval(self, nRemove):
         for i in range(nRemove):
             if len(self.solution.served) == 0:
                 break
 
             chosen_req = self.findWorstTimeRequest()
-            # print("Chosen request:")
-            # print(chosen_req)
-            # print("\n")
             if chosen_req != None:
                 self.solution.removeRequest(chosen_req)
 
     '''Destroy method number 4'''
 
-    # @Log('time_output.csv')
+
     def executeRandomRouteRemoval(self, nRemove, randomGen):
         for _ in range(nRemove):
             if len(self.solution.served) == 0:
                 break
             chosen_req = self.findWorstCostRequestRandomRoute(randomGen)
-            # print("Chosen request:")
-            # print(chosen_req)
-            # print("\n")
             if chosen_req != None:
                 self.solution.removeRequest(chosen_req)
 
     '''Destroy method number 5'''
 
-    # @Log('time_output.csv')
     def executeShawRequestRemoval(self, nRemove, randomGen):
         if len(self.solution.served) == 0:
             return
@@ -467,7 +448,7 @@ class Destroy:
 
     '''Destroy method number 6'''
 
-    # @Log('time_output.csv')
+    #
     def executeProximityBasedRemoval(self, nRemove, randomGen):
         if len(self.solution.served) == 0:
             return
@@ -495,7 +476,7 @@ class Destroy:
 
     '''Destroy method number 7'''
 
-    # @Log('time_output.csv')
+    #
     def executeTimeBasedRemoval(self, nRemove, randomGen):
         if len(self.solution.served) == 0:
             return
@@ -523,7 +504,7 @@ class Destroy:
 
     '''Destroy method number 8'''
 
-    # @Log('time_output.csv')
+    #
     def executeDemandBasedRemoval(self, nRemove, randomGen):
         if len(self.solution.served) == 0:
             return
@@ -551,7 +532,7 @@ class Destroy:
 
     '''Destroy method number 9'''
 
-    # @Log('time_output.csv')
+    #
     def executeWorstNeighborhoodRemoval(self, nRemove):
         for _ in range(nRemove):
             if len(self.solution.served) == 0:
@@ -703,9 +684,6 @@ class Route:
             # velocity = 1 dist = time
             curTime = max(curNode.startTW, curTime + prevNode.servTime + dist)
 
-            # if(routeCount > 3):
-            #     return False
-
             # check if time window is respected
             # TODO : early time late tiems burada yapılacak
             if curTime > curNode.endTW:
@@ -740,8 +718,6 @@ class Route:
         self.locations.remove(request.pickUpLoc)
         self.locations.remove(request.deliveryLoc)
         # the distance changes, so update
-        # revise.
-        # self.distance = self.computeDistance()
 
         # *** add this method
 
@@ -763,7 +739,6 @@ class Route:
             cost = self.compute_cost_add_one_request(preNode_index, afterNode_index, request)
             demand = afterInsertion.demand
             # revise.
-            # self.distance = self.computeDistance()
             return cost, demand
         else:
             return - 1
@@ -866,8 +841,6 @@ class Repair:
         for request in self.solution.notServed:
             tempCost = []
             inserted = False
-            # print('new request----------')
-            # print(request)
             for route in self.solution.routes:
                 requestsCopy = route.requests.copy()
                 requestsCopy.add(request)
@@ -894,7 +867,6 @@ class Repair:
 
             # if we were not able to insert, create a new route
             if not inserted:
-                # print('not insert')
                 # create a new route with the request
                 locList = [self.problem.depot, request.pickUpLoc, request.deliveryLoc, self.problem.depot]
                 newRoute = Route(locList, {request}, self.problem, len(self.solution.routes))
@@ -902,8 +874,6 @@ class Repair:
                 tempCost.append([diff, None, 0, 0])
 
             tempCost = sorted(tempCost, key = lambda d: d[0], reverse = False)
-            # print('sorted tempCost')
-            # print(tempCost)
 
             if len(tempCost) > 1 and (tempCost[1][0] - tempCost[0][0]) > maxRegret:
                 maxRegret = tempCost[1][0] - tempCost[0][0]
@@ -922,7 +892,7 @@ class Repair:
                 afterNode_index = tempCost[0][3]
 
         return insertRequest, insertRoute, preNode_index, afterNode_index
-    # @Log('time_output.csv')
+
     def executeRegretInsertion(self):
         """
         Method that inserts the unserved request with the largest regret first in the solution
@@ -932,13 +902,10 @@ class Repair:
         """
         while len(self.solution.notServed) > 0:
             insertRequest, insertRoute, preNode_index, afterNode_index = self.findRegretInsertion()
-            # print(insertRequest, insertRoute, preNode_index, afterNode_index)
             self.solution.addRequest(insertRequest, insertRoute, preNode_index, afterNode_index, len(self.solution.routes))
 
-            # for route in self.solution.routes:
-            #     route.print()
 
-    # @Log('time_output.csv')
+    #
     def executeGreedyInsertion(self):
         """
         Method that greedily inserts the unserved requests in the solution
@@ -981,7 +948,7 @@ class Repair:
                 self.solution.served.append(req)
                 self.solution.notServed.remove(req)
 
-    # @Log('time_output.csv')
+
     def executeRandomInsertion(self, randomGen):
         """
         Method that randomly inserts the unserved requests in the solution
@@ -1013,7 +980,6 @@ class Repair:
                 else:
                     # insertion feasible, update routes and break from while loop
                     inserted = True
-                    # print("Possible")
                     self.solution.routes.remove(randomRoute)
                     self.solution.routes.append(afterInsertion)
                     self.solution.distance += cost
@@ -1021,12 +987,6 @@ class Repair:
 
             # if we were not able to insert, create a new route
             if not inserted:
-                # if (len(self.solution.routes) > 2):
-                #     random_number = random.randint(0, 2)
-                #     self.solution.routes[random_number].requests.add(req)
-                #
-                # else:
-                    # create a new route with the request
                 locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
                 newRoute = Route(locList, {req}, self.problem, len(self.solution.routes))
                 self.solution.routes.append(newRoute)
@@ -1190,7 +1150,6 @@ class Solution:
             newRoute = Route(locList, {request}, self.problem, cnt)
             self.routes.append(newRoute)
             self.distance += newRoute.distance
-            newRoute.print()
         else:
             for route in self.routes:
                 if route == insertRoute:
@@ -1201,14 +1160,12 @@ class Solution:
                         self.routes.append(newRoute)
                         self.distance += newRoute.distance
                         self.demand += newRoute.demand
-                        newRoute.print()
                     else:
                         self.distance += res
                         self.demand += demand
         self.served.append(request)
         self.notServed.remove(request)
-        # update distance
-        # self.computeDistance()
+
 
     def copy(self):
         """
@@ -1326,12 +1283,14 @@ class PDPTW:
         capacity of the vehicles
 
     """
-    def __init__(self, name, requests, depot, vehicleCapacity, vehicles):
+    def __init__(self, name, requests, depot, vehicles):
         self.name = name
         self.requests = requests
         self.depot = depot
-        self.capacity = vehicleCapacity
+        self.capacity = 0
         self.vehicles = vehicles
+        for vehicle in vehicles:
+            self.capacity += vehicle.maxTrolleyCount * vehicle.trolleyCapacity
         ##construct the set with all locations
         self.locations = set()
         self.locations.add(depot)
@@ -1353,7 +1312,7 @@ class PDPTW:
         for i in self.requests:
             print(i)
 
-    def readInstance(fileName):
+    def readInstance(fileName, vehicleCount):
         """
         Method that reads an instance from a file and returns the instancesf
         """
@@ -1420,15 +1379,12 @@ class PDPTW:
         # Constraints 2
         if len(unmatchedDeliveries) + len(unmatchedPickups) > 0:
             raise Exception("Not all matched")
-        # read the vehicle capacity
-        f = open(fileName)
-        capLine = f.readlines()[-4]
-        perTrolleyCapacity = int(capLine[-7:-3].strip())  # her trolleyin alabileceği max capacity
-        totalCapacity = perTrolleyCapacity * 3  # total capacity   vehicleCount * perTrolleyCapacity
+
         vehicles = list()
-        for i in range(2):
+        for i in range(vehicleCount):
             vehicles.append(Vehicles(i))
-        return PDPTW(fileName, requests, depot, totalCapacity, vehicles)
+
+        return PDPTW(fileName, requests, depot,  vehicles)
 
 class ALNS:
     """
@@ -1474,12 +1430,13 @@ class ALNS:
         self.noise = noise
 
         # Presenting results
-        self.register_weights_over_time = False
+        self.register_weights_over_time = True
         self.removal_weights_per_iteration = []
         self.insertion_weights_per_iteration = []
 
-        self.register_objective_value_over_time = False
+        self.register_objective_value_over_time = True
         self.list_objective_values = []
+        self.list_objective_values_demand = []
 
     def printWeight(self):
         print('wDestroy', end=' ')
@@ -1523,6 +1480,7 @@ class ALNS:
             print(f'Iteration number {i}')
             # Print solution per iteration
             objective_value = self.tempSolution.distance
+            objective_value_demand = self.tempSolution.demand
 
             # To plot weights of the operators over time
             if self.register_weights_over_time:
@@ -1532,9 +1490,10 @@ class ALNS:
             # To plot objective values over time
             if self.register_objective_value_over_time:
                 self.list_objective_values.append(objective_value)
+                self.list_objective_values_demand.append(objective_value_demand)
 
 
-        # Print status at termination
+        # set vehicle in route
         self.bestSolution.setVehicle(self.problem.vehicles)
         endtime = time.time()  # get the end time
         cpuTime = round(endtime - starttime, 3)
@@ -1547,11 +1506,9 @@ class ALNS:
         print(f'Best objective value found after: {round(time_best_objective, 3)} seconds')
 
         print(self.bestSolution.print())
-        print(self.problem.vehicles)
 
         print(f'Best objective value found after: {self.optimal_iteration_number} iterations')
 
-        # print(self.repairUseTimes)
 
         # Plot weights of the operators over time
         if self.register_weights_over_time:
@@ -1563,8 +1520,8 @@ class ALNS:
             weight_removal4 = [round(weight[3], 4) for weight in self.removal_weights_per_iteration]
             weight_removal5 = [round(weight[4], 4) for weight in self.removal_weights_per_iteration]
             weight_removal6 = [round(weight[5], 4) for weight in self.removal_weights_per_iteration]
-            # weight_removal7 = [round(weight[6], 4) for weight in self.removal_weights_per_iteration]
-            # weight_removal8 = [round(weight[7], 4) for weight in self.removal_weights_per_iteration]
+            weight_removal7 = [round(weight[6], 4) for weight in self.removal_weights_per_iteration]
+            weight_removal8 = [round(weight[7], 4) for weight in self.removal_weights_per_iteration]
             # weight_removal9 = [round(weight[8], 4) for weight in self.removal_weights_per_iteration]
 
             plt.plot(iterations_list, weight_removal1, label="Random request")
@@ -1573,8 +1530,8 @@ class ALNS:
             plt.plot(iterations_list, weight_removal4, label="Random route")
             plt.plot(iterations_list, weight_removal5, label="Shaw")
             plt.plot(iterations_list, weight_removal6, label="Promixity-based")
-            # plt.plot(iterations_list, weight_removal7, label="Time-based")
-            # plt.plot(iterations_list, weight_removal8, label="Demand-based")
+            plt.plot(iterations_list, weight_removal7, label="Time-based")
+            plt.plot(iterations_list, weight_removal8, label="Demand-based")
             # plt.plot(iterations_list, weight_removal9, label="Worst-neighborhood")
             plt.xlabel('Iteration number', fontsize=12)
             plt.ylabel('Weight', fontsize=12)
@@ -1582,12 +1539,12 @@ class ALNS:
             plt.show()
 
             weight_insertion1 = [round(weight[0], 4) for weight in self.removal_weights_per_iteration]
-            # weight_insertion2 = [round(weight[1], 4) for weight in self.removal_weights_per_iteration]
-            # weight_insertion3 = [round(weight[2], 4) for weight in self.removal_weights_per_iteration]
+            weight_insertion2 = [round(weight[1], 4) for weight in self.removal_weights_per_iteration]
+            weight_insertion3 = [round(weight[2], 4) for weight in self.removal_weights_per_iteration]
 
             plt.plot(iterations_list, weight_insertion1, label="Basic greedy")
-            # plt.plot(iterations_list, weight_insertion2, label="Basic greedy")
-            # plt.plot(iterations_list, weight_insertion3, label="Regret")
+            plt.plot(iterations_list, weight_insertion2, label="Basic random")
+            plt.plot(iterations_list, weight_insertion3, label="Regret")
             plt.xlabel('Iteration number', fontsize=12)
             plt.ylabel('Weight', fontsize=12)
             plt.legend(loc="upper right", fontsize='small')
@@ -1596,17 +1553,24 @@ class ALNS:
         # Plot objective values over time
         if self.register_objective_value_over_time:
             iterations_list = np.arange(0, self.nIterations)
-            objective_values = [int(value) for value in self.list_objective_values]
+            objective_values = {
+                "Iteration": [int(valuei) for valuei in iterations_list],
+                "Distance": [int(value) for value in self.list_objective_values],
+                "Demand": [int(valued) for valued in self.list_objective_values_demand]
+            }
+
 
             df = pd.DataFrame(objective_values)
             writer = pd.ExcelWriter('Objective values.xlsx', engine='xlsxwriter')
             df.to_excel(writer, sheet_name='1', index=False)
-            writer.save()
+            writer._save()
 
             plt.plot(iterations_list, self.list_objective_values)
+            plt.plot(iterations_list, self.list_objective_values_demand)
 
             plt.xlabel('Iteration number', fontsize=12)
-            plt.ylabel('Objective value', fontsize=12)
+            plt.ylabel('Objective Distance value', fontsize=12)
+            plt.ylabel('Objective Demand value', fontsize=12)
             plt.show()
     def checkIfAcceptNewSol(self):
         """
@@ -1614,11 +1578,9 @@ class ALNS:
         """
         # Copy the current solution
         self.tempSolution = self.currentSolution.copy()
-        # print('before change ')
         # decide on the size of the neighbourhood
         sizeNBH = self.randomGen.randint(self.minSizeNBH, self.maxSizeNBH)
         destroyOpNr = self.determineDestroyOpNr()  # çeşitlilik sağlanmak istenirse 9 a çıkar
-        # print('destroyOpNr ', destroyOpNr)
         repairOpNr = self.determineRepairOpNr()  # çeşitlilik sağlanmak istenirse yorum satırından kaldır
 
         self.destroyAndRepair(destroyOpNr, repairOpNr, sizeNBH)
@@ -1647,19 +1609,17 @@ class ALNS:
                 self.destroyScore[destroyOpNr] += Parameters.w2
                 self.repairScore[repairOpNr] += Parameters.w2  # the new solution is better than the current one 1.2
         else:
-            # if self.randomGen.random() < np.exp(
-            #         - (self.tempSolution.distance - self.currentSolution.distance) / self.T):
-            #     self.currentSolution = self.tempSolution.copy()
-            #     self.destroyScore[destroyOpNr] += Parameters.w3  # the new solution is accepted 0.8
-            #     self.repairScore[repairOpNr] += Parameters.w3
-            # else:
-            self.destroyScore[destroyOpNr] += Parameters.w4  # the new solution is rejected 0.6
-            self.repairScore[repairOpNr] += Parameters.w4
+            if self.randomGen.random() < np.exp(
+                    - (self.tempSolution.distance - self.currentSolution.distance) / 1):
+                self.currentSolution = self.tempSolution.copy()
+                self.destroyScore[destroyOpNr] += Parameters.w3  # the new solution is accepted 0.8
+                self.repairScore[repairOpNr] += Parameters.w3
+            else:
+                self.destroyScore[destroyOpNr] += Parameters.w4  # the new solution is rejected 0.6
+                self.repairScore[repairOpNr] += Parameters.w4
 
         # Update the ALNS weights
         self.updateWeights(destroyOpNr, repairOpNr)
-        # Update temperature
-        # self.T = self.coolingRate * self.T
 
     def updateWeights(self, destroyOpNr, repairOpNr):
         """
@@ -1723,50 +1683,42 @@ class ALNS:
 
         """
         destroySolution = Destroy(self.problem, self.tempSolution)
-        # if destroyHeuristicNr == 0:
-        #     destroySolution.executeRandomRemoval(sizeNBH, self.randomGen)
-            # print('after destroy')
-            # destroySolution.solution.print()
         if destroyHeuristicNr == 0:
+            destroySolution.executeRandomRemoval(sizeNBH, self.randomGen)
+        elif destroyHeuristicNr == 1:
+            destroySolution.findWorstCostRequest()
+        elif destroyHeuristicNr == 2:
+            destroySolution.executeWorstTimeRemoval(sizeNBH)
+        elif destroyHeuristicNr == 3:
+            destroySolution.executeShawRequestRemoval(sizeNBH, self.randomGen)
+        elif destroyHeuristicNr == 4:
+            destroySolution.executeProximityBasedRemoval(sizeNBH, self.randomGen)
+        elif destroyHeuristicNr == 5:
             destroySolution.executeTimeBasedRemoval(sizeNBH, self.randomGen)
-            # print('after destroy')
-            # destroySolution.solution.print()
-        # elif destroyHeuristicNr == 2:
-        #     destroySolution.executeWorstTimeRemoval(sizeNBH)
-            # print('after destroy')
-            # destroySolution.solution.print()
-        # elif destroyHeuristicNr == 3:
-        #     destroySolution.executeRandomRouteRemoval(sizeNBH, self.randomGen)
-            # print('after destroy')
-            # destroySolution.solution.print()
-        # elif destroyHeuristicNr == 4:
-        #     destroySolution.executeTimeBasedRemoval(sizeNBH, self.randomGen)
-            # destroySolution.executeShawRequestRemoval(sizeNBH, self.randomGen)
-            # print('after destroy')
-            # destroySolution.solution.print()
-        # elif destroyHeuristicNr == 5:
-        #     destroySolution.executeDemandBasedRemoval(sizeNBH, self.randomGen)
-            # print('after destroy')
-            # destroySolution.solution.print()
+        elif destroyHeuristicNr == 6:
+            destroySolution.executeDemandBasedRemoval(sizeNBH, self.randomGen)
+        elif destroyHeuristicNr == 7:
+            destroySolution.executeWorstNeighborhoodRemoval(sizeNBH)
 
-        # Perform the repair
+            # Perform the repair
         repairSolution = Repair(self.problem, self.tempSolution)
         if repairHeuristicNr == 0:
             repairSolution.executeGreedyInsertion()
-            # print('after repair')
-            # self.tempSolution.print()
-        # elif repairHeuristicNr == 1:
-        #     repairSolution.executeRandomInsertion(self.randomGen)
-            # print('after repair')
-            # self.tempSolution.print()
+            print('after repair')
+            self.tempSolution.print()
+        elif repairHeuristicNr == 1:
+            repairSolution.executeRandomInsertion(self.randomGen)
+        elif repairHeuristicNr == 2:
+            repairSolution.executeRegretInsertion()
 
 
-data = "lrc104.txt" # datayı yükle
-problem = PDPTW.readInstance(data)
+data = "Instances/lrc206.txt" # datayı yükle
+vehicleCount = 3
+problem = PDPTW.readInstance(data, vehicleCount)
 
 # Static parameters
-nDestroyOps = 1  #number of destroy operations, çeşitlilik sağlanmak istenirse 9 a çıkar
-nRepairOps = 1  # number of repair operations # çeşitlilik sağlanmak istenirse 3 e çıkar
+nDestroyOps = 8  #number of destroy operations, çeşitlilik sağlanmak istenirse 9 a çıkar
+nRepairOps = 3  # number of repair operations # çeşitlilik sağlanmak istenirse 3 e çıkar
 minSizeNBH = 1  #Minimum size of neighborhood
 nIterations = 100  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
 
