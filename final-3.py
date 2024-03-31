@@ -15,12 +15,14 @@ from alns.stop import *
 vehiclesList = [0, 1]  # vehicle değişkeni.
 vehicleCount = 2  # bu 2 aracım olduğu anlamına gelir.
 vehicle_capacities = {0: 30, 1: 50}  # Her iki aracın da kapasitesi
-location = [(5, 10, "p", 95, 10), (10, 15, "p", 110, 10), (10, 15, "p", 82, 15), (25, -20, "p", 95, 5),
+location = [
+    (5, 10, "p", 95, 10), (10, 15, "p", 110, 10), (10, 15, "p", 82, 15), (25, -20, "p", 95, 5),
             (-38, 20, "p", 85, 5), (45, 10, "d", -30, 12), (15, 10, "d", -22, 25), (-35, 30, "d", -10, 20),
-            (-15, 15, "d", -35, 25), (55, 25, "d", -25, 20)]
+            (-15, 15, "d", -35, 25), (55, 25, "d", -25, 20)
+]
 # location : pickup ve delivery noktalarımın bilgileri, tupple'ın ilk 2 parametresi x ve y koordinant noktaları,
-# tupple'ın 3 parametresi "p" ise "pickup" noktası, "d" ise delivery noktasıdır. tupple'ın 4. parametresi
-# demand bilgisi (location "p" ise araca aktarılan yük , location "d" ise araçtan alınan yük),
+# tupple'ın 3 parametresi "p" ise "pickup" noktası, "d" ise delivery noktasıdır.
+# tupple'ın 4. parametresi demand bilgisi (location "p" ise araca aktarılan yük , location "d" ise araçtan alınan yük),
 # tupple'ın 5. parametresi yük yüklenirken ve o noktaya giderkenki toplam servis süresi
 depotLocation = (0, 0)  # depo konumu koordinatı, araçların siparişi başlattığı ve bitirdiği yer
 
@@ -99,7 +101,7 @@ class Location:
         """
         Method that prints the location
         """
-        print(f" ( {self.stringId}, {self.demand}, {self.servStartTime}, {self.typeLoc} ) ", end='')
+        print(f" ( {self.stringId}, {self.demand}, {self.servStartTime}, {self.typeLoc}, {self.demand} ) ", end='')
 
     def getDistance(l1, l2):
         """
@@ -163,9 +165,64 @@ def neighbors(current, unvisitedLocation):
     if current.typeLoc == 'depot':
         # 'depot' için, 'pickup' olanları seç
         return filter(lambda u: u.typeLoc == 'pickup', unvisitedLocation)
-    else:
-        return filter(lambda u: u.typeLoc != 'depot', unvisitedLocation)
-def init_solution():
+    elif current.typeLoc == 'pickup':
+        # 'pickup' için, 'delivery' olanları seç (örnekte 'delivery' yok, varsayım)
+        return filter(lambda u: u.typeLoc == 'delivery', unvisitedLocation)
+    elif current.typeLoc == 'delivery':
+        # 'delivery' için, 'pickup' olanları seç
+        return filter(lambda u: u.typeLoc == 'pickup', unvisitedLocation)
+
+
+def executeRandomInsertion(self, randomGen, routeCnt=0):
+    """
+    Method that randomly inserts the unserved requests in the solution
+
+    This is repair method number 1 in the ALNS
+
+    Parameters
+    ----------
+    randomGen : Random
+        Used to generate random numbers
+
+    """
+    # iterate over the list with unserved requests
+    while len(self.notServed) > 0:
+        # pick a random request
+        req = randomGen.choice(self.notServed)
+
+        # keep track of routes in which req could be inserted
+        potentialRoutes = self.routes.copy()
+        inserted = False
+        while len(potentialRoutes) > 0:
+            # pick a random route
+            randomRoute = randomGen.choice(potentialRoutes)
+
+            afterInsertion, cost = randomRoute.greedyInsert(req, routeCnt)
+            if afterInsertion == None:
+                # insertion not feasible, remove route from potential routes
+                potentialRoutes.remove(randomRoute)
+            else:
+                # insertion feasible, update routes and break from while loop
+                inserted = True
+                # print("Possible")
+                self.routes.remove(randomRoute)
+                self.routes.append(afterInsertion)
+                self.distance += cost
+                # afterInsertion.print()
+                break
+
+        # if we were not able to insert, create a new route
+        if not inserted:
+            # create a new route with the request
+            locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
+            newRoute = Route(locList, {req}, self.problem, routeCnt)
+            self.routes.append(newRoute)
+            self.distance += newRoute.distance
+            newRoute.print()
+        # update the lists with served and notServed requests
+        self.served.append(req)
+        self.notServed.remove(req)
+def init_solution(fileName):
 
     global vehiclesList
     global vehicleCount
@@ -173,11 +230,67 @@ def init_solution():
     global location
     global depotLocation
 
-    servStartTime = 0  # serviceTime
-    locations = list()
+    f = open(fileName)
+    requests = list()
+    unmatchedPickups = dict()
+    unmatchedDeliveries = dict()
+    nodeCount = 0
     requestCount = 1  # start with 1
     depot = Location(0, 0, 0, 0, 0, servStartTime, "depot", "D0")  # depot requestID=0
     # locations.append(depot)
+
+    # for line in f.readlines()[1:-6]:
+    #     asList = []
+    #     n = 13  # satırların sondan 13 karakteri booş o yüzden
+    #     for index in range(0, len(line), n):
+    #         asList.append(line[index: index + n].strip())
+    #
+    #     lID = asList[0]  # location tipi  D : depot, S: station, C : pickup / delivery point,
+    #     x = int(asList[2][:-2])  # need to remove ".0" from the string
+    #     y = int(asList[3][:-2])
+    #     if lID.startswith("D"):  # depot ise
+    #         # it is the depot
+    #         depot = Location(0, x, y, 0, 0, 0, 0, servStartTime, "depot", nodeCount, "D0")  # depot requestID=0
+    #         nodeCount += 1
+    #
+    #     elif lID.startswith("C"):  # pickup/delivery point ise
+    #         # it is a location
+    #         lType = asList[1]
+    #         demand = int(asList[4][:-2])
+    #         startTW = int(asList[5][:-2])
+    #         endTW = int(asList[6][:-2])
+    #         servTime = int(asList[7][:-2])
+    #         partnerID = asList[8]
+    #         if lType == "cp":  # cp ise pickup, #cd ise delivery point
+    #             if partnerID in unmatchedDeliveries:
+    #                 deliv = unmatchedDeliveries.pop(
+    #                     partnerID)  # pop listeden siler, sildiği değeri ise bir değişkene atar, burada deliv değişkenine atadı
+    #                 pickup = Location(deliv.requestID, x, y, demand, startTW, endTW, servTime, servStartTime,
+    #                                   "pickup", nodeCount, lID)
+    #                 nodeCount += 1
+    #                 req = Request(pickup, deliv, deliv.requestID)
+    #                 requests.append(req)
+    #             else:
+    #                 pickup = Location(requestCount, x, y, demand, startTW, endTW, servTime, servStartTime, "pickup",
+    #                                   nodeCount, lID)
+    #                 nodeCount += 1
+    #                 requestCount += 1
+    #                 # lID -> partnerID
+    #                 unmatchedPickups[lID] = pickup
+    #         elif lType == "cd":  # cp ise pickup, #cd ise delivery point
+    #             if partnerID in unmatchedPickups:
+    #                 pickup = unmatchedPickups.pop(partnerID)
+    #                 deliv = Location(pickup.requestID, x, y, demand, startTW, endTW, servTime, servStartTime,
+    #                                  "delivery", nodeCount, lID)
+    #                 nodeCount += 1
+    #                 req = Request(pickup, deliv, pickup.requestID)
+    #                 requests.append(req)
+    #             else:
+    #                 deliv = Location(requestCount, x, y, demand, startTW, endTW, servTime, servStartTime,
+    #                                  "delivery", nodeCount, lID)
+    #                 nodeCount += 1
+    #                 requestCount += 1
+    #                 unmatchedDeliveries[lID] = deliv
     for line in location:
         x, y, type, demand, service_time = line
         requestCount += 1
@@ -226,6 +339,9 @@ def init_solution():
                 vehicles[vehicle_id].vehicleCurrentDemand = currentDemand
                 if vehicles[vehicle_id].vehicleCurrentDemand >= vehicles[vehicle_id].trolleyCount * vehicles[vehicle_id].trolleyCapacity:
                     vehicles[vehicle_id].increaseTrolleyCapacity()
+
+
+
 
             route.append(nearest)
             unvisitedLocation.remove(nearest)
