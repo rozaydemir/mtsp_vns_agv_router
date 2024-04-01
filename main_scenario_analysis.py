@@ -12,7 +12,7 @@ class ScenarioAnalysis:
     # Constant parameters
     nDestroyOps = 8
     nRepairOps = 3
-    nIterations = 1000
+    nIterations = 100
     minSizeNBH = 1
 
     # Define instances

@@ -440,9 +440,6 @@ class Destroy:
             if len(self.solution.served) == 0:
                 break
             chosen_req = self.findNextShawRequest()
-            # print("Chosen request:")
-            # print(chosen_req)
-            # print("\n")
             if chosen_req != None:
                 self.solution.removeRequest(chosen_req)
 
@@ -468,9 +465,6 @@ class Destroy:
             if len(self.solution.served) == 0:
                 break
             chosen_req = self.findNextProximityBasedRequest()
-            # print("Chosen request:")
-            # print(chosen_req)
-            # print("\n")
             if chosen_req != None:
                 self.solution.removeRequest(chosen_req)
 
@@ -496,9 +490,6 @@ class Destroy:
             if len(self.solution.served) == 0:
                 break
             chosen_req = self.findNextTimeBasedRequest()
-            # print("Chosen request:")
-            # print(chosen_req)
-            # print("\n")
             if chosen_req != None:
                 self.solution.removeRequest(chosen_req)
 
@@ -524,9 +515,6 @@ class Destroy:
             if len(self.solution.served) == 0:
                 break
             chosen_req = self.findNextDemandBasedRequest()
-            # print("Chosen request:")
-            # print(chosen_req)
-            # print("\n")
             if chosen_req != None:
                 self.solution.removeRequest(chosen_req)
 
@@ -538,9 +526,6 @@ class Destroy:
             if len(self.solution.served) == 0:
                 break
             chosen_req = self.findWorstNeighborhoodRequest()
-            # print("Chosen request:")
-            # print(chosen_req)
-            # print("\n")
             if chosen_req != None:
                 self.solution.removeRequest(chosen_req)
 
@@ -774,6 +759,7 @@ class Route:
         minDist = sys.maxsize  # initialize as extremely large number
         bestInsert = None  # if infeasible the bestInsert will be None
         minCost = sys.maxsize
+        minDemand = sys.maxsize
         # iterate over all possible insertion positions for pickup and delivery
 
         for i in range(1, len(self.locations)):
@@ -790,7 +776,8 @@ class Route:
                     if cost < minCost:
                         bestInsert = afterInsertion
                         minCost = cost
-        return bestInsert, minCost,
+                        minDemand = afterInsertion.demand
+        return bestInsert, minCost, minDemand
 
 class Repair:
     '''
@@ -851,6 +838,10 @@ class Repair:
                         locationsCopy.insert(i, request.pickUpLoc)
                         locationsCopy.insert(j, request.deliveryLoc)  # depot at the end
                         afterInsertion = Route(locationsCopy, requestsCopy, self.problem, len(self.solution.routes))
+
+                        if afterInsertion.demand > self.problem.capacity:
+                            afterInsertion = None
+
                         if afterInsertion == None:
                             continue
                         # check if insertion is feasible
@@ -877,7 +868,6 @@ class Repair:
 
             if len(tempCost) > 1 and (tempCost[1][0] - tempCost[0][0]) > maxRegret:
                 maxRegret = tempCost[1][0] - tempCost[0][0]
-                # print('maxRegret',maxRegret)
                 insertRoute = tempCost[0][1]
                 insertRequest = request
                 preNode_index = tempCost[0][2]
@@ -918,16 +908,22 @@ class Repair:
             for req in self.solution.notServed:
                 inserted = False
                 minCost = sys.maxsize  # initialize as extremely large number
+                minDemand = sys.maxsize  # initialize as extremely large number
                 bestInsert = None  # if infeasible the bestInsert will be None
                 for route in self.solution.routes:
-                    afterInsertion, cost = route.greedyInsert(req, len(self.solution.routes))
+                    afterInsertion, cost, demand = route.greedyInsert(req, len(self.solution.routes))
+
+                    if (demand > self.problem.capacity):
+                        inserted = False
+                        afterInsertion = None
+
                     if afterInsertion == None:
                         continue
                     if cost < minCost:
                         inserted = True
                         removedRoute = route
                         bestInsert = afterInsertion
-                        demand = afterInsertion.demand
+                        minDemand = demand
                         minCost = cost
 
                 # if we were not able to insert, create a new route
@@ -942,7 +938,7 @@ class Repair:
                     self.solution.routes.remove(removedRoute)
                     self.solution.routes.append(bestInsert)
                     self.solution.distance += minCost
-                    self.solution.demand += demand
+                    self.solution.demand += minDemand
 
                 # update the lists with served and notServed requests
                 self.solution.served.append(req)
@@ -973,7 +969,12 @@ class Repair:
             while len(potentialRoutes) > 0:
                 # pick a random route
                 randomRoute = randomGen.choice(potentialRoutes)
-                afterInsertion, cost = randomRoute.greedyInsert(req)
+                afterInsertion, cost, demand = randomRoute.greedyInsert(req)
+
+                if(demand > self.problem.capacity):
+                    inserted = False
+                    afterInsertion = None
+
                 if afterInsertion == None:
                     # insertion not feasible, remove route from potential routes
                     potentialRoutes.remove(randomRoute)
@@ -983,6 +984,7 @@ class Repair:
                     self.solution.routes.remove(randomRoute)
                     self.solution.routes.append(afterInsertion)
                     self.solution.distance += cost
+                    self.solution.demand += demand
                     break
 
             # if we were not able to insert, create a new route
@@ -991,6 +993,7 @@ class Repair:
                 newRoute = Route(locList, {req}, self.problem, len(self.solution.routes))
                 self.solution.routes.append(newRoute)
                 self.solution.distance += newRoute.distance
+                self.solution.demand += newRoute.demand
 
             # update the lists with served and notServed requests
             self.solution.served.append(req)
@@ -1057,20 +1060,25 @@ class Solution:
         self.noise_succesful = 1
         self.no_noise_succesful = 1
         self.normal_distance = 0
+        self.normal_demand = 0
         for route in self.routes:
             self.normal_distance += route.distance
+            self.normal_demand += route.demand
         maxN = noise * max_arc_dist
         random_noise = randomGen.uniform(-maxN, maxN)
         self.noise_distance = max(0, self.distance + random_noise)
+        self.noise_demand = max(0, self.demand + random_noise)
         summation = self.noise_succesful + self.no_noise_succesful
         rand_number = randomGen.random()
         if rand_number < self.no_noise_succesful / summation:
             self.distance = self.normal_distance
+            self.demand = self.normal_demand
             self.distanceType = 0  # No noise is used in the objective solution
         else:
             self.distance = self.noise_distance
+            self.demand = self.noise_demand
             self.distanceType = 1  # Noise is used in the objective solution
-        return self.distance
+        return self.distance, self.demand
 
     # en uzun rotayı bul
     def calculateMaxArc(self):
@@ -1092,8 +1100,6 @@ class Solution:
         nNotServed = len(self.notServed)
         print('total distcance ' + str(self.distance) + " Solution with " + str(nRoutes) + " routes and " + str(
             nNotServed) + " unserved requests: ")
-        # for route in self.routes:
-        #     route.print()
 
         for vehicles in self.problem.vehicles:
             vehicles.print()
@@ -1117,7 +1123,6 @@ class Solution:
             Used to generate random numbers
 
         """
-        print('nRemove = ' + str(nRemove))
         for i in range(nRemove):
             # terminate if no more requests are served
             if len(self.served) == 0:
@@ -1127,6 +1132,7 @@ class Solution:
             self.removeRequest(req)
 
         self.distance = self.computeDistance()
+        self.demand = self.computeDemand()
 
     def removeRequest(self, request):
         """
@@ -1150,6 +1156,7 @@ class Solution:
             newRoute = Route(locList, {request}, self.problem, cnt)
             self.routes.append(newRoute)
             self.distance += newRoute.distance
+            self.demand += newRoute.demand
         else:
             for route in self.routes:
                 if route == insertRoute:
@@ -1204,7 +1211,11 @@ class Solution:
                 # pick a random route
                 randomRoute = randomGen.choice(potentialRoutes)
 
-                afterInsertion, cost = randomRoute.greedyInsert(req, routeCnt)
+                afterInsertion, cost, demand = randomRoute.greedyInsert(req, routeCnt)
+
+                if (demand > self.problem.capacity):
+                    afterInsertion = None
+
                 if afterInsertion == None:
                     # insertion not feasible, remove route from potential routes
                     potentialRoutes.remove(randomRoute)
@@ -1215,26 +1226,16 @@ class Solution:
                     self.routes.remove(randomRoute)
                     self.routes.append(afterInsertion)
                     self.distance += cost
-                    self.demand -= randomRoute.demand
-                    self.demand += afterInsertion.demand
-                    # afterInsertion.print()
+                    self.demand += demand
                     break
 
             # if we were not able to insert, create a new route
             if not inserted:
-                # create a new route with the request
-                # ilk route burada ekleniyor
-                # if (len(self.solution.routes) == 3):
-                #     max_distance_index = max(range(len(self.routes)),
-                #                              key=lambda index: self.routes[index].distance)
-                #     self.routes.pop(max_distance_index)
-                # else:
                 locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
                 newRoute = Route(locList, {req}, self.problem, routeCnt)
                 self.routes.append(newRoute)
                 self.distance += newRoute.distance
                 self.demand += newRoute.demand
-                # newRoute.print()
             # update the lists with served and notServed requests
             self.served.append(req)
             self.notServed.remove(req)
@@ -1291,6 +1292,7 @@ class PDPTW:
         self.vehicles = vehicles
         for vehicle in vehicles:
             self.capacity += vehicle.maxTrolleyCount * vehicle.trolleyCapacity
+        self.capacity = self.capacity / len(self.vehicles)
         ##construct the set with all locations
         self.locations = set()
         self.locations.add(depot)
@@ -1306,7 +1308,7 @@ class PDPTW:
                 self.distMatrix[i.nodeID, j.nodeID] = distItoJ
 
     def print(self):
-        print(" PDPTW problem " + self.name + " with " + str(
+        print(" MCVRPPDPTW problem " + self.name + " with " + str(
             len(self.requests)) + " requests and a vehicle capacity of " + str(self.capacity))
         print(self.distMatrix)
         for i in self.requests:
@@ -1469,6 +1471,7 @@ class ALNS:
         starttime = time.time()  # get the start time
         self.starttime_best_objective = time.time()
         self.real_dist = np.inf
+        self.real_demand = np.inf
 
         self.constructInitialSolution()
 
@@ -1596,13 +1599,16 @@ class ALNS:
             # we found a global best solution
             if self.tempSolution.distance < self.bestDistance:  # update best solution
                 self.bestDistance = self.tempSolution.distance
+                self.bestDemand = self.tempSolution.demand
                 self.bestSolution = self.tempSolution.copy()
                 self.destroyScore[destroyOpNr] += Parameters.w1
                 self.repairScore[repairOpNr] += Parameters.w1  # the new solution is a new global best, 1.5
                 new_real_dist = self.tempSolution.computeDistance()
+                new_real_demand = self.tempSolution.computeDemand()
                 if new_real_dist < self.real_dist:
                     self.real_dist = new_real_dist
-                    print(f'New best global solution found: {self.real_dist}')
+                    self.real_demand = new_real_demand
+                    print(f'New best global solution found: distance :{self.real_dist}, demand : {self.real_demand}')
                     self.time_best_objective_found = time.time()
                     self.optimal_iteration_number = self.iteration_number
             else:
@@ -1704,15 +1710,13 @@ class ALNS:
         repairSolution = Repair(self.problem, self.tempSolution)
         if repairHeuristicNr == 0:
             repairSolution.executeGreedyInsertion()
-            print('after repair')
-            self.tempSolution.print()
         elif repairHeuristicNr == 1:
             repairSolution.executeRandomInsertion(self.randomGen)
         elif repairHeuristicNr == 2:
             repairSolution.executeRegretInsertion()
 
 
-data = "Instances/lrc206.txt" # datayı yükle
+data = "Instances/lrc104.txt" # datayı yükle
 vehicleCount = 3
 problem = PDPTW.readInstance(data, vehicleCount)
 
