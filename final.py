@@ -8,9 +8,9 @@ import sys
 class Vehicles:
     def __init__(self, id):
         self.vehiclesId = id
-        self.trolleyCapacity = 50
+        self.trolleyCapacity = 100
         self.routes = []
-        self.maxTrolleyCount = 3
+        self.maxTrolleyCount = 1
         self.totalDistance = 0
         self.totalDemand = 0
 
@@ -639,14 +639,15 @@ class Route:
         #                          request.deliveryLoc)
         return cost2 + cost1 + 0
 
-    def print(self, vehicleInfo):
+    def print(self, vehicleInfo = set()):
         """
         Method that prints the route
         """
         print("Route", end='')
         for loc in self.locations:
             loc.printOnlyRoute()
-        print(" dist=" + str(self.distance) + ", demand="+ str(self.demand)+ ", trolleyCount="+ str(vehicleInfo["trolleyCount"]))
+        print(" dist=" + str(self.distance) + ", demand="+ str(self.demand))
+        # print(" dist=" + str(self.distance) + ", demand="+ str(self.demand)+ ", trolleyCount="+ str(vehicleInfo["trolleyCount"]))
 
     def isFeasible(self):
         """
@@ -1100,9 +1101,11 @@ class Solution:
         nNotServed = len(self.notServed)
         print('total distcance ' + str(self.distance) + " Solution with " + str(nRoutes) + " routes and " + str(
             nNotServed) + " unserved requests: ")
-
-        for vehicles in self.problem.vehicles:
-            vehicles.print()
+        #
+        # for vehicles in self.problem.vehicles:
+        #     vehicles.print()
+        for route in self.routes:
+            route.print()
 
         print("\n\n")
 
@@ -1307,6 +1310,8 @@ class PDPTW:
                 distItoJ = Location.getDistance(i, j)
                 self.distMatrix[i.nodeID, j.nodeID] = distItoJ
 
+        print(self.distMatrix);
+
     def print(self):
         print(" MCVRPPDPTW problem " + self.name + " with " + str(
             len(self.requests)) + " requests and a vehicle capacity of " + str(self.capacity))
@@ -1324,7 +1329,7 @@ class PDPTW:
         unmatchedPickups = dict()
         unmatchedDeliveries = dict()
         nodeCount = 0
-        requestCount = 1  # start with 1
+        requestCount = 0  # start with 1
         for line in f.readlines()[1:-6]:
             asList = []
             n = 13  # satırların sondan 13 karakteri booş o yüzden
@@ -1336,7 +1341,7 @@ class PDPTW:
             y = int(asList[3][:-2])
             if lID.startswith("D"):  # depot ise
                 # it is the depot
-                depot = Location(0, x, y, 0, 0, 0, 0, servStartTime, "depot", nodeCount, "D0")  # depot requestID=0
+                depot = Location(requestCount, x, y, 0, 0, 0, 0, servStartTime, "depot", nodeCount, lID)  # depot requestID=0
                 nodeCount += 1
 
             elif lID.startswith("C"):  # pickup/delivery point ise
@@ -1497,7 +1502,7 @@ class ALNS:
 
 
         # set vehicle in route
-        self.bestSolution.setVehicle(self.problem.vehicles)
+        # self.bestSolution.setVehicle(self.problem.vehicles)
         endtime = time.time()  # get the end time
         cpuTime = round(endtime - starttime, 3)
 
@@ -1715,9 +1720,14 @@ class ALNS:
         elif repairHeuristicNr == 2:
             repairSolution.executeRegretInsertion()
 
+#   "Instances/c202C16.txt"
+#   "Instances/lrc5.txt"
+#   "Instances/r102C18.txt"
+#   "Instances/r204C16.txt"
+#   "Instances/test.txt"
 
-data = "Instances/lrc104.txt" # datayı yükle
-vehicleCount = 3
+data = "Instances/c202C16.txt" # datayı yükle
+vehicleCount = 1
 problem = PDPTW.readInstance(data, vehicleCount)
 
 # Static parameters
