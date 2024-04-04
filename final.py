@@ -1437,11 +1437,11 @@ class ALNS:
         self.noise = noise
 
         # Presenting results
-        self.register_weights_over_time = True
+        self.register_weights_over_time = False
         self.removal_weights_per_iteration = []
         self.insertion_weights_per_iteration = []
 
-        self.register_objective_value_over_time = True
+        self.register_objective_value_over_time = False
         self.list_objective_values = []
         self.list_objective_values_demand = []
 
@@ -1725,7 +1725,7 @@ class ALNS:
 #   "Instances/lrc9.txt"
 #   "Instances/lrc11.txt"
 
-data = "Instances/lrc11.txt" # datayı yükle
+data = "Instances/lrc7.txt" # datayı yükle
 vehicleCount = 1
 problem = PDPTW.readInstance(data, vehicleCount)
 

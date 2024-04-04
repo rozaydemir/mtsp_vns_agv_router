@@ -240,7 +240,7 @@ def read_data(fileName, vehicleCount):
 #   "Instances/lrc11.txt"
 
 
-data = "Instances/lrc11.txt" # datayı yükle
+data = "Instances/c202C16.txt" # datayı yükle
 read_data(data, 1)
 
 
