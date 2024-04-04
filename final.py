@@ -1720,13 +1720,12 @@ class ALNS:
         elif repairHeuristicNr == 2:
             repairSolution.executeRegretInsertion()
 
-#   "Instances/c202C16.txt"
 #   "Instances/lrc5.txt"
-#   "Instances/r102C18.txt"
-#   "Instances/r204C16.txt"
-#   "Instances/test.txt"
+#   "Instances/lrc7.txt"
+#   "Instances/lrc9.txt"
+#   "Instances/lrc11.txt"
 
-data = "Instances/c202C16.txt" # datayı yükle
+data = "Instances/lrc11.txt" # datayı yükle
 vehicleCount = 1
 problem = PDPTW.readInstance(data, vehicleCount)
 
@@ -1744,6 +1743,4 @@ noise = 0.015  #gürültü ekleme, çözüm uzayında daha çeşitli noktaları 
 alns = ALNS(problem, nDestroyOps, nRepairOps, nIterations, minSizeNBH, maxPercentageNHB, decayParameter, noise)
 
 alns.execute()
-
-
 

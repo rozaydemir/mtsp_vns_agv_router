@@ -234,14 +234,13 @@ def read_data(fileName, vehicleCount):
     b[len(P_all + D_all) + 1] = b[0]
     s[len(P_all + D_all) + 1] = s[0]
 
-#   "Instances/c202C16.txt"
 #   "Instances/lrc5.txt"
-#   "Instances/r102C18.txt"
-#   "Instances/r204C16.txt"
-#   "Instances/test.txt"
+#   "Instances/lrc7.txt"
+#   "Instances/lrc9.txt"
+#   "Instances/lrc11.txt"
 
 
-data = "Instances/c202C16.txt" # datayı yükle
+data = "Instances/lrc11.txt" # datayı yükle
 read_data(data, 1)
 
 
