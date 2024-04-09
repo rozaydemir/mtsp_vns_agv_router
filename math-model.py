@@ -235,19 +235,25 @@ def read_data(fileName, vehicleCount):
     s[len(P_all + D_all) + 1] = s[0]
 
 #   "Instances/lrc5.txt"
+#   "Instances/lrc5-demand-increase.txt"
+#   "Instances/lrc5-location-increase.txt"
 #   "Instances/lrc7.txt"
+#   "Instances/lrc7-demand-increase.txt"
+#   "Instances/lrc7-location-increase.txt"
 #   "Instances/lrc9.txt"
+#   "Instances/lrc9-demand-increase.txt"
+#   "Instances/lrc9-location-increase.txt"
 #   "Instances/lrc11.txt"
+#   "Instances/lrc11-demand-increase.txt"
 
-
-data = "Instances/c202C16.txt" # datayı yükle
+data = "Instances/lrc9-location-increase.txt" # datayı yükle
 read_data(data, 1)
 
 
 alpha = 1  # Cost of penalty for early delivery
 beta = 10  # Penalty for one unit of tardiness
 
-C = 100  # Capacity of a trolley
+C = 200  # Capacity of a trolley
 Mmax = 3  # Maximum Trolley Addition Capacity
 TIR = 0.2  # Trolley Impact Rate (TIR): The rate at which the addition of trolleys impacts operations
 M = 10000  # Big M

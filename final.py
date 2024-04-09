@@ -8,7 +8,7 @@ import sys
 class Vehicles:
     def __init__(self, id):
         self.vehiclesId = id
-        self.trolleyCapacity = 100
+        self.trolleyCapacity = 200
         self.routes = []
         self.maxTrolleyCount = 1
         self.totalDistance = 0
@@ -1721,11 +1721,19 @@ class ALNS:
             repairSolution.executeRegretInsertion()
 
 #   "Instances/lrc5.txt"
+#   "Instances/lrc5-demand-increase.txt"
+#   "Instances/lrc5-location-increase.txt"
 #   "Instances/lrc7.txt"
+#   "Instances/lrc7-demand-increase.txt"
+#   "Instances/lrc7-location-increase.txt"
 #   "Instances/lrc9.txt"
+#   "Instances/lrc9-demand-increase.txt"
+#   "Instances/lrc9-location-increase.txt"
 #   "Instances/lrc11.txt"
+#   "Instances/lrc11-demand-increase.txt"
 
-data = "Instances/lrc7.txt" # datayı yükle
+
+data = "Instances/lrc9-location-increase.txt" # datayı yükle
 vehicleCount = 1
 problem = PDPTW.readInstance(data, vehicleCount)
 
