@@ -6,9 +6,7 @@ from typing import List, Dict, Optional, TypeVar
 
 Customer = TypeVar('Customer')
 Index = TypeVar('Index')
-
-
-# useful for describing the inputs
+#useful for describing the inputs
 
 
 class MCVRPTW():
@@ -72,9 +70,8 @@ class MCVRPTW():
     -----
     """
 
-    def __init__(self, Coordinates, Customer_demands, Vehicle_parameters, Earliest_service_time, Latest_service_time,
-                 Service_time, hyperparameter_impact1=0.1, hyperparameter_impact2=0.2, hyperparameter_impact3=0.1,
-                 hyperparameter_impact4=0.6, Distance=None):
+    def __init__(self,Coordinates,Customer_demands, Vehicle_parameters, Earliest_service_time, Latest_service_time,
+                 Service_time, hyperparameter_impact1 = 0.1, hyperparameter_impact2 = 0.2, hyperparameter_impact3 = 0.1, hyperparameter_impact4 = 0.6, Distance = None):
 
         # Input :
         self.number_of_customer = len(Customer_demands) - 1
@@ -98,7 +95,7 @@ class MCVRPTW():
         self.J_non_routed_customers_set = [i for i in range(1, self.number_of_customer + 1) if
                                            sum(self.customer_demands[i]) > 0]
         # we do not add a customer to the non routed_customers_set if it does not need to be delivered
-        self.Routes = []  # [[#route1],[#route2],...]
+        self.Routes = [] #[[#route1],[#route2],...]
         self.number_of_vehicle = 0
         ### ___ output
         self.Capacity_related_to_Routes = []  # [[[products],distance]#route1,...]
@@ -106,12 +103,10 @@ class MCVRPTW():
         self.Feasible_insertion_places = []
 
         # additional Variable :
-        self.Arrival_time = [self.Earliest_service_time[0]] + [self.Latest_service_time[-1] for i in
-                                                               range(self.number_of_customer)] + [
-                                max(self.Latest_service_time)]
+        self.Arrival_time = [self.Earliest_service_time[0]] + [self.Latest_service_time[-1] for i in range(self.number_of_customer)] + [max(self.Latest_service_time)]
         self.Arrival_time_with_same_order_than_Routes = []
         self.number_of_customer_with_needs = len(self.J_non_routed_customers_set)
-        self.Distance_done = [0, []]
+        self.Distance_done = [0,[]]
         ### ___ output : give the distance traveled [global distance done,[distance traveled by vehicle 1,distance traveled by vehicle 2,...]
         self.Problems = []
 
@@ -135,7 +130,7 @@ class MCVRPTW():
         self.hyperparameter_impact4 = hyperparameter_impact4  # [0.3 - 0.6]
 
     # % Plot
-    def display_customers(self) -> None:
+    def display_customers(self)->None:
         """if needed, this function can be useful for showing only the customers"""
         annotation_treshold = 1 / 60 * (max([self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]) - min(
             [self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]))
@@ -149,7 +144,7 @@ class MCVRPTW():
         # plt.axis('equal')
         plt.show()
 
-    def display_some_clients(self, Set: list) -> None:
+    def display_some_clients(self, Set : list)->None:
         """show only the customers you want to see """
         plt.plot(self.loc_x[0], self.loc_y[0], c='r', marker='s')
         for i in Set:
@@ -157,7 +152,7 @@ class MCVRPTW():
             plt.annotate('$q_{%d}=%d$' % (i, self.q[str(i)]), (self.loc_x[i] + 2, self.loc_y[i]))
         plt.axis('equal')
 
-    def display_solution(self) -> None:
+    def display_solution(self)->None:
         "diplay the solution"
         plt.figure(dpi=100)
         annotation_treshold = 1 / 60 * (max([self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]) - min(
@@ -188,7 +183,7 @@ class MCVRPTW():
         plt.axis('equal')
         plt.show()
 
-    def display_current_solution(self, route) -> None:
+    def display_current_solution(self,route)->None:
         "diplay the current solution to help understanding the construction"
         plt.close('all')
         Route = self.Routes + [route]
@@ -221,7 +216,7 @@ class MCVRPTW():
         plt.axis('equal')
         plt.show()
 
-    def display_one_route(self, route) -> None:
+    def display_one_route(self,route)->None:
         "diplay one chosen route to help understanding the construction"
         plt.figure(dpi=100)
         annotation_treshold = 1 / 60 * (max([self.Coordinates[i][1] for i in range(self.number_of_customer + 1)]) - min(
@@ -280,7 +275,7 @@ class MCVRPTW():
         self.Customers_polar_coordinates_set = Customers_polar_coordinates_set
         # [[polar coordinates,index of customer],...]
 
-    def theta(self, x: float, y: float) -> float:
+    def theta(self, x:float, y:float)->float:
         """compute the angle component of the polar coordinates
         (x,y) is the cartesian coordinate
         """
@@ -309,7 +304,7 @@ class MCVRPTW():
             mean_y += sum(self.customer_demands[i]) * self.Coordinates[i][1]
         return (mean_x / sum_customers_demands, mean_y / sum_customers_demands)
 
-    def depot_as_barycenter(self) -> None:
+    def depot_as_barycenter(self)->None:
         """change the coordinate of the depot to those of the barycenter"""
         self.Coordinates[0] = self.Barycenter
 
@@ -324,7 +319,7 @@ class MCVRPTW():
             Distance.append(distance)
         return Distance
 
-    def next_seed_customer(self) -> list:
+    def next_seed_customer(self)->list:
         """
         compute the next customer which has to be picked according to the current "seed" customer
         the next customer to be chosed is the one which has the biggest radius and which angle is not closer
@@ -333,7 +328,7 @@ class MCVRPTW():
         """
         Next_customers = []
         for customer in self.Customers_polar_coordinates_set:
-            # for all customers, we check if it is too close to the "seed" customer
+            #for all customers, we check if it is too close to the "seed" customer
             if self.current_angle_for_route + self.hyperparameter_angle_window > np.pi:
                 if customer[0][1] >= (self.current_angle_for_route + self.hyperparameter_angle_window - 2 * np.pi) or \
                         customer[0][1] <= (self.current_angle_for_route - self.hyperparameter_angle_window):
@@ -347,12 +342,12 @@ class MCVRPTW():
                     1] <= (self.current_angle_for_route - self.hyperparameter_angle_window):
                     Next_customers.append(customer)
         if Next_customers == []:
-            # then the angle constraints does not make sens anymore
+            #then the angle constraints does not make sens anymore
             return max(self.Customers_polar_coordinates_set)
         return max(Next_customers)
-        # [polar coordinates,index of customer]
+        #[polar coordinates,index of customer]
 
-    def get_arrival_time_from_previous_customer(self, previous_customer: Customer, current_customer: Customer) -> float:
+    def get_arrival_time_from_previous_customer(self,previous_customer : Customer, current_customer : Customer)->float:
         """
         simplify the text in making it shorter. It computes the arrival time of a selected customer according to the last one
         :param previous_customer: the index of the customer which is the last one before the current customer
@@ -360,9 +355,9 @@ class MCVRPTW():
         :return: Acurrent_customer
         """
         return max(self.Earliest_service_time[current_customer],
-                   self.Arrival_time[previous_customer] + self.Service_time[previous_customer] +
-                   self.Distance_between_customers[previous_customer][current_customer % (self.number_of_customer + 1)]
-                   / self.Vehicle_parameters['speed'])
+                                 self.Arrival_time[previous_customer] + self.Service_time[previous_customer] +
+                                 self.Distance_between_customers[previous_customer][current_customer % (self.number_of_customer + 1)]
+                / self.Vehicle_parameters['speed'])
 
     def update_Feasible_insertion_places(self, u: Customer, route: list) -> None:
         """
@@ -381,32 +376,31 @@ class MCVRPTW():
         self.Feasible_insertion_places = []
         self.arrival_time_has_to_be_update = []
         for index in range(len(route) - 1):
-            Arrival_time_u = self.get_arrival_time_from_previous_customer(previous_customer=route[index],
-                                                                          current_customer=u)
+            Arrival_time_u = self.get_arrival_time_from_previous_customer(previous_customer=route[index],current_customer=u)
             # Au = max(Eu,Ai + Si + Diu/v)
             if Arrival_time_u <= self.Latest_service_time[u]:
-                # Au <= Lu => there is time for delivering customer u after customer i (here we work with index so customer i is route[index])
+            # Au <= Lu => there is time for delivering customer u after customer i (here we work with index so customer i is route[index])
                 if self.check_products_constraints(u, route):
-                    # the capacity has to be check next
+                # the capacity has to be check next
                     if self.Capacity_related_to_Routes[-1][1] + self.Distance_between_customers[route[index]][u] + \
                             self.Distance_between_customers[route[index + 1] % (self.number_of_customer + 1)][u] - \
                             self.Distance_between_customers[route[index]][
                                 route[index + 1] % (self.number_of_customer + 1)] <= self.Vehicle_parameters[
                         'lenght_capacity']:
-                        # the distance constraint has to be check also
-                        # total distance traveled by the vehicle + Diu + Du(i+1) - Di(i+1) <= max capacity
+                    # the distance constraint has to be check also
+                    # total distance traveled by the vehicle + Diu + Du(i+1) - Di(i+1) <= max capacity
                         # test if it will disturb the next customer already assigned to the route
                         i1 = route[index]
                         i2 = route[index + 1]
                         ti1 = self.Arrival_time[i1]
-                        tu = max(self.Earliest_service_time[u], ti1 + self.Service_time[i1] +
-                                 self.Distance_between_customers[u][i1]
-                                 / self.Vehicle_parameters['speed'])
-                        ti2_u = max(self.Earliest_service_time[i2], tu + self.Service_time[u] +
-                                    self.Distance_between_customers[u][
-                                        i2 % (self.number_of_customer + 1)]
-                                    / self.Vehicle_parameters['speed'])
-                        ti2 = max(self.Earliest_service_time[i2], ti1 + self.Service_time[i1] +
+                        tu = max(self.Earliest_service_time[u],ti1 + self.Service_time[i1] +
+                                  self.Distance_between_customers[u][i1]
+                                  / self.Vehicle_parameters['speed'])
+                        ti2_u = max(self.Earliest_service_time[i2],tu + self.Service_time[u] +
+                                  self.Distance_between_customers[u][
+                                      i2 % (self.number_of_customer + 1)]
+                                  / self.Vehicle_parameters['speed'])
+                        ti2 = max(self.Earliest_service_time[i2],ti1 + self.Service_time[i1] +
                                   self.Distance_between_customers[i1][
                                       i2 % (self.number_of_customer + 1)]
                                   / self.Vehicle_parameters['speed'])
@@ -429,6 +423,9 @@ class MCVRPTW():
                             # at the end of the route, len(route) - index - 2 = 0, so all customers can be accepted
                             self.Feasible_insertion_places.append(index)
 
+
+
+
     # % Metric functions
     def metric1_distance_increase(self, u: Customer, i: Customer, j: Customer) -> float:
         """return the distance increase by adding customer u between customer i and customer j"""
@@ -438,17 +435,15 @@ class MCVRPTW():
     def metric2_time_delay(self, u: Customer, i: Customer, j: Customer) -> float:
         """return the time increase regarding customer j by adding customer u between customers i and j. This time delay, expresses the marginal time feasibility of customer u"""
         # return (Au + Su + Duj/v) - (Ai + Si + Dij/v)
-        return self.get_arrival_time_from_previous_customer(i, u) + self.Service_time[u] + (
-                    self.Distance_between_customers[u][j] -
-                    self.Distance_between_customers[i][j]) / self.Vehicle_parameters['speed'] - \
+        return self.get_arrival_time_from_previous_customer(i,u) + self.Service_time[u] + (self.Distance_between_customers[u][j] -
+                                       self.Distance_between_customers[i][j]) / self.Vehicle_parameters['speed'] - \
             self.Arrival_time[i] - self.Service_time[i]
 
     def metric3_time_gap(self, u: Customer, i: Customer, j: Customer) -> float:
         """Return the time margin (by adding customer u between customers i and j) between the arrival of the vehicle at customer j and its upper bound of service time (it can be negative, which means it is too late). This measure expresses the compatibility of the time window of the selected customer with respect to a particular insertion position of the current route."""
         # return Lu - (Ai + Si + Diu/v)
         return self.Latest_service_time[u] - (self.Arrival_time[i] +
-                                              self.Service_time[i] + self.Distance_between_customers[i][u] /
-                                              self.Vehicle_parameters['speed'])
+            self.Service_time[i] + self.Distance_between_customers[i][u] / self.Vehicle_parameters['speed'])
 
     # % Impact functions
     def Impact1_time_window_coverage(self, u: Customer, i: Customer) -> float:
@@ -511,7 +506,7 @@ class MCVRPTW():
                 counter += 1
         return counter
 
-    def compute_done_distance(self) -> None:
+    def compute_done_distance(self)->None:
         """compute the distance which has been done by all vehicles and pro vehicles
         [total distance,[distance vehicle 1,distance vehicle 1,....]]
         """
@@ -522,7 +517,7 @@ class MCVRPTW():
                 range(len(route) - 1)))
         self.Distance_done[0] = sum([i for i in self.Distance_done[1]])
 
-    def update_Capacity_related_to_Routes(self, i: Index, u: Customer, route: list) -> None:
+    def update_Capacity_related_to_Routes(self, i: Index, u: Customer, route: list)->None:
         """update the capacity needed to deliver the current customers part of the current route"""
         for product in range(self.number_of_products):
             self.Capacity_related_to_Routes[-1][0][product] += self.customer_demands[u][product]
@@ -545,12 +540,9 @@ class MCVRPTW():
         self.Arrival_time_with_same_order_than_Routes = []
         for i in range(len(self.Routes)):
             self.Arrival_time_with_same_order_than_Routes.append([self.Arrival_time[i] for i in self.Routes[i]])
-            self.Arrival_time_with_same_order_than_Routes[-1][-1] = self.Arrival_time_with_same_order_than_Routes[-1][
-                                                                        -2] + \
-                                                                    self.Service_time[self.Routes[i][-2]] + \
-                                                                    self.Distance_between_customers[self.Routes[i][-2]][
-                                                                        self.Routes[i][0]] / self.Vehicle_parameters[
-                                                                        'speed']
+            self.Arrival_time_with_same_order_than_Routes[-1][-1] = self.Arrival_time_with_same_order_than_Routes[-1][-2] + \
+                    self.Service_time[self.Routes[i][-2]] + \
+                    self.Distance_between_customers[self.Routes[i][-2]][self.Routes[i][0]] / self.Vehicle_parameters['speed']
 
     def update_arrival_time(self, i_best: Index, route: list) -> None:
         """shift the arrival time of all customer after customer u_best"""
@@ -577,10 +569,10 @@ class MCVRPTW():
             for customer in route[1:-1]:
                 if self.Arrival_time[customer] < self.Earliest_service_time[customer] or self.Arrival_time[customer] > \
                         self.Latest_service_time[customer]:
-                    print('error timing', customer)
-                    self.Problems.append(['error timing', customer, route])
+                    print('error timing',customer)
+                    self.Problems.append(['error timing',customer,route])
                     print(self.Earliest_service_time[customer], self.Arrival_time[customer],
-                          self.Latest_service_time[customer], route, self.Routes.index(route))
+                          self.Latest_service_time[customer],route,self.Routes.index(route))
                 for product in range(self.number_of_products):
                     capacity[product] += self.customer_demands[customer][product]
         for product in range(self.number_of_products):
@@ -591,19 +583,19 @@ class MCVRPTW():
             print('the number of routed customers does not match with the number of customer')
             self.Problems.append('the number of routed customers does not match with the number of customer')
         for customer in [i for i in range(1, self.number_of_customer + 1) if
-                         sum(self.customer_demands[i]) > 0]:
+                                           sum(self.customer_demands[i]) > 0]:
             sumation = 0
             for route in self.Routes:
                 if customer in route:
-                    sumation += 1
-            if sumation != 1:
-                print('there is a problem with customer %f' % customer)
-                self.Problems.append('there is a problem with customer %f' % customer)
+                    sumation+=1
+            if sumation!=1:
+                print('there is a problem with customer %f'%customer)
+                self.Problems.append('there is a problem with customer %f'%customer)
 
-    def change_last_by_0(self) -> None:
+    def change_last_by_0(self)->None:
         """to make it easier to understand, the last index of each route is replaced by 0"""
         for r in range(len(self.Routes)):
-            self.Routes[r][-1] = self.Routes[r][-1] % (self.number_of_customer + 1)
+            self.Routes[r][-1]=self.Routes[r][-1]%(self.number_of_customer+1)
 
     def heuristic(self):
         """
@@ -630,7 +622,7 @@ class MCVRPTW():
         # compute self.customers_polar_coordinates_set
         return_to_step1_with_new_route = 1
         index_for_seed_customer_choice = 0
-        seed_customer = [[0, 0], 0]
+        seed_customer = [[0,0],0]
         while self.J_non_routed_customers_set != []:  # while not all customers are served :
             ### step 1 : Select a‘seed’customer to start a router
             if return_to_step1_with_new_route == 1:
@@ -656,15 +648,12 @@ class MCVRPTW():
                 self.J_non_routed_customers_set.remove(seed_customer[1])
                 # the picked 'seed' customer is not anymore non-routed
                 self.Arrival_time[seed_customer[1]] = max(self.Earliest_service_time[seed_customer[1]],
-                                                          self.Arrival_time[0] + self.Distance_between_customers[0][
-                                                              route[1]] / self.Vehicle_parameters['speed'])
+                                                          self.Arrival_time[0]+self.Distance_between_customers[0][route[1]]/self.Vehicle_parameters['speed'])
                 # for this 'seed' customer, the best is when there it starts at its lower bound of service time to let as much as possible time for other customers
                 if self.Arrival_time[seed_customer[1]] > self.Latest_service_time[seed_customer[1]]:
-                    print('the vehicle is too slow to deliver customer %f' % int(seed_customer[1]))
-                if 2 * self.Distance_between_customers[0][seed_customer[1]] > self.Vehicle_parameters[
-                    'lenght_capacity']:
-                    print('the distance capacity of the vehicle does not allow to reach the customer %f' % int(
-                        seed_customer[1]))
+                    print('the vehicle is too slow to deliver customer %f'% int(seed_customer[1]))
+                if 2*self.Distance_between_customers[0][seed_customer[1]]>self.Vehicle_parameters['lenght_capacity']:
+                    print('the distance capacity of the vehicle does not allow to reach the customer %f'% int(seed_customer[1]))
                 # we have to check if it feasible to reach the "seed" customer regarding the time windows. If not, either the speed is too low or the customer is too far
             Impact_table = []
             # creation of an Impact table to save all value in order to be able to choose the minimal one
@@ -703,8 +692,7 @@ class MCVRPTW():
                     # computation of the Impact with at the end the index of insertion and u
             if min(Impact_table)[0] != 10 ** 5:
                 u_best_customer = Impact_table[Impact_table.index(min(Impact_table))][2]
-                i_best_index = Impact_table[Impact_table.index(min(Impact_table))][
-                    1]  # insertion between i and i+1 element
+                i_best_index = Impact_table[Impact_table.index(min(Impact_table))][1]  # insertion between i and i+1 element
                 ### step 3 : Insert the selected customer u to the insertion location with minimum local disturbance LDu of the current route r. Update the route and set u as a routed customer and remove u from set J
                 self.J_non_routed_customers_set.remove(u_best_customer)
                 self.update_Capacity_related_to_Routes(i_best_index, u_best_customer, route)
@@ -744,25 +732,25 @@ class MCVRPTW():
         self.number_of_vehicle = len(self.Routes)
         # while loop is over, it means it is the end
 
+
+
     def all_run(self):
         self.heuristic()
         self.compute_done_distance()
         self.change_last_by_0()
-        print('Number of Vehicles:', self.number_of_vehicle)
-        print('Routes:', self.Routes)
-        print('Delivery time for each customers in the same order than the route:',
-              self.Arrival_time_with_same_order_than_Routes)
-        print('Products Capacity needed by each vehicle:',
-              [self.Capacity_related_to_Routes[i][0] for i in range(self.number_of_vehicle)])
-        print('Traveled Distance by each vehicle:',
-              [self.Capacity_related_to_Routes[i][1] for i in range(self.number_of_vehicle)])
-        print('Traveled Distance:', self.Distance_done[0])
+        print('Number of Vehicles:',self.number_of_vehicle)
+        print('Routes:',self.Routes)
+        print('Delivery time for each customers in the same order than the route:',self.Arrival_time_with_same_order_than_Routes)
+        print('Products Capacity needed by each vehicle:',[self.Capacity_related_to_Routes[i][0] for i in range(self.number_of_vehicle)])
+        print('Traveled Distance by each vehicle:',[self.Capacity_related_to_Routes[i][1] for i in range(self.number_of_vehicle)])
+        print('Traveled Distance:',self.Distance_done[0])
 
 
-n = 50
-p = 5
+
+n = 10
+p = 3
 Coordinates = {i: (rnd.randint(-10, 10), rnd.randint(-10, 10)) for i in range(n + 1)}
-Customer_demands = {i: [int(rnd.random() + 0.75) * rnd.randint(0, 10) for product in range(p)] for i in range(1, n + 1)}
+Customer_demands = {i: [int(rnd.random()+0.75) * rnd.randint(0, 10) for product in range(p)] for i in range(1, n + 1)}
 Customer_demands[0] = 0
 Vehicle_parameters = {'lenght_capacity': 100, 'speed': 100,
                       'product_capacity': {product: 50 for product in range(p)}}
@@ -771,10 +759,11 @@ Latest_service_time = [7] + [Earliest_service_time[i + 1] + rnd.randint(1, 4) fo
 Service_time = {i: rnd.randint(0, 10) / 60 for i in range(1, n + 1)}
 Service_time[0] = 0
 VRP = MCVRPTW(Coordinates=Coordinates, Customer_demands=Customer_demands, Vehicle_parameters=Vehicle_parameters,
-              Earliest_service_time=Earliest_service_time, Latest_service_time=Latest_service_time,
-              Service_time=Service_time)
+               Earliest_service_time=Earliest_service_time, Latest_service_time=Latest_service_time,
+               Service_time=Service_time)
 VRP.all_run()
 VRP.display_solution()
 print(VRP.Routes)
 print(VRP.Arrival_time_with_same_order_than_Routes)
 # #
+

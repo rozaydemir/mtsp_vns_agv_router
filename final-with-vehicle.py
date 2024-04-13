@@ -606,14 +606,14 @@ class Route:
             prevNode = self.locations[i - 1]
             curNode = self.locations[i]
             dist = self.problem.distMatrix[prevNode.nodeID][curNode.nodeID]
-            curTime = max(curNode.startTW, curTime + prevNode.servTime + dist)
+            # curTime = max(curNode.startTW, curTime + prevNode.servTime + dist)
             ETPenalty = 0
-            if curNode.typeLoc == "delivery":
-                if curTime <= curNode.startTW:
-                    ETPenalty += (curNode.startTW - curTime) * self.problem.alpha
-
-                if curTime >= curNode.endTW:
-                    ETPenalty += (curTime - curNode.endTW) * self.problem.beta
+            # if curNode.typeLoc == "delivery":
+            #     if curTime <= curNode.startTW:
+            #         ETPenalty += (curNode.startTW - curTime) * self.problem.alpha
+            #
+            #     if curTime >= curNode.endTW:
+            #         ETPenalty += (curTime - curNode.endTW) * self.problem.beta
             totDist += dist + ETPenalty
         return totDist
 
@@ -696,8 +696,8 @@ class Route:
 
             # check if time window is respected
             # TODO : early time late tiems burada yapılacak
-            # if curTime > curNode.endTW:
-            #     return False
+            if curTime > curNode.endTW:
+                return False
             # check if capacity not exceeded
             # TODO : araca ait trolley capacity  çok iseye çevrilecek
             curLoad += curNode.demand
@@ -1789,7 +1789,7 @@ class ALNS:
 #   "Instances/lrc11-demand-increase.txt"
 
 
-data = "Instances/lrc9-location-increase.txt" # datayı yükle
+data = "Instances/lrc11.txt" # datayı yükle
 vehicleCount = 1
 problem = PDPTW.readInstance(data, vehicleCount)
 

@@ -3,107 +3,6 @@ import math
 
 solver = pywraplp.Solver.CreateSolver('SCIP')
 
-# K = [1, 2]  # Araçlar
-# P_all = [1, 2]  # Toplam alım düğümleri
-# D_all = [3, 4]  # Toplam teslimat düğümleri
-# P = {1: [1, 2], 2: [1, 2]}  # Araç başına alım düğümleri
-# D = {1: [3, 4], 2: [3, 4]}  # Araç başına teslimat düğümleri
-# N = {1: [1, 2, 3, 4], 2: [1, 2, 3, 4]}  # service points for each vehicle
-
-# l = {1: 5, 2: 10, 3: 5, 4: 10, 5: 12} # order load
-
-# # Her araç için başlangıç ve bitiş düğümleri
-# o = {1: 0, 2: 0}
-# d = {1: 5, 2: 5}
-
-# A = { 1 : [ (0, 1), (0, 2), (0, 3), (0, 4), (0,5),
-#      (1, 2), (1, 3), (1, 4), (1, 5),
-#      (2, 1), (2, 3), (2, 4), (2 ,5),
-#      (3, 1), (3, 2), (3, 4), (3, 5),
-#      (4, 1), (4, 2), (4, 3), (4, 5) ],
-#      2 : [ (0, 1), (0, 2), (0, 3), (0, 4), (0,5),
-#      (1, 2), (1, 3), (1, 4), (1, 5),
-#      (2, 1), (2, 3), (2, 4), (2 ,5),
-#      (3, 1), (3, 2), (3, 4), (3, 5),
-#      (4, 1), (4, 2), (4, 3), (4, 5) ]
-#     }
-
-# t = {
-#      (0, 1, 1): 5, (0, 2, 1): 10, (0, 3, 1): 15, (0, 4, 1): 20, (0, 5, 1): 51,
-#      (1, 2, 1): 7, (1, 3, 1): 11, (1, 4, 1): 16, (1, 5, 1): 21,
-#      (2, 1, 1): 7, (2, 3, 1): 12,  (2, 4, 1): 18, (2, 5, 1) : 22,
-#      (3, 1, 1): 11, (3, 2, 1): 12,  (3, 4, 1): 7,  (3 ,5, 1) : 14,
-#      (4, 1, 1): 16, (4, 2, 1): 18, (4, 3, 1): 7,  (4 ,5, 1) : 51,
-#      (0, 1, 2): 5,  (0, 2, 2): 10, (0, 3, 2): 15, (0, 4, 2): 20, (0, 5, 2): 51,
-#      (1, 2, 2): 7,  (1, 3, 2): 11, (1, 4, 2): 16, (1, 5, 2): 21,
-#      (2, 1, 2): 7,  (2, 3, 2): 12, (2, 4, 2): 18, (2, 5, 2): 22,
-#      (3, 1, 2): 11, (3, 2, 2): 12, (3, 4, 2): 7,  (3, 5, 2): 14,
-#      (4, 1, 2): 16, (4, 2, 2): 18, (4, 3, 2): 7,  (4, 5, 2): 51,
-#     }  # travel time
-# c = {(0, 1, 1): 15, (0, 2, 1): 25, (0, 3, 1): 35, (0, 4, 1): 45, (0, 5, 1): 0,
-#      (1, 2, 1): 10, (1, 3, 1): 15, (1, 4, 1): 25, (1, 5, 1): 35,
-#      (2, 1, 1): 10, (2, 3, 1): 5,  (2, 4, 1): 15, (2, 5, 1) : 25,
-#      (3, 1, 1): 15, (3, 2, 1): 5,  (3, 4, 1): 5,  (3 ,5, 1) : 15,
-#      (4, 1, 1): 25, (4, 2, 1): 15, (4, 3, 1): 5,  (4 ,5, 1) : 10,
-#      (0, 1, 2): 15, (0, 2, 2): 25, (0, 3, 2): 35, (0, 4, 2): 45, (0, 5, 2): 0,
-#      (1, 2, 2): 10, (1, 3, 2): 15, (1, 4, 2): 25, (1, 5, 2): 35,
-#      (2, 1, 2): 10, (2, 3, 2): 5,  (2, 4, 2): 15, (2, 5, 2): 25,
-#      (3, 1, 2): 15, (3, 2, 2): 5,  (3, 4, 2): 5,  (3, 5, 2): 15,
-#      (4, 1, 2): 25, (4, 2, 2): 15, (4, 3, 2): 5,  (4, 5, 2): 10,
-# }  # unit cost
-
-# a = {0: 0, 1: 1, 2: 1, 3: 5, 4: 5, 5 : 0}  #  early start times
-# b = {0: 1, 1: 1, 2: 10, 3: 20, 4: 20, 5: 10}  # late start times
-# s = {0: 4,1: 2, 2: 2, 3: 2, 4: 2, 5: 3}  # service time of nodes
-
-# alpha = 1 # Cost of penalty for early delivery
-# beta = 10 # Penalty for one unit of tardiness
-
-# # Kapasite ve servis süreleri
-# C = 100 # Capacity of a trolley
-# Mmax= 3 # Maximum Trolley Addition Capacity
-# TIR = 0.2 # Trolley Impact Rate (TIR): The rate at which the addition of trolleys impacts operations
-# M = 10000  # Big M
-
-
-# TEK AGV'Lİ DATASET
-# K = [1]  # vehicles
-# P_all = [1, 2]  # total pickup nodes +
-# D_all = [3, 4]  # total delivery nodes +
-# P = {1: [1, 2]}  # pickup nodes per vehicle +
-# D = {1: [3, 4]}  # delivery nodes +
-# N = {1: [1, 2, 3, 4]}  # service points for each vehicle +
-#
-# l = {1: 5, 2: 10, 3: 5, 4: 10, 5: 0}  # order load + demand
-#
-# o = {1: 0}  # depot node +
-# d = {1: 5}  # destination node +
-#
-# A = {1: [
-#     (0, 1), (0, 2), (0, 3), (0, 4), (0, 5),
-#     (1, 2), (1, 3), (1, 4), (1, 5),
-#     (2, 1), (2, 3), (2, 4), (2, 5),
-#     (3, 1), (3, 2), (3, 4), (3, 5),
-#     (4, 1), (4, 2), (4, 3), (4, 5)
-# ]
-# } # +
-#
-#
-# # velocity = 1 , dist = time
-# t = {
-#     (0, 1, 1): 15, (0, 2, 1): 24, (0, 3, 1): 16, (0, 4, 1): 31, (0, 5, 1): 0,
-#     (1, 2, 1): 30, (1, 3, 1): 29, (1, 4, 1): 46, (1, 5, 1): 15,
-#     (2, 1, 1): 30, (2, 3, 1): 15, (2, 4, 1): 40, (2, 5, 1): 24,
-#     (3, 1, 1): 29, (3, 2, 1): 15, (3, 4, 1): 25, (3, 5, 1): 16,
-#     (4, 1, 1): 46, (4, 2, 1): 40, (4, 3, 1): 25, (4, 5, 1): 31,
-# }  # travel time + öklid
-#
-#
-# a = {0: 0, 1: 36, 2: 0, 3: 0, 4: 0, 5: 0}  # early start times +
-# b = {0: 230, 1: 46, 2: 191, 3: 199, 4: 190, 5: 230}  # late start times +
-# s = {0: 4, 1: 2, 2: 2, 3: 2, 4: 2, 5: 4}  # service time of nodes +
-
-
 K = []  # vehicles
 P_all = []  # total pickup nodes +
 D_all = []  # total delivery nodes +
@@ -118,9 +17,9 @@ A = {}
 # velocity = 1 , dist = time
 t = {}  # travel time + öklid
 
-a = {}  # early start times +
-b = {}  # late start times +
-s = {}  # service time of nodes +
+a = {}  # early start times
+b = {}  # late start times
+s = {}  # service time of nodes
 
 class Location:
     def __init__(self, xLoc, yLoc, typeLoc, nodeID):
@@ -164,7 +63,7 @@ def read_data(fileName, vehicleCount):
 
     for line in f.readlines()[1:-6]:
         asList = []
-        n = 13  # satırların sondan 13 karakteri booş o yüzden
+        n = 13  # satırların sondan 13 karakteri boş o yüzden
         for index in range(0, len(line), n):
             asList.append(line[index: index + n].strip())
 
@@ -246,12 +145,12 @@ def read_data(fileName, vehicleCount):
 #   "Instances/lrc11.txt"
 #   "Instances/lrc11-demand-increase.txt"
 
-data = "Instances/lrc9-location-increase.txt" # datayı yükle
-read_data(data, 1)
+data = "Instances/lrc11.txt" # datayı yükle
+read_data(data, 2)
 
 
-alpha = 1  # Cost of penalty for early delivery
-beta = 10  # Penalty for one unit of tardiness
+alpha = 15  # Cost of penalty for early delivery
+beta = 90  # Penalty for one unit of tardiness
 
 C = 200  # Capacity of a trolley
 Mmax = 3  # Maximum Trolley Addition Capacity
@@ -272,18 +171,19 @@ for k in K:
     for i in range(max(max(A[k])) + 1):  # A listesindeki en büyük düğüm numarasına göre döngü
         T[(i, k)] = solver.NumVar(0, solver.infinity(), f'T[{i},{k}]')
         L[(i, k)] = solver.NumVar(0, solver.infinity(), f'L[{i},{k}]')
-# for i in D_all:
-#     E[i] = solver.NumVar(0, solver.infinity(), f'E[{i}]')
-#     TA[i] = solver.NumVar(0, solver.infinity(), f'TA[{i}]')
+for i in D_all:
+    E[i] = solver.NumVar(0, solver.infinity(), f'E[{i}]')
+    TA[i] = solver.NumVar(0, solver.infinity(), f'TA[{i}]')
+
 
 # Objective Function
 objective = solver.Objective()
 for k in K:
     for i, j in A[k]:
         objective.SetCoefficient(x[(i, j, k)], t.get((i, j, k), 0))
-# for i in D_all:
-#     objective.SetCoefficient(E[i], alpha)
-#     objective.SetCoefficient(TA[i], beta)
+for i in D_all:
+    objective.SetCoefficient(E[i], alpha)
+    objective.SetCoefficient(TA[i], beta)
 objective.SetMinimization()
 
 # Constaint 22. The travel time for AGV k from point i to point j (t_ijk) increases by the Trolley Impact Rate (TIR) for each added trolley.
@@ -323,10 +223,10 @@ for k in K:
     solver.Add(solver.Sum(x[(i, d[k], k)] for i in D[k] + [o[k]]) == 1)
 
 # constaint 7 & 9 earlines tardiness
-for k in K:
-    for i in D[k]:
-        solver.Add(T[(i, k)] >= a[i] )
-        solver.Add(b[i] >= T[(i, k)])
+# for k in K:
+#     for i in D[k]:
+#         solver.Add(E[i] >= a[i] - T[(i, k)])
+#         solver.Add(TA[i] >= T[(i, k)] - b[i])
 
     # Constrainst 11 Time windows
 for k in K:
