@@ -406,7 +406,7 @@ class Destroy:
             # terminate if no more requests are served
             if len(self.solution.served) == 0:
                 break
-            # pick a random request and remove it from the solutoin
+            # pick a random request and remove it from the solution
             req = randomGen.choice(self.solution.served)
             if req != None:
                 self.solution.removeRequest(req)
@@ -961,23 +961,6 @@ class Repair:
                     if afterInsertion == None:
                         continue
 
-                    curTime = 0
-                    ETPenalty = 0
-                    # for i in range(1, len(afterInsertion.locations)):
-                    #     prevNode = afterInsertion.locations[i - 1]
-                    #     curNode = afterInsertion.locations[i]
-                    #     dist = self.problem.distMatrix[prevNode.nodeID][curNode.nodeID]
-                    #     curTime = max(curNode.startTW, curTime + prevNode.servTime + dist)
-                    #
-                    #     if curNode.typeLoc == "delivery":
-                    #         if curTime <= curNode.startTW:
-                    #             ETPenalty += (curNode.startTW - curTime) * 15
-                    #
-                    #         if curTime >= curNode.endTW:
-                    #             ETPenalty += (curTime - curNode.endTW) * 90
-
-                    cost += ETPenalty
-
                     if cost < minCost:
                         inserted = True
                         removedRoute = route
@@ -1499,16 +1482,6 @@ class ALNS:
         self.register_objective_value_over_time = False
         self.list_objective_values = []
         self.list_objective_values_demand = []
-
-    def printWeight(self):
-        print('wDestroy', end=' ')
-        for w in self.wDestroy:
-            print(w, end=' ')
-        print('wRepair', end=' ')
-        for w in self.wRepair:
-            print(w, end=' ')
-        print(f'\n\n Destroy score')
-        print(self.destroyScore)
     def constructInitialSolution(self):
         """
         Method that constructs an initial solution using random insertion
@@ -1766,7 +1739,7 @@ class ALNS:
         elif destroyHeuristicNr == 7:
             destroySolution.executeWorstNeighborhoodRemoval(sizeNBH)
 
-            # Perform the repair
+        # Perform the repair
         repairSolution = Repair(self.problem, self.tempSolution)
         if repairHeuristicNr == 0:
             repairSolution.executeGreedyInsertion()
@@ -1789,7 +1762,7 @@ class ALNS:
 #   "Instances/lrc11-demand-increase.txt"
 
 
-data = "Instances/lrc9-location-increase.txt" # datayı yükle
+data = "Instances/lrc5.txt" # datayı yükle
 vehicleCount = 1
 problem = PDPTW.readInstance(data, vehicleCount)
 
@@ -1807,28 +1780,4 @@ noise = 0.015  #gürültü ekleme, çözüm uzayında daha çeşitli noktaları 
 alns = ALNS(problem, nDestroyOps, nRepairOps, nIterations, minSizeNBH, maxPercentageNHB, decayParameter, noise)
 
 alns.execute()
-
-
-# Objective value = 155.00000000000088
-# Road (0, 2) vehiche 1 used. And Cost : 24
-# Road (2, 4) vehiche 1 used. And Cost : 40
-# Road (4, 5) vehiche 1 used. And Cost : 31
-# Road (0, 1) vehiche 2 used. And Cost : 15
-# Road (1, 3) vehiche 2 used. And Cost : 29
-# Road (3, 5) vehiche 2 used. And Cost : 16
-
-# total distance 640.0 Solution with 1 routes and 0 unserved requests:
-# Route ( D0, 0, 0, depot, 0 )
-# ( C1, 5, 15.0, pickup, 5 )
-# ( C3, -5, 46.0, delivery, -5 )
-# ( C2, 10, 63.0, pickup, 10 )
-# ( C4, -10, 105.0, delivery, -10 )
-# ( D0, 0, 0, depot, 0 )  dist=640.0, demand=15
-#
-# Objective value = 326.0
-# Road (0, 1) vehiche 1 used. And Cost : 15
-# Road (1, 2) vehiche 1 used. And Cost : 30
-# Road (2, 3) vehiche 1 used. And Cost : 15
-# Road (3, 4) vehiche 1 used. And Cost : 25
-# Road (4, 5) vehiche 1 used. And Cost : 31
 
