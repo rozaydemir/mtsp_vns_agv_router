@@ -1,5 +1,6 @@
 from ortools.linear_solver import pywraplp
 import math
+import random, time
 
 solver = pywraplp.Solver.CreateSolver('SCIP')
 
@@ -136,17 +137,26 @@ def read_data(fileName, vehicleCount):
 #   "Instances/lrc5.txt"
 #   "Instances/lrc5-demand-increase.txt"
 #   "Instances/lrc5-location-increase.txt"
+#   "Instances/lrc5-location-repeatly.txt"
+#   "Instances/lrc5-servTime-increase.txt"
+#   "Instances/lrc5-time-window-descrease.txt"
 #   "Instances/lrc7.txt"
 #   "Instances/lrc7-demand-increase.txt"
 #   "Instances/lrc7-location-increase.txt"
+#   "Instances/lrc7-location-repeatly.txt"
+#   "Instances/lrc7-time-window-descrease.txt"
 #   "Instances/lrc9.txt"
 #   "Instances/lrc9-demand-increase.txt"
 #   "Instances/lrc9-location-increase.txt"
+#   "Instances/lrc9-time-window-descrease.txt"
 #   "Instances/lrc11.txt"
-#   "Instances/lrc11-demand-increase.txt"
+#   "Instances/lrc11-location-decrease.txt"
+#   "Instances/lrc11-location-increase.txt"
 
-data = "Instances/lrc11.txt" # datayı yükle
-read_data(data, 2)
+
+data ="Instances/lrc7-time-window-descrease.txt"
+starttime = time.time()  # get the start time
+read_data(data, 1)
 
 
 alpha = 15  # Cost of penalty for early delivery
@@ -164,16 +174,17 @@ E = {}  # earliness of delivery arrived workstation i
 TA = {}  # tardiness of delivery arrived workstation i
 Y = {}  # number of trolley attached to AGV k
 for k in K:
-    # Y[k] = solver.IntVar(1, Mmax, f'Y[{k}]')  # constraint 19 is ensured.
+
     for i, j in A[k]:
         if i != j:
             x[(i, j, k)] = solver.BoolVar(f'x[{i},{j},{k}]')
     for i in range(max(max(A[k])) + 1):  # A listesindeki en büyük düğüm numarasına göre döngü
         T[(i, k)] = solver.NumVar(0, solver.infinity(), f'T[{i},{k}]')
         L[(i, k)] = solver.NumVar(0, solver.infinity(), f'L[{i},{k}]')
-for i in D_all:
-    E[i] = solver.NumVar(0, solver.infinity(), f'E[{i}]')
-    TA[i] = solver.NumVar(0, solver.infinity(), f'TA[{i}]')
+    for i in [o[k]] + D[k] + P[k] + [d[k]]:
+        E[i] = solver.NumVar(0, solver.infinity(), f'E[{i}]')
+        TA[i] = solver.NumVar(0, solver.infinity(), f'TA[{i}]')
+
 
 
 # Objective Function
@@ -181,9 +192,10 @@ objective = solver.Objective()
 for k in K:
     for i, j in A[k]:
         objective.SetCoefficient(x[(i, j, k)], t.get((i, j, k), 0))
-for i in D_all:
-    objective.SetCoefficient(E[i], alpha)
-    objective.SetCoefficient(TA[i], beta)
+    for i in [o[k]] + D[k] + P[k] + [d[k]]:
+        objective.SetCoefficient(E[i], alpha)
+        objective.SetCoefficient(TA[i], beta)
+
 objective.SetMinimization()
 
 # Constaint 22. The travel time for AGV k from point i to point j (t_ijk) increases by the Trolley Impact Rate (TIR) for each added trolley.
@@ -227,6 +239,26 @@ for k in K:
 #     for i in D[k]:
 #         solver.Add(E[i] >= a[i] - T[(i, k)])
 #         solver.Add(TA[i] >= T[(i, k)] - b[i])
+
+# Her düğüm için zaman kısıtlarının tanımlanması
+for k in K:
+    for i in range(max(max(A[k]))):  # Son düğümü dışarda bırakarak döngü
+        if i in D[k] + P[k]:  # Yük alınan veya bırakılan noktalar
+            # currentTime hesaplaması: bir önceki düğümden bu düğüme kadar olan süre
+            if i == 0:
+                currentTime = T[(i, k)]  # Depo noktasından başlangıç
+            else:
+                prev = i - 1  # Bir önceki düğüm
+                currentTime = T[(prev, k)] + s[prev] + t[(prev, i, k)]
+                solver.Add(T[(i, k)] == currentTime)
+
+            # Düğüme erken varma durumunu kontrol etme
+            solver.Add(E[i] >= a[i] - currentTime)
+
+
+            # Düğüme geç varma durumunu kontrol etme
+            solver.Add(TA[i] >= currentTime - b[i])
+
 
     # Constrainst 11 Time windows
 for k in K:
@@ -294,3 +326,7 @@ if status == pywraplp.Solver.OPTIMAL:
                     f'Road {(i, j)} vehiche {k} used. And Cost : {t[(i, j, k)]}')
 else:
     print('No optimal solution was found.')
+endtime = time.time()  # get the end time
+cpuTime = round(endtime - starttime, 3)
+
+print("cpuTime: " + str(cpuTime) + " seconds")

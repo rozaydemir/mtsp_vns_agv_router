@@ -1,0 +1,12 @@
+StringID     Type         x            y            demand       ReadyTime    DueDate      ServiceTime  PartnerID
+D0           d            5.0          5.0          0.0          0.0          230.0        4.0          0
+C1           cp           6.0          6.0          5.0          36.0         46.0         2.0          C3
+C2           cp           7.0          7.0          10.0         0.0          191.0        2.0          C4
+C3           cd           8.0          8.0          -5.0         0.0          199.0        2.0          C1
+C4           cd           9.0          9.0          -10.0        0.0          190.0        2.0          C2
+
+Vehicle battery capacity : 60.63
+Vehicle freight capacity : 200.0
+battery consumption rate : 1.0
+inverse recharging rate : 0.49
+average velocity : 1.0

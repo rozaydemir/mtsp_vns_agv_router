@@ -1475,13 +1475,29 @@ class ALNS:
         self.time_best_objective_found = 0
         self.optimal_iteration_number = 0
         # Presenting results
-        self.register_weights_over_time = False
+        self.register_weights_over_time = True
         self.removal_weights_per_iteration = []
         self.insertion_weights_per_iteration = []
 
-        self.register_objective_value_over_time = False
+        self.register_objective_value_over_time = True
         self.list_objective_values = []
         self.list_objective_values_demand = []
+        self.destroyList = {
+            0: "Random request",
+            1: "Worst-distance",
+            2: "Worst-time",
+            3: "Random-route",
+            4: "Shaw",
+            5: "Promixity-based",
+            6: "Time-based",
+            7: "Demand-based",
+            8: "Worst-neighborhood",
+        }
+        self.repairList = {
+            0: "Greedy Insert",
+            1: "random Insert",
+            2: "Regret Insert"
+        }
     def constructInitialSolution(self):
         """
         Method that constructs an initial solution using random insertion
@@ -1513,7 +1529,7 @@ class ALNS:
             # Simulated annealing
             self.iteration_number = i
             self.checkIfAcceptNewSol()
-            print(f'Iteration number {i}')
+            # print(f'Iteration number {i}')
             # Print solution per iteration
             objective_value = self.tempSolution.distance
             objective_value_demand = self.tempSolution.demand
@@ -1623,6 +1639,7 @@ class ALNS:
 
         self.tempSolution.computeDistanceWithNoise(self.max_arc_length, self.noise, self.randomGen)
 
+
         if self.tempSolution.distance < self.currentSolution.distance:
             if self.tempSolution.distanceType == 0:
                 self.tempSolution.no_noise_succesful += 1
@@ -1642,6 +1659,7 @@ class ALNS:
                     self.real_dist = new_real_dist
                     self.real_demand = new_real_demand
                     print(f'New best global solution found: distance :{self.real_dist}, demand : {self.real_demand}')
+                    print(f'Destroy operator: {self.destroyList[destroyOpNr]}, Repair Operator : {self.repairList[repairOpNr]}')
                     self.time_best_objective_found = time.time()
                     self.optimal_iteration_number = self.iteration_number
             else:
@@ -1751,18 +1769,24 @@ class ALNS:
 #   "Instances/lrc5.txt"
 #   "Instances/lrc5-demand-increase.txt"
 #   "Instances/lrc5-location-increase.txt"
+#   "Instances/lrc5-location-repeatly.txt"
+#   "Instances/lrc5-servTime-increase.txt"
+#   "Instances/lrc5-time-window-descrease.txt"
 #   "Instances/lrc7.txt"
 #   "Instances/lrc7-demand-increase.txt"
 #   "Instances/lrc7-location-increase.txt"
+#   "Instances/lrc7-location-repeatly.txt"
+#   "Instances/lrc7-time-window-descrease.txt"
 #   "Instances/lrc9.txt"
 #   "Instances/lrc9-demand-increase.txt"
 #   "Instances/lrc9-location-increase.txt"
+#   "Instances/lrc9-time-window-descrease.txt"
 #   "Instances/lrc11.txt"
-#   "Instances/lrc11-demand-increase.txt"
-#   "Instances/lrc11-demand-increase.txt"
+#   "Instances/lrc11-location-decrease.txt"
+#   "Instances/lrc11-location-increase.txt"
 
 
-data = "Instances/lrc5.txt" # datayı yükle
+data = "Instances/lrc7-time-window-descrease.txt"
 vehicleCount = 1
 problem = PDPTW.readInstance(data, vehicleCount)
 
@@ -1770,7 +1794,7 @@ problem = PDPTW.readInstance(data, vehicleCount)
 nDestroyOps = 8  #number of destroy operations, çeşitlilik sağlanmak istenirse 9 a çıkar
 nRepairOps = 3  # number of repair operations # çeşitlilik sağlanmak istenirse 3 e çıkar
 minSizeNBH = 1  #Minimum size of neighborhood
-nIterations = 100  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
+nIterations = 1000  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
 
 # Parameters to tune:
 maxPercentageNHB = 5  #Maximum Percentage for Neighborhood
