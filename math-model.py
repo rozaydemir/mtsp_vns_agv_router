@@ -144,6 +144,7 @@ def read_data(fileName, vehicleCount):
 #   "Instances/lrc7-demand-increase.txt"
 #   "Instances/lrc7-location-increase.txt"
 #   "Instances/lrc7-location-repeatly.txt"
+#   "Instances/lrc7-location-penalty.txt"
 #   "Instances/lrc7-time-window-descrease.txt"
 #   "Instances/lrc9.txt"
 #   "Instances/lrc9-demand-increase.txt"
@@ -154,7 +155,7 @@ def read_data(fileName, vehicleCount):
 #   "Instances/lrc11-location-increase.txt"
 
 
-data ="Instances/lrc7-time-window-descrease.txt"
+data = "Instances/lrc11-location-increase.txt"
 starttime = time.time()  # get the start time
 read_data(data, 1)
 
@@ -162,7 +163,7 @@ read_data(data, 1)
 alpha = 15  # Cost of penalty for early delivery
 beta = 90  # Penalty for one unit of tardiness
 
-C = 200  # Capacity of a trolley
+C = 500  # Capacity of a trolley
 Mmax = 3  # Maximum Trolley Addition Capacity
 TIR = 0.2  # Trolley Impact Rate (TIR): The rate at which the addition of trolleys impacts operations
 M = 10000  # Big M
@@ -181,9 +182,9 @@ for k in K:
     for i in range(max(max(A[k])) + 1):  # A listesindeki en büyük düğüm numarasına göre döngü
         T[(i, k)] = solver.NumVar(0, solver.infinity(), f'T[{i},{k}]')
         L[(i, k)] = solver.NumVar(0, solver.infinity(), f'L[{i},{k}]')
-    for i in [o[k]] + D[k] + P[k] + [d[k]]:
-        E[i] = solver.NumVar(0, solver.infinity(), f'E[{i}]')
-        TA[i] = solver.NumVar(0, solver.infinity(), f'TA[{i}]')
+for i in D_all:
+    E[i] = solver.NumVar(0, solver.infinity(), f'E[{i}]')
+    TA[i] = solver.NumVar(0, solver.infinity(), f'TA[{i}]')
 
 
 
@@ -192,9 +193,9 @@ objective = solver.Objective()
 for k in K:
     for i, j in A[k]:
         objective.SetCoefficient(x[(i, j, k)], t.get((i, j, k), 0))
-    for i in [o[k]] + D[k] + P[k] + [d[k]]:
-        objective.SetCoefficient(E[i], alpha)
-        objective.SetCoefficient(TA[i], beta)
+for i in D_all:
+    objective.SetCoefficient(E[i], alpha)
+    objective.SetCoefficient(TA[i], beta)
 
 objective.SetMinimization()
 
@@ -235,32 +236,13 @@ for k in K:
     solver.Add(solver.Sum(x[(i, d[k], k)] for i in D[k] + [o[k]]) == 1)
 
 # constaint 7 & 9 earlines tardiness
-# for k in K:
-#     for i in D[k]:
-#         solver.Add(E[i] >= a[i] - T[(i, k)])
-#         solver.Add(TA[i] >= T[(i, k)] - b[i])
-
-# Her düğüm için zaman kısıtlarının tanımlanması
 for k in K:
-    for i in range(max(max(A[k]))):  # Son düğümü dışarda bırakarak döngü
-        if i in D[k] + P[k]:  # Yük alınan veya bırakılan noktalar
-            # currentTime hesaplaması: bir önceki düğümden bu düğüme kadar olan süre
-            if i == 0:
-                currentTime = T[(i, k)]  # Depo noktasından başlangıç
-            else:
-                prev = i - 1  # Bir önceki düğüm
-                currentTime = T[(prev, k)] + s[prev] + t[(prev, i, k)]
-                solver.Add(T[(i, k)] == currentTime)
-
-            # Düğüme erken varma durumunu kontrol etme
-            solver.Add(E[i] >= a[i] - currentTime)
+    for i in D[k]:
+        solver.Add(E[i] >= a[i] - T[(i, k)])
+        solver.Add(TA[i] >= T[(i, k)] - b[i])
 
 
-            # Düğüme geç varma durumunu kontrol etme
-            solver.Add(TA[i] >= currentTime - b[i])
-
-
-    # Constrainst 11 Time windows
+# Constrainst 11 Time windows
 for k in K:
     for i, j in A[k]:
         if (i, j, k) in x:
@@ -314,6 +296,7 @@ for k in K:
 #     solver.Add(Y[k] >= 1)
 
 # Çözümü hesapla ve sonuçları yazdır
+# callback = MiddleSolution()
 status = solver.Solve()
 
 if status == pywraplp.Solver.OPTIMAL:

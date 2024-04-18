@@ -5,6 +5,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import sys
 
+distMatrix = None
+prevNode = 0
+alpha = 15
+beta = 90
+
 class Vehicles:
     def __init__(self, id):
         self.vehiclesId = id
@@ -61,6 +66,9 @@ class Location:
     """
 
     def __init__(self, requestID, xLoc, yLoc, demand, startTW, endTW, servTime, servStartTime, typeLoc, nodeID, stringId):
+        global distMatrix
+        global beta
+        global alpha
         self.requestID = requestID
         self.xLoc = xLoc
         self.yLoc = yLoc
@@ -86,7 +94,20 @@ class Location:
         """
         Method that prints the location
         """
-        print(f" ( {self.stringId}, {self.demand}, {self.servStartTime}, {self.typeLoc}, {self.demand} ) ", end='')
+        global prevNode
+        global beta
+        global alpha
+        dist = distMatrix[prevNode][self.nodeID]
+        penalty = 0
+        if self.typeLoc == "delivery":
+            if self.servStartTime > self.endTW:
+                penalty += (self.servStartTime - self.endTW) * beta
+
+            if self.servStartTime < self.startTW:
+                penalty += (self.startTW - self.servStartTime) * alpha
+
+        print(f" ( {self.stringId}, Demand : {self.demand}, CurrentTime: {self.servStartTime}, {self.typeLoc}, Distance: {dist}, Start: {self.startTW}, End: {self.endTW}, ServiceTime: {self.servTime}, Penalty: {penalty}  ) ", end='\n')
+        prevNode = self.nodeID
 
     def getDistance(l1, l2):
         """
@@ -96,6 +117,7 @@ class Location:
         dy = l1.yLoc - l2.yLoc
         return round(math.sqrt(dx ** 2 + dy ** 2))
 class Destroy:
+
     '''
     Class that represents destroy methods
 
@@ -110,6 +132,7 @@ class Destroy:
     '''
 
     def __init__(self, problem, solution):
+        global distMatrix
         self.problem = problem
         self.solution = solution
 
@@ -118,26 +141,14 @@ class Destroy:
         cost = []
         # Making list with request ID's and their corresponding cost
         for route in self.solution.routes:
-            curTime = 0
+
             ETPenalty = 0
             for i in range(2, len(route.locations)):
                 first_node_ID = route.locations[i - 2].nodeID
                 middle_note_ID = route.locations[i - 1].nodeID
                 last_node_ID = route.locations[i].nodeID
                 request_ID = route.locations[i - 1].requestID
-                dist = self.problem.distMatrix[first_node_ID][middle_note_ID]+self.problem.distMatrix[middle_note_ID][last_node_ID]
-
-                # prevNode = route.locations[i - 1]
-                # curNode = route.locations[i]
-                # distCost = self.problem.distMatrix[prevNode.nodeID][curNode.nodeID]
-                # curTime = max(curNode.startTW, curTime + prevNode.servTime + distCost)
-                #
-                # if curNode.typeLoc == "delivery":
-                #     if curTime <= curNode.startTW:
-                #         ETPenalty += (curNode.startTW - curTime) * self.problem.alpha
-                #
-                #     if curTime >= curNode.endTW:
-                #         ETPenalty += (curTime - curNode.endTW) * self.problem.beta
+                dist = distMatrix[first_node_ID][middle_note_ID]+ distMatrix[middle_note_ID][last_node_ID]
 
                 cost.append([request_ID, dist + ETPenalty])
         # Sort cost
@@ -196,7 +207,7 @@ class Destroy:
             middle_note_ID = route.locations[i - 1].nodeID
             last_node_ID = route.locations[i].nodeID
             request_ID = route.locations[i - 1].requestID
-            dist = self.problem.distMatrix[first_node_ID][middle_note_ID]+self.problem.distMatrix[middle_note_ID][last_node_ID]
+            dist = distMatrix[first_node_ID][middle_note_ID]+distMatrix[middle_note_ID][last_node_ID]
             cost.append([request_ID, dist])
         # Sort cost
         cost = sorted(cost, key = lambda d: d[1], reverse = True)
@@ -241,7 +252,7 @@ class Destroy:
                     locations.append(loc_j)
                     location_j, start_tw_j, demand_j = loc_j.nodeID, loc_j.startTW, loc_j.demand
                     # Find difference of the two nodes in terms of the key variables
-                    distance_diff = self.problem.distMatrix[location_i][location_j]
+                    distance_diff = distMatrix[location_i][location_j]
                     start_tw_diff = abs(start_tw_i-start_tw_j)
                     demand_diff = abs(demand_i-demand_j)
                     # Add differences to the lists of key variables
@@ -291,7 +302,7 @@ class Destroy:
             for loc_j in route.locations:
                 # Only consider locations which are not depots
                 if loc_j.typeLoc != "depot":
-                    distance_diff = self.problem.distMatrix[loc_i.nodeID][loc_j.nodeID]
+                    distance_diff = distMatrix[loc_i.nodeID][loc_j.nodeID]
                     if distance_diff < closest:
                         chosen_location = loc_j
                         closest = distance_diff
@@ -361,29 +372,16 @@ class Destroy:
         for route in self.solution.routes:
             requests, ditstances = [], []
             total_dist = 0
-            curTime = 0
             ETPenalty = 0
             for i in range(2, len(route.locations)):
                 first_node_ID = route.locations[i - 2].nodeID
                 middle_note_ID = route.locations[i - 1].nodeID
                 last_node_ID = route.locations[i].nodeID
                 request_ID = route.locations[i - 1].requestID
-                dist = self.problem.distMatrix[first_node_ID][middle_note_ID]+self.problem.distMatrix[middle_note_ID][last_node_ID]
-
-                # prevNode = route.locations[i - 1]
-                # curNode = route.locations[i]
-                # distCost = self.problem.distMatrix[prevNode.nodeID][curNode.nodeID]
-                # curTime = max(curNode.startTW, curTime + prevNode.servTime + distCost)
-                #
-                # if curNode.typeLoc == "delivery":
-                #     if curTime <= curNode.startTW:
-                #         ETPenalty += (curNode.startTW - curTime) * self.problem.alpha
-                #
-                #     if curTime >= curNode.endTW:
-                #         ETPenalty += (curTime - curNode.endTW) * self.problem.beta
+                dist = distMatrix[first_node_ID][middle_note_ID]+distMatrix[middle_note_ID][last_node_ID]
                 requests.append(request_ID)
-                ditstances.append(dist + ETPenalty)
-                total_dist += dist + ETPenalty
+                ditstances.append(dist)
+                total_dist += dist
             for index, request in enumerate(requests):
                 cost.append([request, ditstances[index]/total_dist])
         # Sort cost
@@ -555,6 +553,7 @@ class Destroy:
             if chosen_req != None:
                 self.solution.removeRequest(chosen_req)
 class Route:
+
     """
     Class used to represent a route
 
@@ -573,6 +572,7 @@ class Route:
     """
 
     def __init__(self, locations, requests, problem, routeCount = 0):
+        global distMatrix
         self.locations = locations
         self.requests = requests
         self.problem = problem
@@ -590,7 +590,7 @@ class Route:
         for i in range(1, len(self.locations) - 1):
             prevNode = self.locations[i - 1]
             curNode = self.locations[i]
-            dist = self.problem.distMatrix[prevNode.nodeID][curNode.nodeID]
+            dist = distMatrix[prevNode.nodeID][curNode.nodeID]
             curTime = max(curNode.startTW, curTime + prevNode.servTime + dist)
             self.locations[i].servStartTime = curTime
 
@@ -598,6 +598,8 @@ class Route:
         """
         Method that computes and returns the distance of the route
         """
+        global alpha
+        global beta
         totDist = 0
         curTime = 0
 
@@ -605,15 +607,15 @@ class Route:
         for i in range(1, len(self.locations)):
             prevNode = self.locations[i - 1]
             curNode = self.locations[i]
-            dist = self.problem.distMatrix[prevNode.nodeID][curNode.nodeID]
+            dist = distMatrix[prevNode.nodeID][curNode.nodeID]
             curTime = max(curNode.startTW, curTime + prevNode.servTime + dist)
             ETPenalty = 0
             if curNode.typeLoc == "delivery":
-                if curTime <= curNode.startTW:
-                    ETPenalty += (curNode.startTW - curTime) * self.problem.alpha
+                if curTime < curNode.startTW:
+                    ETPenalty += (curNode.startTW - curTime) * alpha
 
-                if curTime >= curNode.endTW:
-                    ETPenalty += (curTime - curNode.endTW) * self.problem.beta
+                if curTime > curNode.endTW:
+                    ETPenalty += (curTime - curNode.endTW) * beta
             totDist += dist + ETPenalty
         return totDist
 
@@ -641,8 +643,30 @@ class Route:
         insertNode: Location
         '''
 
-        return self.problem.distMatrix[preNode.nodeID][insertNode.nodeID] + self.problem.distMatrix[afterNode.nodeID][
-            insertNode.nodeID] - self.problem.distMatrix[preNode.nodeID][afterNode.nodeID]
+        return distMatrix[preNode.nodeID][insertNode.nodeID] + distMatrix[afterNode.nodeID][
+            insertNode.nodeID] - distMatrix[preNode.nodeID][afterNode.nodeID]
+
+    def computeTimeWindow(self, loc):
+        global alpha
+        global beta
+        curTime = 0
+        totalTimeWindowPenaly = 0
+        for i in range(1, len(loc) - 1):
+            prevNode = loc[i - 1]
+            curNode = loc[i]
+            dist = distMatrix[prevNode.nodeID][curNode.nodeID]
+            curTime = max(curNode.startTW, curTime + prevNode.servTime + dist)
+
+            ETPenalty = 0
+            if curNode.typeLoc == "delivery":
+                if curTime < curNode.startTW:
+                    ETPenalty += (curNode.startTW - curTime) * alpha
+
+                if curTime > curNode.endTW:
+                    ETPenalty += (curTime - curNode.endTW) * beta
+            totalTimeWindowPenaly += dist + ETPenalty
+        return totalTimeWindowPenaly
+
 
     # add this method
     def compute_cost_add_one_request(self, preNode_index, afterNode_index, request):
@@ -652,23 +676,24 @@ class Route:
         cost1 = self.computeDiff(locationsCopy[preNode_index - 1],
                                  locationsCopy[preNode_index + 1],
                                  request.pickUpLoc)
+
         locationsCopy.insert(afterNode_index, request.deliveryLoc)  # depot at the end
         # calculte the cost after inserting delivery location
         cost2 = self.computeDiff(locationsCopy[afterNode_index - 1],
                                  locationsCopy[afterNode_index + 1],
                                  request.deliveryLoc)
 
-        # cost3 = self.computeTimeWindow(locationsCopy[afterNode_index - 1],
-        #                          locationsCopy[afterNode_index + 1],
-        #                          request.deliveryLoc)
-        return cost2 + cost1 + 0
+        cost3 = self.computeTimeWindow(locationsCopy)
+
+        return cost2 + cost1 + cost3
 
     def print(self, vehicleInfo = set()):
         """
         Method that prints the route
         """
-        print("Route", end='')
+        print("Route", end='\n')
         for loc in self.locations:
+            self.calculateServiceStartTime()
             loc.printOnlyRoute()
         print(" dist=" + str(self.distance) + ", demand="+ str(self.demand))
         # print(" dist=" + str(self.distance) + ", demand="+ str(self.demand)+ ", trolleyCount="+ str(vehicleInfo["trolleyCount"]))
@@ -690,7 +715,7 @@ class Route:
         for i in range(1, len(self.locations) - 1):
             prevNode = self.locations[i - 1]
             curNode = self.locations[i]
-            dist = self.problem.distMatrix[prevNode.nodeID][curNode.nodeID]
+            dist = distMatrix[prevNode.nodeID][curNode.nodeID]
             # velocity = 1 dist = time
             curTime = max(curNode.startTW, curTime + prevNode.servTime + dist)
 
@@ -748,25 +773,10 @@ class Route:
             self.locations.insert(preNode_index, request.pickUpLoc)
             self.locations.insert(afterNode_index, request.deliveryLoc)
             cost = self.compute_cost_add_one_request(preNode_index, afterNode_index, request)
-            curTime = 0
-            ETPenalty = 0
-            # for i in range(1, len(afterInsertion.locations) - 1):
-            #     prevNode = afterInsertion.locations[i - 1]
-            #     curNode = afterInsertion.locations[i]
-            #     dist = self.problem.distMatrix[prevNode.nodeID][curNode.nodeID]
-            #     curTime = max(curNode.startTW, curTime + prevNode.servTime + dist)
-            #     ETPenalty = 0
-            #     if curNode.typeLoc == "delivery":
-            #         if curTime <= curNode.startTW:
-            #             ETPenalty +=  (curNode.startTW - curTime) * self.problem.alpha
-            #
-            #         if curTime >= curNode.endTW:
-            #             ETPenalty += (curTime - curNode.endTW) * self.problem.beta
-
 
             demand = afterInsertion.demand
             # revise.
-            return cost + ETPenalty, demand
+            return cost, demand
         else:
             return - 1
 
@@ -821,6 +831,7 @@ class Route:
                         minDemand = afterInsertion.demand
         return bestInsert, minCost, minDemand
 class Repair:
+
     '''
     Class that represents repair methods
 
@@ -836,6 +847,7 @@ class Repair:
     '''
 
     def __init__(self, problem, solution):
+        global distMatrix
         self.problem = problem
         self.solution = solution
 
@@ -849,8 +861,8 @@ class Repair:
         insertNode: Location
         '''
 
-        return self.problem.distMatrix[preNode.nodeID][insertNode.nodeID] + self.problem.distMatrix[afterNode.nodeID][
-            insertNode.nodeID] - self.problem.distMatrix[preNode.nodeID][afterNode.nodeID]
+        return distMatrix[preNode.nodeID][insertNode.nodeID] + distMatrix[afterNode.nodeID][
+            insertNode.nodeID] - distMatrix[preNode.nodeID][afterNode.nodeID]
 
     def findRegretInsertion(self):
         '''
@@ -1047,6 +1059,7 @@ class Parameters:
     w3 = 0.8  # if the new solution is accepted
     w4 = 0.6  # if the new solution is rejected
 class Solution:
+
     """
     Method that represents a solution to the PDPTW
 
@@ -1065,6 +1078,7 @@ class Solution:
     """
 
     def __init__(self, problem, routes, served, notServed):
+        global distMatrix
         self.problem = problem
         self.routes = routes
         self.served = served
@@ -1126,7 +1140,7 @@ class Solution:
             for i in range(1, len(route.locations)):
                 first_node_ID = route.locations[i - 1].nodeID
                 second_node_ID = route.locations[i].nodeID
-                arc_length = self.problem.distMatrix[first_node_ID][second_node_ID]
+                arc_length = distMatrix[first_node_ID][second_node_ID]
                 if arc_length > max_arc_length:
                     max_arc_length = arc_length
         return max_arc_length
@@ -1306,6 +1320,7 @@ class Solution:
                 if vehicleID >= len(vehicles):
                     vehicleID = 0
 class PDPTW:
+
     """
     Class that represents a pick-up and delivery problem with time windows
     Attributes
@@ -1325,6 +1340,7 @@ class PDPTW:
 
     """
     def __init__(self, name, requests, depot, vehicles):
+        global distMatrix
         self.name = name
         self.requests = requests
         self.depot = depot
@@ -1343,16 +1359,15 @@ class PDPTW:
             self.locations.add(r.deliveryLoc)
 
         # compute the distance matrix
-        self.distMatrix = np.zeros((len(self.locations), len(self.locations)))  # init as nxn matrix
+        distMatrix = np.zeros((len(self.locations), len(self.locations)))  # init as nxn matrix
         for i in self.locations:
             for j in self.locations:
                 distItoJ = Location.getDistance(i, j)
-                self.distMatrix[i.nodeID, j.nodeID] = distItoJ
-        print(self.distMatrix)
+                distMatrix[i.nodeID, j.nodeID] = distItoJ
     def print(self):
         print(" MCVRPPDPTW problem " + self.name + " with " + str(
             len(self.requests)) + " requests and a vehicle capacity of " + str(self.capacity))
-        print(self.distMatrix)
+        print(distMatrix)
         for i in self.requests:
             print(i)
 
@@ -1376,19 +1391,20 @@ class PDPTW:
             lID = asList[0]  # location tipi  D : depot, S: station, C : pickup / delivery point,
             x = int(asList[2][:-2])  # need to remove ".0" from the string
             y = int(asList[3][:-2])
+            lType = asList[1]
+            demand = int(asList[4][:-2])
+            startTW = int(asList[5][:-2])
+            endTW = int(asList[6][:-2])
+            servTime = int(asList[7][:-2])
+            partnerID = asList[8]
             if lID.startswith("D"):  # depot ise
                 # it is the depot
-                depot = Location(requestCount, x, y, 0, 0, 0, 0, servStartTime, "depot", nodeCount, lID)  # depot requestID=0
+                depot = Location(requestCount, x, y, demand, startTW, endTW, servTime, servStartTime, "depot", nodeCount, lID)  # depot requestID=0
                 nodeCount += 1
 
             elif lID.startswith("C"):  # pickup/delivery point ise
                 # it is a location
-                lType = asList[1]
-                demand = int(asList[4][:-2])
-                startTW = int(asList[5][:-2])
-                endTW = int(asList[6][:-2])
-                servTime = int(asList[7][:-2])
-                partnerID = asList[8]
+
                 if lType == "cp":  # cp ise pickup, #cd ise delivery point
                     if partnerID in unmatchedDeliveries:
                         deliv = unmatchedDeliveries.pop(
@@ -1775,6 +1791,7 @@ class ALNS:
 #   "Instances/lrc7.txt"
 #   "Instances/lrc7-demand-increase.txt"
 #   "Instances/lrc7-location-increase.txt"
+#   "Instances/lrc7-location-penalty.txt"
 #   "Instances/lrc7-location-repeatly.txt"
 #   "Instances/lrc7-time-window-descrease.txt"
 #   "Instances/lrc9.txt"
@@ -1786,7 +1803,7 @@ class ALNS:
 #   "Instances/lrc11-location-increase.txt"
 
 
-data = "Instances/lrc7-time-window-descrease.txt"
+data = "Instances/lrc11-location-increase.txt"
 vehicleCount = 1
 problem = PDPTW.readInstance(data, vehicleCount)
 
