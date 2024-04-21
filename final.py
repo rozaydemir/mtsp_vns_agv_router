@@ -9,6 +9,7 @@ distMatrix = None
 prevNode = 0
 alpha = 15
 beta = 90
+currentVehicleId = 0
 
 class Vehicles:
     def __init__(self, id):
@@ -132,23 +133,35 @@ class Destroy:
     '''
 
     def __init__(self, problem, solution):
-        global distMatrix
         self.problem = problem
         self.solution = solution
 
     '''Helper function method 2'''
     def findWorstCostRequest(self):
         cost = []
+        global alpha
+        global beta
+        global distMatrix
         # Making list with request ID's and their corresponding cost
         for route in self.solution.routes:
 
-            ETPenalty = 0
+            curTime = 0
             for i in range(2, len(route.locations)):
-                first_node_ID = route.locations[i - 2].nodeID
-                middle_note_ID = route.locations[i - 1].nodeID
-                last_node_ID = route.locations[i].nodeID
+                first_node = route.locations[i - 2]
+                middle_node = route.locations[i - 1]
+                last_node = route.locations[i]
                 request_ID = route.locations[i - 1].requestID
-                dist = distMatrix[first_node_ID][middle_note_ID]+ distMatrix[middle_note_ID][last_node_ID]
+                dist = distMatrix[first_node.nodeID][middle_node.nodeID] + distMatrix[middle_node.nodeID][last_node.nodeID]
+                curTime = max(middle_node.startTW, curTime + first_node.servTime + distMatrix[first_node.nodeID][middle_node.nodeID])
+
+                ETPenalty = 0
+                if middle_node.typeLoc == "delivery":
+                    if curTime < middle_node.startTW:
+                        ETPenalty += (middle_node.startTW - curTime) * alpha
+
+                    if curTime > last_node.endTW:
+                        ETPenalty += (curTime - middle_node.endTW) * beta
+
 
                 cost.append([request_ID, dist + ETPenalty])
         # Sort cost
@@ -201,14 +214,31 @@ class Destroy:
     def findWorstCostRequestRandomRoute(self, randomGen):
         route = self.findRandomRoute(randomGen)
         cost = []
+        global alpha
+        global beta
+        global distMatrix
         # Making list with request ID's and their corresponding cost
+
+        curTime = 0
         for i in range(2, len(route.locations)):
-            first_node_ID = route.locations[i - 2].nodeID
-            middle_note_ID = route.locations[i - 1].nodeID
-            last_node_ID = route.locations[i].nodeID
+            first_node = route.locations[i - 2]
+            middle_node = route.locations[i - 1]
+            last_node = route.locations[i]
             request_ID = route.locations[i - 1].requestID
-            dist = distMatrix[first_node_ID][middle_note_ID]+distMatrix[middle_note_ID][last_node_ID]
-            cost.append([request_ID, dist])
+            dist = distMatrix[first_node.nodeID][middle_node.nodeID]+distMatrix[middle_node.nodeID][last_node.nodeID]
+
+            curTime = max(middle_node.startTW, curTime + first_node.servTime + distMatrix[first_node.nodeID][middle_node.nodeID])
+
+            ETPenalty = 0
+            if middle_node.typeLoc == "delivery":
+                if curTime < middle_node.startTW:
+                    ETPenalty += (middle_node.startTW - curTime) * alpha
+
+                if curTime > middle_node.endTW:
+                    ETPenalty += (curTime - middle_node.endTW) * beta
+
+
+            cost.append([request_ID, dist + ETPenalty])
         # Sort cost
         cost = sorted(cost, key = lambda d: d[1], reverse = True)
         # Get request object that corresponds to worst cost
@@ -372,16 +402,28 @@ class Destroy:
         for route in self.solution.routes:
             requests, ditstances = [], []
             total_dist = 0
-            ETPenalty = 0
+            curTime = 0
             for i in range(2, len(route.locations)):
-                first_node_ID = route.locations[i - 2].nodeID
-                middle_note_ID = route.locations[i - 1].nodeID
+                first_node = route.locations[i - 2]
+                middle_node = route.locations[i - 1]
                 last_node_ID = route.locations[i].nodeID
                 request_ID = route.locations[i - 1].requestID
-                dist = distMatrix[first_node_ID][middle_note_ID]+distMatrix[middle_note_ID][last_node_ID]
+                dist = distMatrix[first_node.nodeID][middle_node.nodeID]+distMatrix[middle_node.nodeID][last_node_ID]
+
+                curTime = max(middle_node.startTW, curTime + first_node.servTime + distMatrix[first_node.nodeID][middle_node.nodeID])
+
+                ETPenalty = 0
+                if middle_node.typeLoc == "delivery":
+                    if curTime < middle_node.startTW:
+                        ETPenalty += (middle_node.startTW - curTime) * alpha
+
+                    if curTime > middle_node.endTW:
+                        ETPenalty += (curTime - middle_node.endTW) * beta
+
+
                 requests.append(request_ID)
-                ditstances.append(dist)
-                total_dist += dist
+                ditstances.append(dist + ETPenalty)
+                total_dist += dist + ETPenalty
             for index, request in enumerate(requests):
                 cost.append([request, ditstances[index]/total_dist])
         # Sort cost
@@ -1162,6 +1204,23 @@ class Solution:
 
         print("\n\n")
 
+    def printWithVehicle(self):
+        """
+        Method that prints the solution
+        """
+        nRoutes = len(self.routes)
+        nNotServed = len(self.notServed)
+        print('total distance ' + str(self.distance ) + " Solution with " + str(nRoutes) + " routes and " + str(
+            nNotServed) + " unserved requests: ")
+        #
+        for vehicles in self.problem.vehicles:
+            vehicles.print()
+        # for route in self.routes:
+        #     route.calculateServiceStartTime()
+        #     route.print()
+
+        print("\n\n")
+
     def executeRandomRemoval(self, nRemove, randomGen):
         """
         Method that executes a random removal of requests
@@ -1345,8 +1404,6 @@ class PDPTW:
         self.requests = requests
         self.depot = depot
         self.capacity = 0
-        self.alpha = 15
-        self.beta = 90
         self.vehicles = vehicles
         for vehicle in vehicles:
             self.capacity += vehicle.maxTrolleyCount * vehicle.trolleyCapacity
@@ -1494,6 +1551,7 @@ class ALNS:
         self.register_weights_over_time = True
         self.removal_weights_per_iteration = []
         self.insertion_weights_per_iteration = []
+        self.insertion_weights_per_iteration = []
 
         self.register_objective_value_over_time = True
         self.list_objective_values = []
@@ -1526,8 +1584,7 @@ class ALNS:
         self.bestDemand = self.currentSolution.demand
 
         # Print initial solution
-        number_of_request = len(self.problem.requests)
-        self.maxSizeNBH = max(1, int(np.floor(self.maxPercentageNHB / 100 * number_of_request)))
+        self.maxSizeNBH = len(self.problem.requests)
 
     def execute(self):
         """
@@ -1574,6 +1631,7 @@ class ALNS:
         print(f'Best objective value found after: {round(time_best_objective, 3)} seconds')
 
         print(self.bestSolution.print())
+        # print(self.bestSolution.printWithVehicle())
 
         print(f'Best objective value found after: {self.optimal_iteration_number} iterations')
 
@@ -1803,7 +1861,7 @@ class ALNS:
 #   "Instances/lrc11-location-increase.txt"
 
 
-data = "Instances/lrc11-location-increase.txt"
+data = "Instances/lrc9-demand-increase.txt"
 vehicleCount = 1
 problem = PDPTW.readInstance(data, vehicleCount)
 
@@ -1814,7 +1872,7 @@ minSizeNBH = 1  #Minimum size of neighborhood
 nIterations = 1000  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
 
 # Parameters to tune:
-maxPercentageNHB = 5  #Maximum Percentage for Neighborhood
+maxPercentageNHB = 1000  #Maximum Percentage for Neighborhood
 decayParameter = 0.15
 noise = 0.015  #gürültü ekleme, çözüm uzayında daha çeşitli noktaları keşfetmeye yardımcı olur.
 

@@ -155,15 +155,15 @@ def read_data(fileName, vehicleCount):
 #   "Instances/lrc11-location-increase.txt"
 
 
-data = "Instances/lrc11-location-increase.txt"
+data = "Instances/lrc9-demand-increase.txt"
 starttime = time.time()  # get the start time
-read_data(data, 1)
+read_data(data, 2)
 
 
 alpha = 15  # Cost of penalty for early delivery
 beta = 90  # Penalty for one unit of tardiness
 
-C = 500  # Capacity of a trolley
+C = 30  # Capacity of a trolley
 Mmax = 3  # Maximum Trolley Addition Capacity
 TIR = 0.2  # Trolley Impact Rate (TIR): The rate at which the addition of trolleys impacts operations
 M = 10000  # Big M
@@ -175,7 +175,7 @@ E = {}  # earliness of delivery arrived workstation i
 TA = {}  # tardiness of delivery arrived workstation i
 Y = {}  # number of trolley attached to AGV k
 for k in K:
-
+    Y[k] = solver.IntVar(1, Mmax, f'Y[{k}]')  # constraint 19 is ensured.
     for i, j in A[k]:
         if i != j:
             x[(i, j, k)] = solver.BoolVar(f'x[{i},{j},{k}]')
@@ -186,11 +186,12 @@ for i in D_all:
     E[i] = solver.NumVar(0, solver.infinity(), f'E[{i}]')
     TA[i] = solver.NumVar(0, solver.infinity(), f'TA[{i}]')
 
-
+costOfTrolley = 1.2
 
 # Objective Function
 objective = solver.Objective()
 for k in K:
+    # objective.SetCoefficient(Y[k], costOfTrolley) # trolley sayısınnı artırmanın maliyeti
     for i, j in A[k]:
         objective.SetCoefficient(x[(i, j, k)], t.get((i, j, k), 0))
 for i in D_all:
@@ -204,7 +205,7 @@ objective.SetMinimization()
 # for k in K:
 #     for i, j in A[k]:
 #         if (i,j,k) in t:
-#             T[(i, k)]= T[(i, k)] + (Y[k]*TIR)
+#             T[(i, k)] = T[(i, k)] + (Y[k] * TIR)
 
 # Constraints 2, 3 impose that each request (i.e., the pickup and delivery nodes) is served exactly once and by the same vehicle
 # 2
@@ -247,7 +248,7 @@ for k in K:
     for i, j in A[k]:
         if (i, j, k) in x:
             solver.Add(
-                T[(i, k)] + (s[i] + t[(i, j, k)]) * x[(i, j, k)]  <= T[(j, k)] + M * (1 - x[(i, j, k)])
+                T[(i, k)] + (s[i] + t[(i, j, k)]) * x[(i, j, k)] + (Y[k] * TIR) <= T[(j, k)] + M * (1 - x[(i, j, k)])
             )
 
 # constraints 12 force the vehicle to visit the pickup node before the delivery node
@@ -255,7 +256,7 @@ for k in K:
 for k in K:
     for i in P[k]:
         if (i, i + len(P[k]), k) in x:
-            solver.Add(T[(i, k)] + t[(i, i + len(P[k]), k)]  <= T[(i + len(P[k]), k)])
+            solver.Add(T[(i, k)] + t[(i, i + len(P[k]), k)] + (Y[k] * TIR) <= T[(i + len(P[k]), k)])
 
 # Constraints 13a and 13b compatibility requirements between routes and vehicle loads
 # 10a
@@ -274,7 +275,7 @@ for k in K:
 for k in K:
     for i in P[k]:
         solver.Add(l[i] <= L[(i, k)])
-        solver.Add(L[(i, k)] <= C)
+        solver.Add(L[(i, k)] <= Y[k] * C)
 
 # Constaint 15 ensure vehicle dependent capacity restrictions at delivery points
 # n_i TANIMLI DEĞİLDİ TANIMLADIK SONUÇ DEĞİŞTİ EN SON ELLE YAPTIKTAN SONRA KONTROL ET
@@ -283,7 +284,7 @@ for k in K:
         n_i = i + len(P[k])
         if n_i in L:
             solver.Add(0 <= L[(n_i, k)])
-            solver.Add(L[(n_i, k)] <= C - l[i])
+            solver.Add(L[(n_i, k)] <= (Y[k] * C) - l[i])
 
 # Constraint 16 ensure initial vehicle load is zero
 for k in K:
@@ -291,9 +292,9 @@ for k in K:
 
 # Constaint 19 The equation stating that each AGV requires at least one trolley to be able to
 # carry a load and that the number of trolleys attached to AGV k (Y_k) can be at most M_max:
-# for k in K:
-#     solver.Add(Mmax >= Y[k])
-#     solver.Add(Y[k] >= 1)
+for k in K:
+    solver.Add(Mmax >= Y[k])
+    solver.Add(Y[k] >= 1)
 
 # Çözümü hesapla ve sonuçları yazdır
 # callback = MiddleSolution()
@@ -306,7 +307,7 @@ if status == pywraplp.Solver.OPTIMAL:
         for i, j in A[k]:
             if x[(i, j, k)].solution_value() > 0:
                 print(
-                    f'Road {(i, j)} vehiche {k} used. And Cost : {t[(i, j, k)]}')
+                    f'Road {(i, j)} vehiche {k} used. And Cost : {t[(i, j, k)]}, YK : {Y[k].solution_value()}')
 else:
     print('No optimal solution was found.')
 endtime = time.time()  # get the end time
