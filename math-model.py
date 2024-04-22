@@ -155,17 +155,17 @@ def read_data(fileName, vehicleCount):
 #   "Instances/lrc11-location-increase.txt"
 
 
-data = "Instances/lrc9-demand-increase.txt"
+data = "Instances/lrc11-demand-increase.txt"
 starttime = time.time()  # get the start time
-read_data(data, 2)
+read_data(data, 3)
 
 
 alpha = 15  # Cost of penalty for early delivery
 beta = 90  # Penalty for one unit of tardiness
 
-C = 30  # Capacity of a trolley
+C = 45  # Capacity of a trolley
 Mmax = 3  # Maximum Trolley Addition Capacity
-TIR = 0.2  # Trolley Impact Rate (TIR): The rate at which the addition of trolleys impacts operations
+TIR = 1.2  # Trolley Impact Rate (TIR): The rate at which the addition of trolleys impacts operations
 M = 10000  # Big M
 
 x = {}  # xijk equal to 1 if arc (i, j) ∈ Ak is used by vehicle k, and 0 otherwise (binary flow variables)
@@ -202,10 +202,10 @@ objective.SetMinimization()
 
 # Constaint 22. The travel time for AGV k from point i to point j (t_ijk) increases by the Trolley Impact Rate (TIR) for each added trolley.
 # This shows how additional trolleys affect the travel time of the AGV.
-# for k in K:
-#     for i, j in A[k]:
-#         if (i,j,k) in t:
-#             T[(i, k)] = T[(i, k)] + (Y[k] * TIR)
+for k in K:
+    for i, j in A[k]:
+        if (i,j,k) in t:
+            T[(i, k)] = T[(i, k)] + (Y[k] * TIR)
 
 # Constraints 2, 3 impose that each request (i.e., the pickup and delivery nodes) is served exactly once and by the same vehicle
 # 2
@@ -306,11 +306,31 @@ if status == pywraplp.Solver.OPTIMAL:
     for k in K:
         for i, j in A[k]:
             if x[(i, j, k)].solution_value() > 0:
-                print(
-                    f'Road {(i, j)} vehiche {k} used. And Cost : {t[(i, j, k)]}, YK : {Y[k].solution_value()}')
+                isPicked = j in P_all
+                isDelivery = j in D_all
+                if i == o[k] and j == d[k]:
+                    print(
+                        f'(vehicle {k}: Not Used')
+                else:
+                    print(
+                        f'(vehicle {k}: Road {(i, j)}, Demand: {l[j]}, CurrentTime: {int(T[j, k].solution_value())},{"delivery" if isDelivery else "pickup" if isPicked else "depot"}, Distance: {t.get((i, j, k))}, Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, Penalty : {TA[j].solution_value() if j in TA else 0}, TrolleyCount : {Y[k].solution_value()}, cumsum: {(x[(i, j, k)].solution_value() * t.get((i, j, k))) + (TA[j].solution_value() if j in TA else 0) + (E[j].solution_value() if j in E else 0)} )')
 else:
     print('No optimal solution was found.')
 endtime = time.time()  # get the end time
 cpuTime = round(endtime - starttime, 3)
 
 print("cpuTime: " + str(cpuTime) + " seconds")
+
+# total distance 532.9999999999964 Solution with 1 routes and 0 unserved requests:
+# Route
+#  ( D0, Demand : 0, CurrentTime: 0, depot, Distance: 0.0, Start: 0, End: 230, ServiceTime: 4, Penalty: 0  )
+#  ( C1, Demand : 25, CurrentTime: 39.6, pickup, Distance: 15.0, Start: 36, End: 46, ServiceTime: 2, Penalty: 0  )
+#  ( C2, Demand : 30, CurrentTime: 75.19999999999999, pickup, Distance: 30.0, Start: 0, End: 191, ServiceTime: 2, Penalty: 0  )
+#  ( C4, Demand : 45, CurrentTime: 95.79999999999998, pickup, Distance: 15.0, Start: 22, End: 199, ServiceTime: 2, Penalty: 0  )
+#  ( C8, Demand : -45, CurrentTime: 107.39999999999998, delivery, Distance: 6.0, Start: 0, End: 181, ServiceTime: 2, Penalty: 0  )
+#  ( C6, Demand : -30, CurrentTime: 128.99999999999997, delivery, Distance: 16.0, Start: 0, End: 175, ServiceTime: 2, Penalty: 0  )
+#  ( C3, Demand : 35, CurrentTime: 142.59999999999997, pickup, Distance: 8.0, Start: 0, End: 180, ServiceTime: 2, Penalty: 0  )
+#  ( C7, Demand : -35, CurrentTime: 164.19999999999996, delivery, Distance: 16.0, Start: 0, End: 160, ServiceTime: 4, Penalty: 377.9999999999964  )
+#  ( C5, Demand : -25, CurrentTime: 189.79999999999995, delivery, Distance: 18.0, Start: 0, End: 190, ServiceTime: 2, Penalty: 0  )
+#  ( D0, Demand : 0, CurrentTime: 0, depot, Distance: 31.0, Start: 0, End: 230, ServiceTime: 4, Penalty: 0  )
+#  dist=532.9999999999964, demand=135
