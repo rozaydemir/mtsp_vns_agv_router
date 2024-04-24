@@ -3,7 +3,6 @@ import math
 import random, time
 
 solver = pywraplp.Solver.CreateSolver('SCIP')
-
 K = []  # vehicles
 P_all = []  # total pickup nodes +
 D_all = []  # total delivery nodes +
@@ -21,6 +20,11 @@ t = {}  # travel time + öklid
 a = {}  # early start times
 b = {}  # late start times
 s = {}  # service time of nodes
+alpha = 15  # Cost of penalty for early delivery
+beta = 90  # Penalty for one unit of tardiness
+Mmax = 3  # Maximum Trolley Addition Capacity
+TIR = 1.2  # Trolley Impact Rate (TIR): The rate at which the addition of trolleys impacts operations
+M = 10000  # Big M
 
 class Location:
     def __init__(self, xLoc, yLoc, typeLoc, nodeID):
@@ -37,7 +41,7 @@ class Location:
         return round(math.sqrt(dx ** 2 + dy ** 2))
 
 
-def read_data(fileName, vehicleCount):
+def read_data(fileName):
     global K
     global A
     global N
@@ -52,17 +56,33 @@ def read_data(fileName, vehicleCount):
     global a
     global b
     global s
+    global Mmax
+    global TIR
+    global alpha
+    global beta
 
     f = open(fileName)
     pickupNodes = 0
     deliveryNode = 0
     nodeCount = 0
     locations = []
+    for infoLine in f.readlines()[-6:]:
+        if infoLine.startswith("VehicleCount"):
+            vehicleCount = int(infoLine[-2:-1].strip())
+        if infoLine.startswith("VehicleMaxTrolleyCount"):
+            Mmax = int(infoLine[-2:-1].strip())
+        if infoLine.startswith("TrolleyImpactRate"):
+            TIR = float(infoLine[-3:-1].strip())
+        if infoLine.startswith("EarlinessPenalty"):
+            alpha = float(infoLine[-2:-1].strip())
+        if infoLine.startswith("TardinessPenalty"):
+            beta = float(infoLine[-2:-1].strip())
 
     for v in range(vehicleCount):
         K.append(v + 1)
 
-    for line in f.readlines()[1:-6]:
+    f = open(fileName)
+    for line in f.readlines()[1:-7]:
         asList = []
         n = 13  # satırların sondan 13 karakteri boş o yüzden
         for index in range(0, len(line), n):
@@ -151,22 +171,15 @@ def read_data(fileName, vehicleCount):
 #   "Instances/lrc9-location-increase.txt"
 #   "Instances/lrc9-time-window-descrease.txt"
 #   "Instances/lrc11.txt"
+#   "Instances/lrc11-demand-increase.txt"
 #   "Instances/lrc11-location-decrease.txt"
 #   "Instances/lrc11-location-increase.txt"
 
 
 data = "Instances/lrc11-demand-increase.txt"
 starttime = time.time()  # get the start time
-read_data(data, 3)
-
-
-alpha = 15  # Cost of penalty for early delivery
-beta = 90  # Penalty for one unit of tardiness
-
-C = 45  # Capacity of a trolley
-Mmax = 3  # Maximum Trolley Addition Capacity
-TIR = 1.2  # Trolley Impact Rate (TIR): The rate at which the addition of trolleys impacts operations
-M = 10000  # Big M
+read_data(data)
+C = 50  # Capacity of a trolley
 
 x = {}  # xijk equal to 1 if arc (i, j) ∈ Ak is used by vehicle k, and 0 otherwise (binary flow variables)
 T = {}  # Tik specifying when vehicle k starts the service at node i ∈  Vk
@@ -186,12 +199,9 @@ for i in D_all:
     E[i] = solver.NumVar(0, solver.infinity(), f'E[{i}]')
     TA[i] = solver.NumVar(0, solver.infinity(), f'TA[{i}]')
 
-costOfTrolley = 1.2
-
 # Objective Function
 objective = solver.Objective()
 for k in K:
-    # objective.SetCoefficient(Y[k], costOfTrolley) # trolley sayısınnı artırmanın maliyeti
     for i, j in A[k]:
         objective.SetCoefficient(x[(i, j, k)], t.get((i, j, k), 0))
 for i in D_all:
@@ -202,10 +212,10 @@ objective.SetMinimization()
 
 # Constaint 22. The travel time for AGV k from point i to point j (t_ijk) increases by the Trolley Impact Rate (TIR) for each added trolley.
 # This shows how additional trolleys affect the travel time of the AGV.
-for k in K:
-    for i, j in A[k]:
-        if (i,j,k) in t:
-            T[(i, k)] = T[(i, k)] + (Y[k] * TIR)
+# for k in K:
+#     for i, j in A[k]:
+#         if (i,j,k) in t:
+#             T[(i, k)] = T[(i, k)] + (Y[k] * TIR)
 
 # Constraints 2, 3 impose that each request (i.e., the pickup and delivery nodes) is served exactly once and by the same vehicle
 # 2
@@ -259,7 +269,7 @@ for k in K:
             solver.Add(T[(i, k)] + t[(i, i + len(P[k]), k)] + (Y[k] * TIR) <= T[(i + len(P[k]), k)])
 
 # Constraints 13a and 13b compatibility requirements between routes and vehicle loads
-# 10a
+# 13a
 for k in K:
     for i, j in A[k]:
         if (i, j, k) in x:
@@ -270,6 +280,23 @@ for k in K:
     for i, j in A[k]:
         if (i, j, k) in x:
             solver.Add(-L[(i, k)] - l[j] + L[(j, k)] <= M * (1 - x[(i, j, k)]))
+#
+for k in K:
+    for i in A[k]:
+        for j in A[k]:
+            if i != j:
+                if i in P[k] and j in D[k] and x[(i, j, k)] == 1:
+                    # Constraint for pickup at i and delivery at j
+                    solver.Add(L[j][k] == L[i][k] + l[i] - l[j])
+                elif i in D[k] and j in P[k] and x[(i, j, k)] == 1:
+                    # Constraint for delivery at i and pickup at j
+                    solver.Add(L[j][k] == L[i][k] - l[i] + l[j])
+
+# # Constraint for dynamic trolley count based on the current load
+for k in K:
+    # Ensuring trolley count is adjusted based on the load
+    solver.Add(Y[k] * C >= L[(o[k], k)])  # o[k] is the origin node for vehicle k
+
 
 # Constaint 14 ensure vehicle dependent capacity restrictions at pick-up points
 for k in K:
@@ -304,33 +331,25 @@ if status == pywraplp.Solver.OPTIMAL:
     print('Solution:')
     print('Objective value =', objective.Value())
     for k in K:
+        print(
+            f'Vehicle {k}, TrolleyCount : {Y[k].solution_value()}')
         for i, j in A[k]:
             if x[(i, j, k)].solution_value() > 0:
                 isPicked = j in P_all
                 isDelivery = j in D_all
                 if i == o[k] and j == d[k]:
                     print(
-                        f'(vehicle {k}: Not Used')
+                        f'     Not Used')
                 else:
                     print(
-                        f'(vehicle {k}: Road {(i, j)}, Demand: {l[j]}, CurrentTime: {int(T[j, k].solution_value())},{"delivery" if isDelivery else "pickup" if isPicked else "depot"}, Distance: {t.get((i, j, k))}, Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, Penalty : {TA[j].solution_value() if j in TA else 0}, TrolleyCount : {Y[k].solution_value()}, cumsum: {(x[(i, j, k)].solution_value() * t.get((i, j, k))) + (TA[j].solution_value() if j in TA else 0) + (E[j].solution_value() if j in E else 0)} )')
+                        f'( {(i, j)}, Demand: {"-" + str(l[j]) if isDelivery else l[j]}, CurrentTime: {int(T[j, k].solution_value())},'
+                        f'{"delivery" if isDelivery else "pickup" if isPicked else "depot"}, Distance: {t.get((i, j, k))}, '
+                        f'Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, Penalty : {(TA[j].solution_value() * beta) + (E[j].solution_value() * alpha) if j in TA else 0}, '
+                        f'Order Load : {L[(j, k)].solution_value()}'
+                        f' cumsum: {(x[(i, j, k)].solution_value() * t.get((i, j, k))) + (TA[j].solution_value() * beta if j in TA else 0) + (E[j].solution_value() * alpha  if j in E else 0)} )')
 else:
     print('No optimal solution was found.')
 endtime = time.time()  # get the end time
 cpuTime = round(endtime - starttime, 3)
 
 print("cpuTime: " + str(cpuTime) + " seconds")
-
-# total distance 532.9999999999964 Solution with 1 routes and 0 unserved requests:
-# Route
-#  ( D0, Demand : 0, CurrentTime: 0, depot, Distance: 0.0, Start: 0, End: 230, ServiceTime: 4, Penalty: 0  )
-#  ( C1, Demand : 25, CurrentTime: 39.6, pickup, Distance: 15.0, Start: 36, End: 46, ServiceTime: 2, Penalty: 0  )
-#  ( C2, Demand : 30, CurrentTime: 75.19999999999999, pickup, Distance: 30.0, Start: 0, End: 191, ServiceTime: 2, Penalty: 0  )
-#  ( C4, Demand : 45, CurrentTime: 95.79999999999998, pickup, Distance: 15.0, Start: 22, End: 199, ServiceTime: 2, Penalty: 0  )
-#  ( C8, Demand : -45, CurrentTime: 107.39999999999998, delivery, Distance: 6.0, Start: 0, End: 181, ServiceTime: 2, Penalty: 0  )
-#  ( C6, Demand : -30, CurrentTime: 128.99999999999997, delivery, Distance: 16.0, Start: 0, End: 175, ServiceTime: 2, Penalty: 0  )
-#  ( C3, Demand : 35, CurrentTime: 142.59999999999997, pickup, Distance: 8.0, Start: 0, End: 180, ServiceTime: 2, Penalty: 0  )
-#  ( C7, Demand : -35, CurrentTime: 164.19999999999996, delivery, Distance: 16.0, Start: 0, End: 160, ServiceTime: 4, Penalty: 377.9999999999964  )
-#  ( C5, Demand : -25, CurrentTime: 189.79999999999995, delivery, Distance: 18.0, Start: 0, End: 190, ServiceTime: 2, Penalty: 0  )
-#  ( D0, Demand : 0, CurrentTime: 0, depot, Distance: 31.0, Start: 0, End: 230, ServiceTime: 4, Penalty: 0  )
-#  dist=532.9999999999964, demand=135
