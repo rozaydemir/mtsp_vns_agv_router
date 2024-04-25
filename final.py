@@ -1102,7 +1102,7 @@ class Repair:
 
             # if we were not able to insert, create a new route
             if not inserted:
-                if vehicleIndex < len(self.problem.vehicles):
+                if vehicleIndex < len(self.problem.vehicles) - 1:
                     vehicleIndex += 1
                 locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
                 newRoute = Route(locList, {req}, self.problem, len(self.solution.routes))
@@ -1299,7 +1299,7 @@ class Solution:
                 if route == insertRoute:
                     res, demand = route.addRequest(request, prevNode_index, afterNode_index, cnt)
                     if res == -1:
-                        if vehicleIndex < len(self.problem.vehicles):
+                        if vehicleIndex < len(self.problem.vehicles) - 1:
                             vehicleIndex += 1
                         locList = [self.problem.depot, request.pickUpLoc, request.deliveryLoc, self.problem.depot]
                         newRoute = Route(locList, {request}, self.problem, cnt)
@@ -1376,7 +1376,7 @@ class Solution:
 
             # if we were not able to insert, create a new route
             if not inserted:
-                if vehicleIndex < len(self.problem.vehicles):
+                if vehicleIndex < len(self.problem.vehicles) - 1:
                     vehicleIndex += 1
                 locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
                 newRoute = Route(locList, {req}, self.problem)
@@ -1469,7 +1469,7 @@ class PDPTW:
         if count_needed > self.vehicles[vehicleIndex].trolleyCount:
             self.vehicles[vehicleIndex].increaseTrolleyCapacity()
 
-    def readInstance(fileName, capacityOfTrolley):
+    def readInstance(fileName):
         global alpha
         global beta
         """
@@ -1482,10 +1482,13 @@ class PDPTW:
         unmatchedDeliveries = dict()
         nodeCount = 0
         requestCount = 0  # start with 1
+        capacityOfTrolley = 50
 
         for infoLine in f.readlines()[-6:]:
             if infoLine.startswith("VehicleCount"):
                 vehicleCount = int(infoLine[-2:-1].strip())
+            if infoLine.startswith("VehiclePerCapacity"):
+                capacityOfTrolley = int(infoLine[-6:-1].strip())
             if infoLine.startswith("VehicleMaxTrolleyCount"):
                 Mmax = int(infoLine[-2:-1].strip())
             if infoLine.startswith("TrolleyImpactRate"):
@@ -1919,17 +1922,17 @@ class ALNS:
 #   "Instances/lrc11-demand-increase.txt"
 #   "Instances/lrc11-location-decrease.txt"
 #   "Instances/lrc11-location-increase.txt"
+#   "Instances/lrc13-demand-increase.txt"
 
 
-data = "Instances/lrc11-demand-increase.txt"
-C = 50  # Capacity of a trolley
-problem = PDPTW.readInstance(data, C)
+data = "Instances/lrc9-demand-increase.txt"
+problem = PDPTW.readInstance(data)
 
 # Static parameters
 nDestroyOps = 8  #number of destroy operations, çeşitlilik sağlanmak istenirse 9 a çıkar
 nRepairOps = 2  # number of repair operations # çeşitlilik sağlanmak istenirse 3 e çıkar
 minSizeNBH = 1  #Minimum size of neighborhood
-nIterations = 1000  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
+nIterations = 5000  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
 
 # Parameters to tune:
 maxPercentageNHB = 1000  #Maximum Percentage for Neighborhood
@@ -1942,23 +1945,23 @@ alns.execute()
 
 
 """
-Objective value = 227.0
-Vehicle 1
-( (0, 1), Demand: 55, CurrentTime: 9934,pickup, Distance: 15, Start: 36, End: 46, ServiceTime: 4, Penalty : 0, TrolleyCount : 3.0, Order Load : 55.0 cumsum: 15.0 )
-( (1, 3), Demand: 65, CurrentTime: 9978,pickup, Distance: 42, Start: 0, End: 180, ServiceTime: 2, Penalty : 0, TrolleyCount : 3.0, Order Load : 119.99999999999994 cumsum: 42.0 )
-( (3, 6), Demand: -55, CurrentTime: 9985,delivery, Distance: 4, Start: 0, End: 190, ServiceTime: 2, Penalty : 0.0, TrolleyCount : 3.0, Order Load : 174.9999999999999 cumsum: 4.0 )
-( (6, 8), Demand: -65, CurrentTime: 10006,delivery, Distance: 18, Start: 0, End: 160, ServiceTime: 2, Penalty : 0.0, TrolleyCount : 3.0, Order Load : 239.9999999999999 cumsum: 18.0 )
-( (8, 11), Demand: 0, CurrentTime: 100000000000000000000,depot, Distance: 24, Start: 0, End: 230, ServiceTime: 4, Penalty : 0, TrolleyCount : 3.0, Order Load : 239.9999999999985 cumsum: 24.0 )
-Vehicle 2
-( (0, 4), Demand: 55, CurrentTime: 27,pickup, Distance: 16, Start: 22, End: 199, ServiceTime: 4, Penalty : 0, TrolleyCount : 3.0, Order Load : 54.99999999999995 cumsum: 16.0 )
-( (4, 9), Demand: -55, CurrentTime: 35,delivery, Distance: 6, Start: 0, End: 181, ServiceTime: 2, Penalty : 0.0, TrolleyCount : 3.0, Order Load : 109.99999999999996 cumsum: 6.0 )
-( (9, 11), Demand: 0, CurrentTime: 100000000000000000000,depot, Distance: 22, Start: 0, End: 230, ServiceTime: 2, Penalty : 0, TrolleyCount : 3.0, Order Load : 110.00000000000256 cumsum: 22.0 )
-Vehicle 3
-( (0, 2), Demand: 60, CurrentTime: 35,pickup, Distance: 24, Start: 0, End: 191, ServiceTime: 4, Penalty : 0, TrolleyCount : 3.0, Order Load : 59.99999999999999 cumsum: 24.0 )
-( (2, 5), Demand: 55, CurrentTime: 57,pickup, Distance: 20, Start: 5, End: 195, ServiceTime: 2, Penalty : 0, TrolleyCount : 3.0, Order Load : 115.00000000000003 cumsum: 20.0 )
-( (5, 10), Demand: -55, CurrentTime: 63,delivery, Distance: 3, Start: 0, End: 193, ServiceTime: 2, Penalty : 0.0, TrolleyCount : 3.0, Order Load : 170.00000000000014 cumsum: 3.0 )
-( (7, 11), Demand: 0, CurrentTime: 100000000000000000000,depot, Distance: 19, Start: 0, End: 230, ServiceTime: 2, Penalty : 0, TrolleyCount : 3.0, Order Load : 230.00000000000225 cumsum: 19.0 )
-( (10, 7), Demand: -60, CurrentTime: 80,delivery, Distance: 14, Start: 0, End: 175, ServiceTime: 2, Penalty : 0.0, TrolleyCount : 3.0, Order Load : 229.99999999999963 cumsum: 14.0 )
-cpuTime: 143.886 seconds
-
+Objective value = 220.0
+Vehicle 1, TrolleyCount : 3.0
+     Not Used
+Vehicle 2, TrolleyCount : 3.0
+( (0, 1), Demand: 35, CurrentTime: 25,pickup, Distance: 15, Start: 36, End: 46, ServiceTime: 4, Penalty : 0, Order Load : 34.99999999999997 cumsum: 15.0 )
+( (1, 3), Demand: 65, CurrentTime: 69,pickup, Distance: 42, Start: 0, End: 180, ServiceTime: 2, Penalty : 0, Order Load : 99.99999999999999 cumsum: 42.0 )
+( (3, 5), Demand: -35, CurrentTime: 76,delivery, Distance: 4, Start: 0, End: 190, ServiceTime: 2, Penalty : 0.0, Order Load : 135.0 cumsum: 4.0 )
+( (5, 7), Demand: -65, CurrentTime: 10004,delivery, Distance: 18, Start: 0, End: 160, ServiceTime: 2, Penalty : 0.0, Order Load : 199.99999999999795 cumsum: 18.0 )
+( (7, 9), Demand: 0, CurrentTime: 100000000000000000000,depot, Distance: 24, Start: 0, End: 230, ServiceTime: 4, Penalty : 0, Order Load : 199.99999999999665 cumsum: 24.0 )
+Vehicle 3, TrolleyCount : 3.0
+( (0, 2), Demand: 60, CurrentTime: 34,pickup, Distance: 24, Start: 0, End: 191, ServiceTime: 4, Penalty : 0, Order Load : 60.0 cumsum: 24.0 )
+( (2, 6), Demand: -60, CurrentTime: 10004,delivery, Distance: 30, Start: 0, End: 175, ServiceTime: 2, Penalty : 0.0, Order Load : 119.99999999999997 cumsum: 30.0 )
+( (6, 9), Demand: 0, CurrentTime: 100000000000000000000,depot, Distance: 19, Start: 0, End: 230, ServiceTime: 2, Penalty : 0, Order Load : 120.00000000000001 cumsum: 19.0 )
+Vehicle 4, TrolleyCount : 3.0
+( (0, 4), Demand: 75, CurrentTime: 9996,pickup, Distance: 16, Start: 22, End: 199, ServiceTime: 4, Penalty : 0, Order Load : 75.0 cumsum: 16.0 )
+( (4, 8), Demand: -75, CurrentTime: 10004,delivery, Distance: 6, Start: 0, End: 181, ServiceTime: 2, Penalty : 0.0, Order Load : 150.0 cumsum: 6.0 )
+( (8, 9), Demand: 0, CurrentTime: 100000000000000000000,depot, Distance: 22, Start: 0, End: 230, ServiceTime: 2, Penalty : 0, Order Load : 150.00000000000261 cumsum: 22.0 )
+Vehicle 5, TrolleyCount : 3.0
+     Not Used
 """
