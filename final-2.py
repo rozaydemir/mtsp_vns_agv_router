@@ -707,7 +707,9 @@ class Route:
             prevNode = self.locations[i - 1]
             curNode = self.locations[i]
             dist = distMatrix[prevNode.nodeID][curNode.nodeID]
-            curTime = max(curNode.startTW, curTime + prevNode.servTime + dist + (trolley_count_needed * self.problem.TIR))
+            curTime = max(curNode.startTW, curTime + prevNode.servTime + dist
+                          + (trolley_count_needed * self.problem.TIR)
+                          )
             ETPenalty = 0
             if curNode.typeLoc == "delivery":
                 if curTime < curNode.startTW:
@@ -837,6 +839,8 @@ class Route:
         if self.locations[0] != self.problem.depot or self.locations[-1] != self.problem.depot:
             return False
 
+        if len(self.locations) <= 2 and self.locations[0] == self.problem.depot and self.locations[1] == self.problem.depot:
+            return False
 
         curTime = 0  # current time
         curLoad = 0  # current load in vehicle

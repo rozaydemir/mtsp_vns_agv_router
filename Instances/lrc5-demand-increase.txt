@@ -6,7 +6,7 @@ C3           cd           40.0         20.0         -40.0        0.0          19
 C4           cd           17.0         10.0         -50.0        0.0          190.0        2.0          C2
 
 VehicleCount : 3
-VehiclePerCapacity : 50
+VehiclePerCapacity:   50
 VehicleMaxTrolleyCount : 3
 TrolleyImpactRate : 1.2
 EarlinessPenalty : 15

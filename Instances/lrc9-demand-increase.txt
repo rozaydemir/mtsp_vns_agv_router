@@ -1,17 +1,17 @@
 StringID     Type         x            y            demand       ReadyTime    DueDate      ServiceTime  PartnerID
 D0           d            35.0         35.0         0.0          0.0          230.0        4.0          0
-C1           cp           41.0         49.0         35.0         36.0         46.0         2.0          C5
-C2           cp           55.0         22.0         60.0         0.0          191.0        2.0          C6
-C3           cp           20.0         13.0         65.0         0.0          180.0        2.0          C7
-C4           cp           40.0         20.0         75.0         22.0         199.0        2.0          C8
-C5           cd           17.0         10.0         -35.0        0.0          190.0        2.0          C1
-C6           cd           25.0         19.0         -60.0        0.0          175.0        2.0          C2
-C7           cd           12.0         27.0         -65.0        0.0          160.0        4.0          C3
-C8           cd           40.0         14.0         -75.0        0.0          181.0        2.0          C4
+C1           cp           41.0         49.0         35.0         36.0         146.0        52.0         C5
+C2           cp           55.0         22.0         30.0         0.0          191.0        52.0         C6
+C3           cp           20.0         13.0         35.0         0.0          180.0        52.0         C7
+C4           cp           40.0         20.0         35.0         22.0         199.0        52.0         C8
+C5           cd           17.0         10.0         -35.0        0.0          190.0        52.0         C1
+C6           cd           25.0         19.0         -30.0        0.0          175.0        52.0         C2
+C7           cd           12.0         27.0         -35.0        0.0          160.0        54.0         C3
+C8           cd           40.0         14.0         -35.0        0.0          181.0        52.0         C4
 
-VehicleCount : 5
-VehiclePerCapacity:   40
+VehicleCount : 1
+VehiclePerCapacity:  200
 VehicleMaxTrolleyCount : 3
 TrolleyImpactRate : 1.2
-EarlinessPenalty : 10
-TardinessPenalty : 10
+EarlinessPenalty : 15
+TardinessPenalty : 15
