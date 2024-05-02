@@ -1,3 +1,7 @@
+import ortools
+import math
+from ortools.constraint_solver import routing_enums_pb2
+from ortools.constraint_solver import pywrapcp
 from ortools.linear_solver import pywraplp
 import math
 import random, time
@@ -70,7 +74,7 @@ def read_data(fileName):
     locations = []
     for infoLine in f.readlines()[-6:]:
         if infoLine.startswith("VehicleCount"):
-            vehicleCount = int(infoLine[-2:-1].strip())
+            vehicleCount = int(infoLine[-3:-1].strip())
         if infoLine.startswith("VehiclePerCapacity"):
             C = int(infoLine[-6:-1].strip())
         if infoLine.startswith("VehicleMaxTrolleyCount"):
@@ -181,7 +185,7 @@ def read_data(fileName):
 #   "Instances/lrc13-demand-increase.txt"
 
 
-data = "Instances/lrc9-demand-increase.txt"
+data = "Instances/lrc11-demand-increase.txt"
 starttime = time.time()  # get the start time
 read_data(data)
 
@@ -219,8 +223,8 @@ objective.SetMinimization()
 # This shows how additional trolleys affect the travel time of the AGV.
 for k in K:
     for i, j in A[k]:
-        if (i,j,k) in t:
-            T[(i, k)] = T[(i, k)] + (Y[k] * TIR)
+        T[(i, k)] == T[(i, k)] + (Y[k] * TIR)
+
 
 # Constraints 2, 3 impose that each request (i.e., the pickup and delivery nodes) is served exactly once and by the same vehicle
 # 2
@@ -278,13 +282,15 @@ for k in K:
 for k in K:
     for i, j in A[k]:
         if (i, j, k) in x:
-            solver.Add(L[(i, k)] + l[j] - L[(j, k)] <= M * (1 - x[(i, j, k)]))
+            solver.Add(L[(i, k)] + (l[j] * x[(i, j, k)]) - L[(j, k)] <= M * (1 - x[(i, j, k)]))
+
 
 # Constraint 13b
 for k in K:
     for i, j in A[k]:
         if (i, j, k) in x:
-            solver.Add(-L[(i, k)] - l[j] + L[(j, k)] <= M * (1 - x[(i, j, k)]))
+            solver.Add(-L[(i, k)] - (l[j] * x[(i, j, k)]) + L[(j, k)] <= M * (1 - x[(i, j, k)]))
+
 
 # for k in K:
 #     for i, j in A[k]:
@@ -317,10 +323,17 @@ for k in K:
 
 
 # Constraint for dynamic trolley count based on the current load
-# for k in K:
-#     # Ensuring trolley count is adjusted based on the load
-#     solver.Add(Y[k] * C >= L[(o[k], k)])  # o[k] is the origin node for vehicle k
+for k in K:
+    # Ensuring trolley count is adjusted based on the load
+    solver.Add(Y[k] * C >= L[(o[k], k)])  # o[k] is the origin node for vehicle k
 
+# for k in K:
+#     for i in range(len(P[k])):
+#         # Araç i'nin pickup işleminden önce taşıyabileceği maksimum yük
+#         solver.Add(L[(P[k][i], k)] <= Y[k] * C)
+#         if i > 0:  # İlk pickup dışındaki her pickup için
+#             # i'nin pickup işleminden önce ve i-1'in delivery işleminden sonra kalan yük
+#             solver.Add((L[(P[k][i], k)] - L[(D[k][i-1], k)]) <= Y[k] * C)
 
 # Constaint 14 ensure vehicle dependent capacity restrictions at pick-up points
 for k in K:
@@ -370,7 +383,7 @@ if status == pywraplp.Solver.OPTIMAL:
                     print(
                         f'( {(i, j)}, Demand: {l[j]}, CurrentTime: {int(T[j, k].solution_value())},'
                         f'{"delivery" if isDelivery else "pickup" if isPicked else "depot"}, Distance: {t.get((i, j, k))}, '
-                        f'Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, Penalty : {(TA[j].solution_value() * beta) + (E[j].solution_value() * alpha) if j in TA else 0}, '
+                        f'Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, Penalty : {(TA[j].solution_value() * beta) + (E[j].solution_value() * alpha) if j in TA and j in E else 0}, '
                         f'Order Load : {L[(j, k)].solution_value()}, Order : {l[j]},'
                         f' cumsum: {(x[(i, j, k)].solution_value() * t.get((i, j, k))) + (TA[j].solution_value() * beta if j in TA else 0) + (E[j].solution_value() * alpha  if j in E else 0)} )')
 
@@ -408,8 +421,8 @@ elif status == pywraplp.Solver.INFEASIBLE:
                 print(
                     f'( {(i, j)}, Demand: {l[j]}, CurrentTime: {int(T[j, k].solution_value())},'
                     f'{"delivery" if isDelivery else "pickup" if isPicked else "depot"}, Distance: {t.get((i, j, k))}, '
-                    f'Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, Penalty : {(TA[j].solution_value() * beta) + (E[j].solution_value() * alpha) if j in TA else 0}, '
-                    f'Order Load : {L[(j, k)].solution_value()}, Order : {l[j]}, '
+                    f'Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, Penalty : {(TA[j].solution_value() * beta) + (E[j].solution_value() * alpha) if j in TA and j in E else 0}, '
+                    f'Order Load : {L[(j, k)].solution_value()}, '
                     f' cumsum: {(x[(i, j, k)].solution_value() * t.get((i, j, k))) + (TA[j].solution_value() * beta if j in TA else 0) + (E[j].solution_value() * alpha if j in E else 0)} )')
 else:
     print('No optimal solution was found.')
