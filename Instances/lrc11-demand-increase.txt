@@ -11,9 +11,9 @@ C8           cd           12.0         27.0         -65.0        0.0          16
 C9           cd           40.0         14.0         -55.0        0.0          181.0        2.0          C4
 C10          cd           36.0         10.0         -55.0        0.0          193.0        2.0          C5
 
-VehicleCount : 4
-VehiclePerCapacity:   50
+VehicleCount : 3
+VehiclePerCapacity:   65
 VehicleMaxTrolleyCount : 3
-TrolleyImpactRate : 1.2
+TrolleyImpactRate : 2.0
 EarlinessPenalty : 15
 TardinessPenalty : 90
