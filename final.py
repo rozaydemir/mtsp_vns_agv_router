@@ -157,13 +157,12 @@ class Destroy:
                     trolley_count_needed = calculateTrolley
 
             curTime = 0
-            for i in range(2, len(route.locations)):
-                first_node = route.locations[i - 2]
-                middle_node = route.locations[i - 1]
-                last_node = route.locations[i]
-                request_ID = route.locations[i - 1].requestID
-                dist = distMatrix[first_node.nodeID][middle_node.nodeID] + distMatrix[middle_node.nodeID][last_node.nodeID]
-                curTime = int(curTime + first_node.servTime + distMatrix[first_node.nodeID][middle_node.nodeID]
+            for i in range(1, len(route.locations)):
+                first_node = route.locations[i - 1]
+                middle_node = route.locations[i]
+                request_ID = route.locations[i].requestID
+                dist = distMatrix[first_node.nodeID][middle_node.nodeID]
+                curTime = max(0, curTime + first_node.servTime + dist
                               + (trolley_count_needed * self.problem.TIR)
                               )
 
@@ -201,6 +200,9 @@ class Destroy:
         # Sort list with time differences
         service_time_difference = sorted(service_time_difference, key = lambda d: d[1], reverse = True)
         # Get request object that corresponds to worst cost
+        if service_time_difference == []:
+            return None
+
         worst_time_request_ID = service_time_difference[0][0]
         chosen_request = None
         for req in self.solution.served:
@@ -208,57 +210,8 @@ class Destroy:
                 chosen_request = req
                 break
         return chosen_request
-    #
-    # '''Helper function method 4'''
-    # def findWorstPenaltyRequest(self):
-    #     global alpha
-    #     global beta
-    #     global distMatrix
-    #     penalty = []
-    #     # Making list with request ID's and difference between serivce start time and the start of time window
-    #     for route in self.solution.routes:
-    #         curTime = 0
-    #         curDemand = 0
-    #
-    #         trolley_count_needed = 1
-    #         for L in range(0, len(route.locations)):
-    #             curNode = route.locations[L]
-    #             curDemand += curNode.demand
-    #             calculateTrolley = (curDemand + self.problem.vehicles[0].trolleyCapacity - 1) // self.problem.vehicles[
-    #                 0].trolleyCapacity
-    #             if calculateTrolley > trolley_count_needed:
-    #                 trolley_count_needed = calculateTrolley
-    #
-    #
-    #         for i in range(1, len(route.locations)):
-    #             prevNode = route.locations[i - 1]
-    #             curNode = route.locations[i]
-    #             request_ID = route.locations[i].requestID
-    #             dist = distMatrix[prevNode.nodeID][curNode.nodeID]
-    #             curTime = round(curTime + prevNode.servTime + dist + (trolley_count_needed * self.problem.TIR))
-    #
-    #             ETPenalty = 0
-    #             if curNode.typeLoc == "delivery":
-    #                 if curTime < curNode.startTW:
-    #                     ETPenalty += (curNode.startTW - curTime) * alpha
-    #
-    #                 if curTime > curNode.endTW:
-    #                     ETPenalty += (curTime - curNode.endTW) * beta
-    #
-    #
-    #             penalty.append([request_ID, dist + ETPenalty])
-    #
-    #     penalty = sorted(penalty, key = lambda d: d[1], reverse = True)
-    #     # Get request object that corresponds to worst cost
-    #     worst_penalty_ID = penalty[0][0]
-    #     chosen_request = None
-    #     for req in self.solution.served:
-    #         if req.ID == worst_penalty_ID:
-    #             chosen_request = req
-    #             break
-    #     return chosen_request
 
-    '''Helper functions method 5'''
+    '''Helper functions method 4 - 5'''
     def findStartingLocationShaw(self, randomGen):
         # Choose random route
         potentialRoutes = self.solution.routes
@@ -276,7 +229,7 @@ class Destroy:
                 potentialRoutes.remove(route)
         return location
 
-    '''Helper function method 7'''
+    '''Helper function method 4'''
     def findNextTimeBasedRequest(self):
         # Initialize location that is currently selected
         loc_i = self.last_time_based_location
@@ -301,12 +254,12 @@ class Destroy:
                 break
         return chosen_request
 
-    '''Helper function method 8'''
+    '''Helper function method 5'''
     def findNextDemandBasedRequest(self):
         # Initialize location that is currently selected
         loc_i = self.last_demand_based_location
         smallest_diff = np.inf
-
+        chosen_location = loc_i
         # Find most related location in terms of demand
         for route in self.solution.routes:
             for loc_j in route.locations:
@@ -321,6 +274,67 @@ class Destroy:
         # Determine request that is related to the closest location
         for req in self.solution.served:
             if req.ID == self.last_demand_based_location.requestID:
+                chosen_request = req
+                break
+        return chosen_request
+
+    '''Helper function method 6'''
+    def findRandomRoute(self, randomGen):
+        # First make a copy of the routes in the solution
+        set_of_routes = self.solution.routes.copy()
+        # Find select a random route that contains at least one request
+        while True:
+            if not set_of_routes:
+                return None
+            route = randomGen.choice(set_of_routes)
+            # If no request can be removed from this route
+            if len(route.locations) < 4:
+                set_of_routes.remove(route)
+            else:
+                return route
+
+    def findWorstCostRequestRandomRoute(self, randomGen):
+        global distMatrix
+        global alpha
+        global beta
+        route = self.findRandomRoute(randomGen)
+        cost = []
+
+        trolley_count_needed = 1
+        curDemand = 0
+        for l in range(0, len(route.locations)):
+            curNode = route.locations[l]
+            curDemand += curNode.demand
+            calculateTrolley = (curDemand + self.problem.vehicles[0].trolleyCapacity - 1) // self.problem.vehicles[
+                0].trolleyCapacity
+            if calculateTrolley > trolley_count_needed:
+                trolley_count_needed = calculateTrolley
+
+        # Making list with request ID's and their corresponding cost
+        curTime = 0
+        for i in range(1, len(route.locations)):
+            prevNode = route.locations[i - 1]
+            curNode = route.locations[i]
+            # request_ID = route.locations[i].requestID
+            dist = distMatrix[prevNode.nodeID][curNode.nodeID]
+            curTime = max(0, curTime + prevNode.servTime + dist + (trolley_count_needed * self.problem.TIR))
+
+            ETPenalty = 0
+            if curNode.typeLoc == "delivery":
+                if curTime < curNode.startTW:
+                    ETPenalty += (curNode.startTW - curTime) * alpha
+
+                if curTime > curNode.endTW:
+                    ETPenalty += (curTime - curNode.endTW) * beta
+
+            cost.append([curNode.requestID, dist + ETPenalty])
+        # Sort cost
+        cost = sorted(cost, key=lambda d: d[1], reverse=True)
+        # Get request object that corresponds to worst cost
+        worst_cost_request_ID = cost[0][0]
+        chosen_request = None
+        for req in self.solution.served:
+            if req.ID == worst_cost_request_ID:
                 chosen_request = req
                 break
         return chosen_request
@@ -401,6 +415,15 @@ class Destroy:
             if chosen_req != None:
                 self.solution.removeRequest(chosen_req)
 
+    '''Destroy method number 6'''
+    def executeRandomRouteRemoval(self, nRemove, randomGen):
+        for _ in range(nRemove):
+            if len(self.solution.served) == 0:
+                break
+            chosen_req = self.findWorstCostRequestRandomRoute(randomGen)
+            if chosen_req != None:
+                self.solution.removeRequest(chosen_req)
+
 
 class Route:
 
@@ -450,11 +473,11 @@ class Route:
             if calculateTrolley > trolley_count_needed:
                 trolley_count_needed = calculateTrolley
 
-        for i in range(1, len(self.locations) - 1):
+        for i in range(1, len(self.locations)):
             prevNode = self.locations[i - 1]
             curNode = self.locations[i]
             dist = distMatrix[prevNode.nodeID][curNode.nodeID]
-            curTime = int(curTime + prevNode.servTime + dist + (trolley_count_needed * self.problem.TIR))
+            curTime = max(0, curTime + prevNode.servTime + dist + (trolley_count_needed * self.problem.TIR))
             self.locations[i].servStartTime = curTime
 
     def computeDistanceRoute(self):
@@ -479,7 +502,7 @@ class Route:
             prevNode = self.locations[i - 1]
             curNode = self.locations[i]
             dist = distMatrix[prevNode.nodeID][curNode.nodeID]
-            curTime = int(curTime + prevNode.servTime + dist + (trolley_count_needed * self.problem.TIR))
+            curTime = max(0, curTime + prevNode.servTime + dist + (trolley_count_needed * self.problem.TIR))
 
             ETPenalty = 0
             if curNode.typeLoc == "delivery":
@@ -554,7 +577,7 @@ class Route:
             prevNode = loc[i - 1]
             curNode = loc[i]
             dist = distMatrix[prevNode.nodeID][curNode.nodeID]
-            curTime = int(curTime + prevNode.servTime + dist
+            curTime = max(0,curTime + prevNode.servTime + dist
                           + (trolley_count_needed * self.problem.TIR)
                           )
 
@@ -606,9 +629,8 @@ class Route:
         if self.locations[0] != self.problem.depot or self.locations[-1] != self.problem.depot:
             return False
 
-        if len(self.locations) <= 2 and self.locations[0] == self.problem.depot or self.locations[1] == self.problem.depot:
+        if len(self.locations) <= 2 and self.locations[0] == self.problem.depot and self.locations[1] == self.problem.depot:
             return False
-
 
         curTime = 0  # current time
         curLoad = 0  # current load in vehicle
@@ -648,10 +670,11 @@ class Route:
             #     return False
             # check if capacity not exceeded
             # TODO : araca ait trolley capacity  çok iseye çevrilecek
-            curLoad += curNode.demand
-
-            if curLoad > self.problem.capacity:
-                return False
+            # if curNode.typeLoc == "pickup":
+            #     curLoad += curNode.demand
+            #
+            # if curLoad > self.problem.capacity:
+            #     return False
             # check if we don't do a delivery before a pickup
             if curNode.typeLoc == "pickup":
                 # it is a pickup
@@ -683,29 +706,6 @@ class Route:
         self.computeDistanceRoute()
         self.computeDemandRoute()
         # *** add this method
-
-    def addRequest(self, request, preNode_index, afterNode_index, cnt):
-        """
-        Method that add a request to the route.
-         """
-        # add the request, the pickup and the delivery
-        requestsCopy = self.requests.copy()
-        locationsCopy = self.locations.copy()
-        requestsCopy.add(request)
-        locationsCopy.insert(preNode_index, request.pickUpLoc)
-        locationsCopy.insert(afterNode_index, request.deliveryLoc)
-        afterInsertion = Route(locationsCopy, requestsCopy, self.problem, cnt)
-        if afterInsertion.feasible:
-            self.requests.add(request)
-            self.locations.insert(preNode_index, request.pickUpLoc)
-            self.locations.insert(afterNode_index, request.deliveryLoc)
-            cost = self.compute_cost_add_one_request(preNode_index, afterNode_index, request)
-
-            demand = afterInsertion.demand
-            # revise.
-            return cost, demand
-        else:
-            return - 1
 
     def copy(self):
         """
@@ -756,6 +756,19 @@ class Route:
                         bestInsert = afterInsertion
                         minCost = cost
                         minDemand = afterInsertion.demand
+
+        if bestInsert != None:
+            routeCost = bestInsert.distance
+            if routeCost > self.problem.TValue:
+                self.problem.TValue = self.problem.TValue + (self.problem.TValue * 0.3)
+                bestInsert = None
+                minCost = sys.maxsize
+                minDemand = sys.maxsize
+            else:
+                self.problem.TValue = self.problem.TValue - (self.problem.TValue * 0.1)
+                if self.problem.TValue < self.problem.TValueMin - (self.problem.TValueMin * 0.15):
+                    self.problem.TValue = self.problem.TValueMin
+
         return bestInsert, minCost, minDemand
 class Repair:
 
@@ -810,10 +823,6 @@ class Repair:
                 for route in self.solution.routes:
                     afterInsertion, cost, demand = route.greedyInsert(req)
 
-                    if (demand > self.problem.capacity):
-                        inserted = False
-                        afterInsertion = None
-
                     if afterInsertion == None:
                         continue
 
@@ -824,9 +833,9 @@ class Repair:
                         minDemand = demand
                         minCost = cost
 
-                if bestInsert != None:
-                    if removedRoute.distance < bestInsert.distance:
-                        inserted = False
+                # if bestInsert != None:
+                #     if removedRoute.distance < bestInsert.distance:
+                #         inserted = False
 
                 # if we were not able to insert, create a new route
                 if not inserted:
@@ -859,14 +868,12 @@ class Repair:
             # keep track of routes in which req could be inserted
             potentialRoutes = self.solution.routes.copy()
             inserted = False
+            res = 0
             while len(potentialRoutes) > 0:
                 # pick a random route
                 randomRoute = randomGen.choice(potentialRoutes)
                 afterInsertion, cost, demand = randomRoute.greedyInsert(req)
 
-                if(demand > self.problem.capacity):
-                    inserted = False
-                    afterInsertion = None
 
                 if afterInsertion == None:
                     # insertion not feasible, remove route from potential routes
@@ -881,7 +888,8 @@ class Repair:
             if not inserted:
                 self.solution.manage_routes(req)
 
-            # update the lists with served and notServed requests
+            # if res != 3:
+                # update the lists with served and notServed requests
             self.solution.served.append(req)
             self.solution.notServed.remove(req)
 class Parameters:
@@ -980,8 +988,9 @@ class Solution:
         """
         nRoutes = len(self.routes)
         nNotServed = len(self.notServed)
+        nServed = len(self.served)
         print('total distance ' + str(self.distance) + " Solution with " + str(nRoutes) + " routes and " + str(
-            nNotServed) + " unserved requests: ")
+            nNotServed) + " unserved requests and " + str(nServed) + " served request: ")
         for route in self.routes:
             route.calculateServiceStartTime()
             route.print()
@@ -994,8 +1003,9 @@ class Solution:
         """
         nRoutes = len(self.routes)
         nNotServed = len(self.notServed)
+        nServed = len(self.served)
         print('total cost ' + str(self.distance) + " Solution with " + str(nRoutes) + " routes and " + str(
-            nNotServed) + " unserved requests: \n")
+            nNotServed) + " unserved requests  and " + str(nServed) + " served request: \n")
 
         for vehicles in self.problem.vehicles:
             vehicles.print()
@@ -1022,30 +1032,49 @@ class Solution:
             self.routes.append(newRoute)
             self.distance += newRoute.distance
             self.demand += newRoute.demand
+            return self.distance
         else:
             # Mevcut rotalara ekleme yapmaya çalış
-            self.try_add_to_existing_routes(req)
+            return self.try_add_to_existing_routes(req)
 
     def try_add_to_existing_routes(self, req):
         feasibleInsert = None
         removedRoute = None
-        minC = 0
+        minC = sys.maxsize
         minD = 0
         for route in self.routes:
             bestInsert, minCost, minDemand = route.greedyInsert(req)
-            if bestInsert != None:
+            if bestInsert != None and minC < minCost:
                 feasibleInsert = bestInsert
                 removedRoute = route
                 minC = minCost
                 minD = minDemand
-                break
+
 
         if feasibleInsert != None:
             self.updateRoute(removedRoute, feasibleInsert, minC, minD)
+            return feasibleInsert.distance
         else:
-            self.removeRequest(req)
+            """
+            Eğer hiçbir rotaya eklenemezse
+            req eğer served listesinde ise served listesinden çıkar
+            req eğer served listesinde değilse en uzun rotayı sil
+            """
+            maxCostRoute = -999
+            deletedRoute = 0
+            deletedIndex = 0
+            for i in range(0, len(self.routes)):
+                if req not in self.routes[i].requests:
+                    if self.routes[i].distance > maxCostRoute:
+                        maxCostRoute = self.routes[i].distance
+                        deletedRoute = self.routes[i]
+                        deletedIndex = i
+            for requ in list(deletedRoute.requests):
+                deletedRoute.removeRequest(requ)
+            self.routes.pop(deletedIndex)
+            return 999999
 
-        return False
+
 
     def createNewRoute(self, req):
         locList = [self.problem.depot, req.pickUpLoc, req.deliveryLoc, self.problem.depot]
@@ -1059,25 +1088,6 @@ class Solution:
         self.routes.append(bestInsert)
         self.distance += minCost
         self.demand += minDemand
-
-    def addRequest(self, request, insertRoute, prevNode_index, afterNode_index, cnt = 0):
-        '''
-        Method that add a request to the solution
-        '''
-        if insertRoute == None:
-            self.manage_routes(request)
-        else:
-            for route in self.routes:
-                if route == insertRoute:
-                    res, demand = route.addRequest(request, prevNode_index, afterNode_index, cnt)
-                    if res == -1:
-                        self.manage_routes(request)
-                    else:
-                        self.distance += res
-                        self.demand += demand
-        self.served.append(request)
-        self.notServed.remove(request)
-
 
     def copy(self):
         """
@@ -1143,7 +1153,7 @@ class PDPTW:
         capacity of the vehicles
 
     """
-    def __init__(self, name, requests, depot, vehicles, TIR):
+    def __init__(self, name, requests, depot, vehicles, TIR, initialSolutionStarter):
         global distMatrix
         global alpha
         global beta
@@ -1152,6 +1162,8 @@ class PDPTW:
         self.depot = depot
         self.capacity = 0
         self.TIR = TIR
+        self.TValue = sys.maxsize
+        self.TValueMin = initialSolutionStarter // len(vehicles) - 1
         self.vehicles = vehicles
         for vehicle in vehicles:
             self.capacity += vehicle.maxTrolleyCount * vehicle.trolleyCapacity
@@ -1180,7 +1192,7 @@ class PDPTW:
         if count_needed > self.vehicles[vehicleIndex].trolleyCount:
             self.vehicles[vehicleIndex].increaseTrolleyCapacity()
 
-    def readInstance(fileName):
+    def readInstance(fileName, initialSolutionStarter):
         global alpha
         global beta
         """
@@ -1269,11 +1281,10 @@ class PDPTW:
             raise Exception("Not all matched")
 
         vehicles = list()
-        vehicleCount
         for i in range(vehicleCount):
             vehicles.append(Vehicles(i, Mmax, capacityOfTrolley))
 
-        return PDPTW(fileName, requests, depot,  vehicles, TIR)
+        return PDPTW(fileName, requests, depot,  vehicles, TIR, initialSolutionStarter)
 class ALNS:
     """
     Class that models the ALNS algorithm.
@@ -1340,7 +1351,8 @@ class ALNS:
         }
         self.repairList = {
             0: "Greedy Insert",
-            1: "random Insert"
+            1: "random Insert",
+            2: "regret Insert"
         }
     def constructInitialSolution(self):
         """
@@ -1352,6 +1364,8 @@ class ALNS:
         self.bestSolution = self.currentSolution.copy()
         self.bestDistance = self.currentSolution.distance
         self.bestDemand = self.currentSolution.demand
+        self.problem.TValue = self.bestDistance + (self.bestDistance * 0.3)
+        print(f"Initial Solution Value : {self.problem.TValueMin}.0")
 
         # Print initial solution
         # self.maxSizeNBH = len(self.problem.requests)
@@ -1603,6 +1617,8 @@ class ALNS:
             destroySolution.executeTimeBasedRemoval(sizeNBH, self.randomGen)
         elif destroyHeuristicNr == 4:
             destroySolution.executeDemandBasedRemoval(sizeNBH, self.randomGen)
+        # elif destroyHeuristicNr == 5:
+        #     destroySolution.executeRandomRouteRemoval(sizeNBH, self.randomGen)
 
         # Perform the repair
         repairSolution = Repair(self.problem, self.tempSolution)
@@ -1610,16 +1626,19 @@ class ALNS:
             repairSolution.executeGreedyInsertion()
         elif repairHeuristicNr == 1:
             repairSolution.executeRandomInsertion(self.randomGen)
+        # elif repairHeuristicNr == 2:
+        #     repairSolution.executeRegretInsertion()
 
 
-data = "Instances/lrc9.txt"
-problem = PDPTW.readInstance(data)
+data = "Instances/lrc11.txt"
+initialSolutionStarter = 14525
+problem = PDPTW.readInstance(data, initialSolutionStarter)
 
 # Static parameters
-nDestroyOps = 6  #number of destroy operations, çeşitlilik sağlanmak istenirse 9 a çıkar
+nDestroyOps = 5  #number of destroy operations, çeşitlilik sağlanmak istenirse 9 a çıkar
 nRepairOps = 2  # number of repair operations # çeşitlilik sağlanmak istenirse 3 e çıkar
 minSizeNBH = 1  #Minimum size of neighborhood
-nIterations = 1000  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
+nIterations = 5000  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
 tau = 0.03
 coolingRate = 0.9990
 
@@ -1631,3 +1650,30 @@ noise = 0.015  #gürültü ekleme, çözüm uzayında daha çeşitli noktaları 
 alns = ALNS(problem, nDestroyOps, nRepairOps, nIterations, minSizeNBH, maxPercentageNHB, decayParameter, noise, tau, coolingRate)
 
 alns.execute()
+
+"""
+Objective value = 14525.000000000273
+Vehicle 1, TrolleyCount : 2.0
+(0, 1), Demand: 65, CurrentTime: 18.400000000001455,pickup, Distance: 8, Start: 6, End: 46, ServiceTime: 4, Penalty : 0, Order Load : 65.0,  cumsum: 8.0 )
+(1, 6), Demand: -65, CurrentTime: 169.80000000000257,delivery, Distance: 125, Start: 4, End: 80, ServiceTime: 20, Penalty : 2245.0000000000646, Order Load : 0.0,  cumsum: 2370.0000000000646 )
+(6, 11), Demand: 0, CurrentTime: 0,depot, Distance: 133, Start: 0, End: 230, ServiceTime: 2, Penalty : 0, Order Load : 0.0,  cumsum: 133.0 )
+Vehicle 2, TrolleyCount : 2.0
+(0, 3), Demand: 55, CurrentTime: 45.400000000001455,pickup, Distance: 35, Start: 6, End: 80, ServiceTime: 4, Penalty : 0, Order Load : 55.0,  cumsum: 35.0 )
+(3, 8), Demand: -55, CurrentTime: 197.8000000000029,delivery, Distance: 126, Start: 8, End: 60, ServiceTime: 20, Penalty : 3445.0000000000728, Order Load : 0.0,  cumsum: 3571.0000000000728 )
+(8, 11), Demand: 0, CurrentTime: 0,depot, Distance: 122, Start: 0, End: 230, ServiceTime: 4, Penalty : 0, Order Load : 0.0,  cumsum: 122.0 )
+Vehicle 3, TrolleyCount : 2.0
+(0, 2), Demand: 50, CurrentTime: 102.40000000000138,pickup, Distance: 92, Start: 5, End: 91, ServiceTime: 4, Penalty : 0, Order Load : 50.0,  cumsum: 92.0 )
+(2, 7), Demand: -50, CurrentTime: 141.80000000000268,delivery, Distance: 31, Start: 6, End: 75, ServiceTime: 2, Penalty : 1670.0000000000666, Order Load : 0.0,  cumsum: 1701.0000000000666 )
+(7, 11), Demand: 0, CurrentTime: 0,depot, Distance: 77, Start: 0, End: 230, ServiceTime: 20, Penalty : 0, Order Load : 0.0,  cumsum: 77.0 )
+Vehicle 4, TrolleyCount : 2.0
+(0, 4), Demand: 55, CurrentTime: 39.39999999999857,pickup, Distance: 29, Start: 2, End: 99, ServiceTime: 4, Penalty : 0, Order Load : 55.0,  cumsum: 29.0 )
+(4, 9), Demand: -55, CurrentTime: 137.79999999999984,delivery, Distance: 90, Start: 2, End: 81, ServiceTime: 2, Penalty : 1419.9999999999961, Order Load : 0.0,  cumsum: 1509.9999999999961 )
+(9, 11), Demand: 0, CurrentTime: 0,depot, Distance: 98, Start: 0, End: 230, ServiceTime: 20, Penalty : 0, Order Load : 0.0,  cumsum: 98.0 )
+Vehicle 5, TrolleyCount : 2.0
+(0, 5), Demand: 65, CurrentTime: 129.40000000000134,pickup, Distance: 119, Start: 5, End: 95, ServiceTime: 4, Penalty : 0, Order Load : 65.0,  cumsum: 119.0 )
+(5, 10), Demand: -65, CurrentTime: 232.80000000000288,delivery, Distance: 77, Start: 0, End: 53, ServiceTime: 20, Penalty : 4495.000000000072, Order Load : 0.0,  cumsum: 4572.000000000072 )
+(10, 11), Demand: 0, CurrentTime: 0,depot, Distance: 88, Start: 0, End: 230, ServiceTime: 2, Penalty : 0, Order Load : 0.0,  cumsum: 88.0 )
+Vehicle 6, TrolleyCount : 2.0
+     Not Used
+cpuTime: 129.23 seconds
+"""

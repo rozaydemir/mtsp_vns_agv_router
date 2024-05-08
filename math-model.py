@@ -185,7 +185,7 @@ def read_data(fileName):
 #   "Instances/lrc13-demand-increase.txt"
 
 
-data = "Instances/lrc9.txt"
+data = "Instances/lrc11.txt"
 starttime = time.time()  # get the start time
 read_data(data)
 
@@ -202,7 +202,7 @@ for k in K:
         if i != j:
             x[(i, j, k)] = solver.BoolVar(f'x[{i},{j},{k}]')
     for i in range(max(max(A[k])) + 1):  # A listesindeki en büyük düğüm numarasına göre döngü
-        T[(i, k)] = solver.IntVar(0, solver.infinity(), f'T[{i},{k}]')
+        T[(i, k)] = solver.NumVar(0, solver.infinity(), f'T[{i},{k}]')
         L[(i, k)] = solver.IntVar(0, solver.infinity(), f'L[{i},{k}]')
 for i in D_all:
     E[i] = solver.NumVar(0, solver.infinity(), f'E[{i}]')
@@ -375,7 +375,7 @@ if status == pywraplp.Solver.OPTIMAL:
                         f'     Not Used')
                 else:
                     print(
-                        f'{(i, j)}, Demand: {l[j]}, CurrentTime: {0 if j == d[k] else int(T[j, k].solution_value())},'
+                        f'{(i, j)}, Demand: {l[j]}, CurrentTime: {0 if j == d[k] else T[j, k].solution_value()},'
                         f'{"delivery" if isDelivery else "pickup" if isPicked else "depot"}, Distance: {t.get((i, j, k))}, '
                         f'Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, Penalty : {(TA[j].solution_value() * beta) + (E[j].solution_value() * alpha) if j in TA and j in E else 0}, '
                         f'Order Load : {L[(j, k)].solution_value()}, '
