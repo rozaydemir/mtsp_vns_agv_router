@@ -11,7 +11,6 @@ The instances are formatted as follows:
 -StringId as a unique identifier
 -Type indicates the function of the location, i.e,
 ---d: depot
----f: recharging station
 --cp: customer pickup location
 --cd: customer delivery location
 -x, y are coordinates (distances are assumed to be euclidean) 
@@ -21,11 +20,12 @@ The instances are formatted as follows:
 -PartnerId is relevant for transportation requests and provides the StringId of the partner of each pickup and delivery location
 
 ###For the electric vehicles (all identical):
--vehicle battery capacity: units of energy available
--vehicle freight capacity: units available for cargo
--battery consumption rate: reduction of battery capacity when traveling one unit of distance
--inverse recharging rate:  units of time required to recharge one unit of energy
--average velocity:         assumed to be constant on all arcs, required to calculate the travel time from distance
+-VehicleCount: count of vehicle
+-VehiclePerCapacity: load capacity of the trolley adding by each vehicle
+-VehicleMaxTrolleyCount: Maximum number of trolleys to be fitted by each vehicle
+-TrolleyImpactRate:  coefficient cost of installing each trolley
+-EarlinessPenalty: vehicle's early arrival penalty point
+-TardinessPenalty: vehicle's late arrival penalty point
 
 
 

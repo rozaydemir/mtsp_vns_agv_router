@@ -162,30 +162,8 @@ def read_data(fileName):
     b[len(P_all + D_all) + 1] = b[0]
     s[len(P_all + D_all) + 1] = s[0]
 
-#   "Instances/lrc5.txt"
-#   "Instances/lrc5-demand-increase.txt"
-#   "Instances/lrc5-location-increase.txt"
-#   "Instances/lrc5-location-repeatly.txt"
-#   "Instances/lrc5-servTime-increase.txt"
-#   "Instances/lrc5-time-window-descrease.txt"
-#   "Instances/lrc7.txt"
-#   "Instances/lrc7-demand-increase.txt"
-#   "Instances/lrc7-location-increase.txt"
-#   "Instances/lrc7-location-repeatly.txt"
-#   "Instances/lrc7-location-penalty.txt"
-#   "Instances/lrc7-time-window-descrease.txt"
-#   "Instances/lrc9.txt"
-#   "Instances/lrc9-demand-increase.txt"
-#   "Instances/lrc9-location-increase.txt"
-#   "Instances/lrc9-time-window-descrease.txt"
-#   "Instances/lrc11.txt"
-#   "Instances/lrc11-demand-increase.txt"
-#   "Instances/lrc11-location-decrease.txt"
-#   "Instances/lrc11-location-increase.txt"
-#   "Instances/lrc13-demand-increase.txt"
 
-
-data = "Instances/lrc11.txt"
+data = "Instances/c202C16.txt"
 starttime = time.time()  # get the start time
 read_data(data)
 

@@ -109,8 +109,8 @@ C106         cd           41.0         37.0         -16.0        0.0          21
 C107         cd           87.0         30.0         -10.0        0.0          178.0        10.0         C32          
 C108         cd           5.0          35.0         -10.0        142.0        172.0        10.0         C13          
 
-VehicleCount : 50
-VehiclePerCapacity:   50
+VehicleCount : 15
+VehiclePerCapacity:   40
 VehicleMaxTrolleyCount : 3
 TrolleyImpactRate : 1.2
 EarlinessPenalty : 15
