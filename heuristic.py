@@ -1173,8 +1173,7 @@ class ALNS:
         self.bestDistance = self.currentSolution.distance
         self.bestDemand = self.currentSolution.demand
         self.problem.TValue = self.bestDistance + (self.bestDistance * 0.3)
-        self.problem.TValueMin = self.convinentStarter // len(
-            self.problem.vehicles)
+        self.problem.TValueMin = (self.convinentStarter * .3) // len(self.problem.vehicles)
         self.problem.bestDistanceProblem = self.problem.TValueMin
         self.problem.convProblem = self.problem.TValueMin
         # print(f"convergent interval : {self.problem.TValueMin} - {self.problem.TValue}")

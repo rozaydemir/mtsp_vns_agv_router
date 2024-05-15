@@ -269,7 +269,7 @@ for k in K:
     # Ensuring trolley count is adjusted based on the load
     solver.Add(Y[k] * C >= L[(o[k], k)])  # o[k] is the origin node for vehicle k
 
-# Constraint 21a-21b Dynamic Load Adjustment According to Vehicle Capacity
+# # Constraint 21a-21b Dynamic Load Adjustment According to Vehicle Capacity
 # for k in K:
 #     for i in range(len(P[k])):
 #         # 21a - Maximum load that vehicle, node i can carry before pickup
