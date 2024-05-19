@@ -163,7 +163,7 @@ def read_data(fileName):
     s[len(P_all + D_all) + 1] = s[0]
 
 
-data = "Instances/lrc15-optimal-based.txt"
+data = "Instances/lrc15-location-based.txt"
 starttime = time.time()  # get the start time
 read_data(data)
 
@@ -304,7 +304,7 @@ for k in K:
     solver.Add(Mmax >= Y[k])
     solver.Add(Y[k] >= 1)
 
-solver.SetTimeLimit(60000 * 10)
+solver.SetTimeLimit(60000 * 12)
 
 # Çözümü hesapla ve sonuçları yazdır
 # callback = MiddleSolution()

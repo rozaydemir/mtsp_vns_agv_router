@@ -13,7 +13,7 @@ C10          cd           78.0         10.0         -45.0        46.0         26
 
 VehicleCount : 1
 VehiclePerCapacity:   60
-VehicleMaxTrolleyCount : 3
-TrolleyImpactRate : 1.2s
-EarlinessPenalty : 65
-TardinessPenalty : 65
+VehicleMaxTrolleyCount : 2
+TrolleyImpactRate : 1.2
+EarlinessPenalty : 45
+TardinessPenalty : 45

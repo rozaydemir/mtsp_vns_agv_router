@@ -686,9 +686,9 @@ class Route:
                         minCost = cost
                         minDemand = afterInsertion.demand
 
-        # diff = ( ( int(self.problem.convProblem) - int(self.problem.bestDistanceProblem) )  /  int(self.problem.convProblem) ) * 100
-        # if convinent and diff < 50:
-        #     convinent = False
+        # diff = ( ( int(self.problem.bestDistanceProblem) - int(self.problem.convProblem) )  /  int(self.problem.bestDistanceProblem) ) * 100
+        if convinent and self.problem.globalIterationNumber < 100:
+            convinent = False
 
         if convinent:
             if bestInsert != None:
@@ -1052,6 +1052,7 @@ class PDPTW:
         self.TValue = sys.maxsize
         self.TValueMin = 0
         self.bestDistanceProblem = 1
+        self.globalIterationNumber = 0
         self.convProblem = 1
         self.vehicles = vehicles
         # for vehicle in vehicles:
@@ -1158,7 +1159,7 @@ class ALNS:
         self.problem.TValue = self.bestDistance + (self.bestDistance * 0.4)
         self.problem.TValueMin = (self.bestDistance - (self.problem.TValue - self.bestDistance)) // len(self.problem.vehicles)
         self.problem.bestDistanceProblem = self.problem.TValueMin
-        self.problem.convProblem = self.problem.TValueMin
+        self.problem.convProblem = 192
 
         print(f"convergent interval : {self.problem.TValueMin} - {self.problem.TValue}")
         print(f"Initial Solution Value : {self.bestDistance}")
@@ -1183,6 +1184,7 @@ class ALNS:
             self.max_arc_length = self.currentSolution.calculateMaxArc()
             # Simulated annealing
             self.iteration_number = i
+            self.problem.globalIterationNumber = i
             self.checkIfAcceptNewSol()
             # Print solution per iteration
             objective_value = self.tempSolution.distance
