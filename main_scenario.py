@@ -206,7 +206,7 @@ class ScenarioAnalysis:
                             math_model_routes = self.parse_route_math_model(solutionResult_MATH_MODEL, depotNode)
                             heuristic_routes = self.parse_route_alns(solutionResult_ALNS)
                             worksheet.append(
-                                [iterationNumber, vehicleCount, trolleyCount, trolleyImpactRate, earlinessTardinessPenalty, optimalOrFeasible,
+                                [iterationNumber, file_name, vehicleCount, trolleyCount, trolleyImpactRate, earlinessTardinessPenalty, optimalOrFeasible,
                                  cpuTime_MATH_MODEL, round(bestCost_MATH_MODEL), math_model_routes, cpuTime_ALNS, round(bestCost_ALNS), heuristic_routes, gap])
 
                             self.parse_detail_excel(worksheetDetail, iterationNumber, trolleyCount,
