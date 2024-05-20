@@ -1,18 +1,5 @@
-import random
-import xlsxwriter
-import time
-import signal
-import sys
-
-import numpy as np
-
-# from pdptw import PDPTW
 from heuristic import Heuristic
 from algorithm import Algorithm
-
-import pandas as pd
-import os
-import time
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 
