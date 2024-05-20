@@ -505,7 +505,7 @@ class Route:
         totDist = 0
         totDemand = 0
         curTime = 0
-        trolley_count_needed = self.calculateTrolley()
+        trolley_count_needed = self.calculateTrolley(self.locations)
         for i in range(1, len(self.locations)):
             prevNode = self.locations[i - 1]
             curNode = self.locations[i]
@@ -544,7 +544,7 @@ class Route:
         # global beta
         curTime = 0
         totalTimeWindowPenaly = 0
-        trolley_count_needed = self.calculateTrolley()
+        trolley_count_needed = self.calculateTrolley(loc)
 
         for i in range(1, len(loc)):
             prevNode = loc[i - 1]
@@ -596,11 +596,12 @@ class Route:
         return locationRes, locationDetailRes
 
 
-    def calculateTrolley(self) -> int:
+    def calculateTrolley(self, loc = list()) -> int:
         trolley_count_needed = 1
         curDemand = 0
-        for l in range(0, len(self.locations)):
-            curNode = self.locations[l]
+        calculatedLoc = loc if len(loc) > 0 else self.locations
+        for l in range(0, len(calculatedLoc)):
+            curNode = calculatedLoc[l]
             curDemand += curNode.demand
             calculateTrolley = ((curDemand + self.problem.vehicles[0].trolleyCapacity - 1)
                                 // self.problem.vehicles[0].trolleyCapacity)
@@ -705,7 +706,7 @@ class Route:
                         minCost = cost
                         minDemand = afterInsertion.demand
 
-        if self.problem.globalIteration < 100 and convinent:
+        if self.problem.globalIteration < 300 and convinent:
             convinent = False
 
         if convinent:
@@ -957,6 +958,7 @@ class Solution:
                 break
         self.served.remove(request)
         self.notServed.append(request)
+        self.computeDistance()
 
     def manage_routes(self, req):
         if len(self.routes) < len(self.problem.vehicles):
@@ -1390,24 +1392,6 @@ def read_instance(fileName, vehicleCount,
     unmatchedDeliveries = dict()
     nodeCount = 0
     requestCount = 0  # start with 1
-    capacityOfTrolley = 50
-    TIR = 1.2
-
-
-    # for infoLine in f.readlines()[-6:]:
-    #     if infoLine.startswith("VehicleCount"):
-    #         vehicleCount = int(infoLine[-3:-1].strip())
-    #     if infoLine.startswith("VehiclePerCapacity"):
-    #         capacityOfTrolley = int(infoLine[-6:-1].strip())
-    #     if infoLine.startswith("VehicleMaxTrolleyCount"):
-    #         Mmax = int(infoLine[-2:-1].strip())
-    #     if infoLine.startswith("TrolleyImpactRate"):
-    #         TIR = float(infoLine[-4:-1].strip())
-    #     if infoLine.startswith("EarlinessPenalty"):
-    #         alpha = float(infoLine[-3:-1].strip())
-    #     if infoLine.startswith("TardinessPenalty"):
-    #         beta = float(infoLine[-3:-1].strip())
-
     f = open(fileName)
     for line in f.readlines()[1:-7]:
         asList = []

@@ -1,6 +1,8 @@
 import random
 import xlsxwriter
 import time
+import signal
+import sys
 
 import numpy as np
 
@@ -16,6 +18,7 @@ from openpyxl.utils.dataframe import dataframe_to_rows
 
 
 class ScenarioAnalysis:
+
 
     def __init__(self):
         self.INSTANCES = [
@@ -126,7 +129,6 @@ class ScenarioAnalysis:
 
         worksheetDetail.append([])
 
-
     def execute(self):
         start_time = time.time()
         print("Scenario Started")
@@ -134,6 +136,8 @@ class ScenarioAnalysis:
         iterationCount = 4000
         capacityOfTrolley = 60
         timeLimit = 60000 * 20
+
+
 
         for ins in range(0, len(self.INSTANCES)):
             infeasibleData = list()
@@ -184,7 +188,7 @@ class ScenarioAnalysis:
                                      ])
                                 continue
 
-                            heuristic = Heuristic(instance, instance, vehicleCount, capacityOfTrolley, trolleyCount,
+                            heuristic = Heuristic(instance, vehicleCount, capacityOfTrolley, trolleyCount,
                                                   trolleyImpactRate, earlinessTardinessPenalty,
                                                   earlinessTardinessPenalty, iterationCount, bestCost_MATH_MODEL)
                             bestCost_ALNS, cpuTime_ALNS, solutionResult_ALNS = heuristic.execute()

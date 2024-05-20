@@ -1,10 +1,6 @@
-import ortools
-import math
-from ortools.constraint_solver import routing_enums_pb2
-from ortools.constraint_solver import pywrapcp
 from ortools.linear_solver import pywraplp
 import math
-import random, time
+import time
 
 solver = pywraplp.Solver.CreateSolver('SCIP')
 K = []  # vehicles
@@ -163,7 +159,7 @@ def read_data(fileName):
     s[len(P_all + D_all) + 1] = s[0]
 
 
-data = "Instances/lrc15-location-based.txt"
+data = "Instances/lrc9-location-based.txt"
 starttime = time.time()  # get the start time
 read_data(data)
 
@@ -304,7 +300,7 @@ for k in K:
     solver.Add(Mmax >= Y[k])
     solver.Add(Y[k] >= 1)
 
-solver.SetTimeLimit(60000 * 12)
+solver.SetTimeLimit(60000 * 20)
 
 # Çözümü hesapla ve sonuçları yazdır
 # callback = MiddleSolution()
