@@ -138,8 +138,6 @@ class Algorithm:
         b[len(P_all + D_all) + 1] = b[0]
         s[len(P_all + D_all) + 1] = s[0]
 
-        starttime = time.time()  # get the start time
-        # read_data(data)
 
         x = {}  # xijk equal to 1 if arc (i, j) ∈ Ak is used by vehicle k, and 0 otherwise (binary flow variables)
         T = {}  # Tik specifying when vehicle k starts the service at node i ∈  Vk
@@ -268,18 +266,20 @@ class Algorithm:
 
         # Çözümü hesapla ve sonuçları yazdır
         # callback = MiddleSolution()
+        starttime = time.time()
         status = solver.Solve()
 
         endtime = time.time()  # get the end time
-        cpuTime = round(endtime - starttime, 3)
+        cpuTime = round(endtime - starttime, 1)
         objectiveValue = -1
         routesResult = list()
         routesDetailResult = list()
+        routesCostDetailResult = list()
         optimalOrFeasibleOrNonOptimal = "OPTIMAL"
 
 
         if status == pywraplp.Solver.OPTIMAL:
-            print(f"MATH - Final Cost: {objective.Value()}, cpuTime : {cpuTime} - Optimal Result")
+            print(f"MATH - Final Cost: {objective.Value()}, cpuTime: {cpuTime} - Optimal Result")
             objectiveValue = objective.Value()
             for k in K:
                 route = dict()
@@ -297,8 +297,15 @@ class Algorithm:
                             routesDetailResult.append(
                                 f'{(i, j)}, Demand: {l[j]}, CurrentTime: {0 if j == d[k] else T[j, k].solution_value()},'
                                 f'{"delivery" if isDelivery else "pickup" if isPicked else "depot"}, Distance: {t.get((i, j, k))}, '
-                                f'Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, Penalty : {(TA[j].solution_value() * beta) + (E[j].solution_value() * alpha) if j in TA and j in E else 0}, '
+                                f'Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, EA Penalty : {(E[j].solution_value() * alpha) if j in E else 0}, TA Penalty: {(TA[j].solution_value() * alpha) if j in TA else 0}, '
                                 f'Order Load : {L[(j, k)].solution_value()}')
+                            eaPenalty = 0
+                            taPenalty = 0
+                            if j in TA and j in E:
+                                eaPenalty=E[j].solution_value() * alpha
+                                taPenalty= TA[j].solution_value() * beta
+
+                            routesCostDetailResult.append([t.get((i, j, k)), eaPenalty, taPenalty])
                             routes.append(f"({i}, {j})")
                 route["route"] = routes
                 if len(routes) > 0:
@@ -306,7 +313,7 @@ class Algorithm:
         elif status == pywraplp.Solver.FEASIBLE:
             optimalOrFeasibleOrNonOptimal = "FEASIBLE"
             print('Geçerli bir çözüm bulundu, ancak optimal olmayabilir.')
-            print(f"MATH - Final Cost: {solver.Objective().Value()}, cpuTime : {cpuTime} - Feasible Result")
+            print(f"MATH - Final Cost: {solver.Objective().Value()}, cpuTime: {cpuTime} - Feasible Result")
             objectiveValue = solver.Objective().Value()
             for k in K:
                 route = dict()
@@ -324,8 +331,16 @@ class Algorithm:
                             routesDetailResult.append(
                                 f'{(i, j)}, Demand: {l[j]}, CurrentTime: {0 if j == d[k] else T[j, k].solution_value()},'
                                 f'{"delivery" if isDelivery else "pickup" if isPicked else "depot"}, Distance: {t.get((i, j, k))}, '
-                                f'Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, Penalty : {(TA[j].solution_value() * beta) + (E[j].solution_value() * alpha) if j in TA and j in E else 0}, '
+                                f'Start: {a[j]}, End: {b[j]}, ServiceTime: {s[i]}, EA Penalty : {(E[j].solution_value() * alpha) if j in E else 0}, TA Penalty: {(TA[j].solution_value() * alpha) if j in TA else 0}, '
                                 f'Order Load : {L[(j, k)].solution_value()}')
+
+                            eaPenalty = 0
+                            taPenalty = 0
+                            if j in TA and j in E:
+                                eaPenalty=E[j].solution_value() * alpha
+                                taPenalty= TA[j].solution_value() * beta
+                            routesCostDetailResult.append(
+                                [t.get((i, j, k)), eaPenalty, taPenalty])
                             routes.append(f"({i}, {j})")
                 route["route"] = routes
                 if len(routes) > 0:
@@ -335,6 +350,6 @@ class Algorithm:
             print('No optimal solution was found.')
             optimalOrFeasibleOrNonOptimal = "NON-OPTIMAL"
 
-        return optimalOrFeasibleOrNonOptimal, round(objectiveValue), cpuTime, routesResult, d[1], routesDetailResult
+        return optimalOrFeasibleOrNonOptimal, round(objectiveValue), cpuTime, routesResult, d[1], routesDetailResult, routesCostDetailResult
 
 

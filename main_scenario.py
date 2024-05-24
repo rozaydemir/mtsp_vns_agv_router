@@ -2,18 +2,22 @@ from heuristic import Heuristic
 from algorithm import Algorithm
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
+import time
 
 
 class ScenarioAnalysis:
-
-
     def __init__(self):
         self.INSTANCES = [
-            "Instances/lrc15-optimal-based.txt",
+            "Instances/lrc15.txt",
             "Instances/lrc15-location-based.txt",
             "Instances/lrc15-demand-based.txt",
             "Instances/lrc15-time-window-based.txt",
-            "Instances/lrc15-location-and-servtime-and-time-window-based.txt",
+            "Instances/lrc15-servtime-based.txt",
+            "Instances/lrc9.txt",
+            "Instances/lrc9-location-based.txt",
+            "Instances/lrc9-demand-based.txt",
+            "Instances/lrc9-time-window-based.txt",
+            "Instances/lrc9-servtime-based.txt",
         ]
         self.VEHICLE_COUNT = [
             1
@@ -30,18 +34,18 @@ class ScenarioAnalysis:
             3
         ]
         self.TROLLEY_IMPACT_RATE = [
-            20.2
+            20
             ,
-            31.8
+            30
             ,
-            42.2
+            40
         ]
         self.EARLINESS_TARDINESS_PENALTY = [
-            25
+            10
             ,
-            45
+            20
             ,
-            65
+            30
         ]
 
     def parse_route_math_model(self, solutionResult_MATH_MODEL, depotNode):
@@ -81,6 +85,24 @@ class ScenarioAnalysis:
 
         return " ; ".join(resultList)
 
+    def cost_detail_math_model(self, routesCostDetailResult):
+        distCost = sum(item[0] for item in routesCostDetailResult)
+        EAPenalty = sum(item[1] for item in routesCostDetailResult if item[1] > 0)
+        TAPenalty = sum(item[2] for item in routesCostDetailResult if item[2] > 0)
+        return distCost, EAPenalty, TAPenalty
+
+    def cost_detail_heuristic(self, solutionResult_ALNS):
+        distCost = 0
+        EAPenalty = 0
+        TAPenalty = 0
+        for k in range(0, len(solutionResult_ALNS)):
+            if len(solutionResult_ALNS[k]) > 0:
+                distCost += sum(item[0] for item in solutionResult_ALNS[k]["costDetail"])
+                EAPenalty += sum(item[1] for item in solutionResult_ALNS[k]["costDetail"] if item[1] > 0)
+                TAPenalty += sum(item[2] for item in solutionResult_ALNS[k]["costDetail"] if item[2] > 0)
+
+        return distCost, EAPenalty, TAPenalty
+
     def parse_route_alns(self, solutionResult_ALNS):
         resultList = list()
         for k in range(0, len(solutionResult_ALNS)):
@@ -93,8 +115,10 @@ class ScenarioAnalysis:
                 resultList.append(" => ".join(worksheetALNSListItem))
         return " ; ".join(resultList)
 
-    def parse_detail_excel(self, worksheetDetail, iterationNumber, trolleyCount, trolleyImpactRate, earlinessTardinessPenalty,
-                           bestCost_MATH_MODEL,bestCost_ALNS, gap, cpuTime_MATH_MODEL, cpuTime_ALNS, routesDetailResult, solutionResult_ALNS, instance):
+    def parse_detail_excel(self, worksheetDetail, iterationNumber, trolleyCount, trolleyImpactRate,
+                           earlinessTardinessPenalty,
+                           bestCost_MATH_MODEL, bestCost_ALNS, gap, cpuTime_MATH_MODEL, cpuTime_ALNS,
+                           routesDetailResult, solutionResult_ALNS, instance):
         worksheetDetail.append(
             ["ID", 'TROLLEY_COUNT', 'TROLLEY_IMPACT_RATE', 'EARLINESS/TARDINESS PENALTY'])
         worksheetDetail.append(["TEST_ID_" + str(iterationNumber), trolleyCount, trolleyImpactRate,
@@ -122,9 +146,7 @@ class ScenarioAnalysis:
         iterationNumber = 0
         iterationCount = 4000
         capacityOfTrolley = 60
-        timeLimit = 60000 * 20
-
-
+        timeLimit = (60000 * 20)
 
         for ins in range(0, len(self.INSTANCES)):
             infeasibleData = list()
@@ -136,10 +158,14 @@ class ScenarioAnalysis:
             workbook.remove(workbook.active)  # Remove default sheet
             worksheet = workbook.create_sheet(title=f'Test Result')
             worksheet.append(
-                ["", "TEST INSTANCES", '', '', '',"", "MATHEMATICAL FORMULATION", "", "", "", "ALNS", "", "", "GAP"])
+                ["", "TEST INSTANCES", '', '', '', "", "MATHEMATICAL FORMULATION", "", "", "", "", "", "", "ALNS", "",
+                 "", "", "", "", "GAP"])
             worksheet.append(
-                ["TEST ID", "FILE NAME", "VEHICLE COUNT", 'TROLLEY COUNT', 'TROLLEY IMPACT RATE', 'EARLINESS/TARDINESS PENALTY',
-                 "Math Form Is Optimal OR Feasible", "CPU TIME", "RESULT", "ROUTES", "CPU TIME", "RESULT", "ROUTES", ""])
+                ["TEST ID", "FILE NAME", "VEHICLE COUNT", 'TROLLEY COUNT', 'TROLLEY IMPACT TIME',
+                 'EARLINESS/TARDINESS PENALTY',
+                 "Math Form Is Optimal OR Feasible", "CPU TIME", "RESULT", "Math Model Distance Cost",
+                 "Math Model EA Cost", "Math Model TA Cost", "ROUTES", "CPU TIME", "RESULT",
+                 "ALNS Distance Cost", "ALNS EA Cost", "ALNS TA Cost", "ROUTES", ""])
             workbookDetail.remove(workbookDetail.active)  # Remove default sheet
             for vc in range(0, len(self.VEHICLE_COUNT)):
                 vehicleCount = self.VEHICLE_COUNT[vc]
@@ -161,7 +187,7 @@ class ScenarioAnalysis:
                             algorithm = Algorithm(instance, vehicleCount, capacityOfTrolley, trolleyCount,
                                                   trolleyImpactRate, earlinessTardinessPenalty,
                                                   earlinessTardinessPenalty, timeLimit)
-                            optimalOrFeasible, bestCost_MATH_MODEL, cpuTime_MATH_MODEL, solutionResult_MATH_MODEL, depotNode, routesDetailResult = algorithm.execute()
+                            optimalOrFeasible, bestCost_MATH_MODEL, cpuTime_MATH_MODEL, solutionResult_MATH_MODEL, depotNode, routesDetailResult, routesCostDetailResult = algorithm.execute()
 
                             if optimalOrFeasible == "NON-OPTIMAL":
                                 nonOptimalSolution.append(
@@ -192,14 +218,23 @@ class ScenarioAnalysis:
 
                             math_model_routes = self.parse_route_math_model(solutionResult_MATH_MODEL, depotNode)
                             heuristic_routes = self.parse_route_alns(solutionResult_ALNS)
+
+                            mathModel_dist_cost, mathModel_EACost, mathModel_TAcost = self.cost_detail_math_model(
+                                routesCostDetailResult)
+                            heuristic_dist_cost, heuristic_EACost, heuristic_TAcost = self.cost_detail_heuristic(
+                                solutionResult_ALNS)
                             worksheet.append(
-                                [iterationNumber, file_name, vehicleCount, trolleyCount, trolleyImpactRate, earlinessTardinessPenalty, optimalOrFeasible,
-                                 cpuTime_MATH_MODEL, round(bestCost_MATH_MODEL), math_model_routes, cpuTime_ALNS, round(bestCost_ALNS), heuristic_routes, gap])
+                                [iterationNumber, file_name, vehicleCount, trolleyCount, trolleyImpactRate,
+                                 earlinessTardinessPenalty, optimalOrFeasible,
+                                 cpuTime_MATH_MODEL, round(bestCost_MATH_MODEL), round(mathModel_dist_cost),
+                                 round(mathModel_EACost), round(mathModel_TAcost),
+                                 math_model_routes, cpuTime_ALNS, round(bestCost_ALNS), round(heuristic_dist_cost),
+                                 round(heuristic_EACost), round(heuristic_TAcost), heuristic_routes, gap])
 
                             self.parse_detail_excel(worksheetDetail, iterationNumber, trolleyCount,
-                                                   trolleyImpactRate, earlinessTardinessPenalty,
-                                                   bestCost_MATH_MODEL, bestCost_ALNS, gap, cpuTime_MATH_MODEL,
-                                                   cpuTime_ALNS, routesDetailResult, solutionResult_ALNS, instance)
+                                                    trolleyImpactRate, earlinessTardinessPenalty,
+                                                    bestCost_MATH_MODEL, bestCost_ALNS, gap, cpuTime_MATH_MODEL,
+                                                    cpuTime_ALNS, routesDetailResult, solutionResult_ALNS, instance)
 
             workbook.save(f'excels/{file_name}.xlsx')
             workbookDetail.save(f'excels/details/{file_name}-details.xlsx')
@@ -222,17 +257,12 @@ class ScenarioAnalysis:
                     worksheetNonOptimal.append(nonOptimalSolution[f])
                 workbookNonOptimal.save(f'excels/non-optimal/{file_name}-non-optimal.xlsx')
 
-
         print("Scenario finished")
         endtime = time.time()
-        cpuTime = round(endtime - start_time, 3)
+        cpuTime = round(endtime - start_time, 1)
 
         print("cpuTime: " + str(cpuTime) + " seconds")
 
 
-
-
-
 scenario = ScenarioAnalysis()
-
 scenario.execute()

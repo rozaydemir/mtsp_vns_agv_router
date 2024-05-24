@@ -24,9 +24,10 @@ class Vehicles:
             route["route"].calculateServiceStartTime()
             vehicleResult["trolleyCount"] = route["trolleyCount"]
             vehicleResult["vehicleId"] = self.vehiclesId + 1
-            res, routeDetail = route["route"].print()
+            res, routeDetail, costDetailRes = route["route"].print()
             vehicleResult["route"] = res
             vehicleResult["routeDetail"] = routeDetail
+            vehicleResult["costDetail"] = costDetailRes
         return vehicleResult
 
 
@@ -68,9 +69,6 @@ class Location:
 
     def __init__(self, requestID, xLoc, yLoc, demand, startTW, endTW, servTime, servStartTime, typeLoc, nodeID,
                  stringId):
-        # global distMatrix
-        # global beta
-        # global alpha
         self.requestID = requestID
         self.xLoc = xLoc
         self.yLoc = yLoc
@@ -91,9 +89,6 @@ class Location:
         """
         Method that prints the location
         """
-        # print(
-        #     f" ( StringId: {self.stringId}, LocType: {self.typeLoc}, demand: {self.demand}; startTW: {self.startTW}; endTW: {self.endTW}; servTime:{self.servTime} ) ",
-        #     end='')
 
     def printOnlyRoute(self, distMatrix, beta, alpha):
         """
@@ -101,16 +96,17 @@ class Location:
         """
         global prevNode
         dist = distMatrix[prevNode][self.nodeID]
-        penalty = 0
+        eapenalty = 0
+        tapenalty = 0
         if self.typeLoc == "delivery":
             if self.servStartTime > self.endTW:
-                penalty += (self.servStartTime - self.endTW) * beta
+                tapenalty += (self.servStartTime - self.endTW) * beta
 
             if self.servStartTime < self.startTW:
-                penalty += (self.startTW - self.servStartTime) * alpha
-        detailResult = f" ( {self.stringId}, Demand : {self.demand}, CurrentTime: {self.servStartTime}, {self.typeLoc}, Distance: {dist}, Start: {self.startTW}, End: {self.endTW}, ServiceTime: {self.servTime}, Penalty: {penalty}, cumsum: {penalty + dist} ) "
+                eapenalty += (self.startTW - self.servStartTime) * alpha
+        detailResult = f" ( {self.stringId}, Demand : {self.demand}, CurrentTime: {self.servStartTime}, {self.typeLoc}, Distance: {dist}, Start: {self.startTW}, End: {self.endTW}, ServiceTime: {self.servTime}, EA Penalty: {eapenalty}, TA Penalty: {tapenalty},  cumsum: {eapenalty + tapenalty + dist} ) "
         prevNode = self.nodeID
-        return self.stringId, detailResult
+        return self.stringId, detailResult, [dist, eapenalty, tapenalty]
 
     def getDistance(l1, l2):
         """
@@ -143,9 +139,6 @@ class Destroy:
 
     def findWorstCostRequest(self):
         cost = []
-        # global alpha
-        # global beta
-        # global distMatrix
         # Making list with request ID's and their corresponding cost
         for route in self.solution.routes:
             trolley_count_needed = route.calculateTrolley()
@@ -540,8 +533,6 @@ class Route:
             insertNode.nodeID] - self.problem.distMatrix[preNode.nodeID][afterNode.nodeID]
 
     def computeTimeWindow(self, loc) -> int:
-        # global alpha
-        # global beta
         curTime = 0
         totalTimeWindowPenaly = 0
         trolley_count_needed = self.calculateTrolley(loc)
@@ -589,11 +580,13 @@ class Route:
         """
         locationRes = list()
         locationDetailRes = list()
+        locationCostDetailRes = list()
         for loc in self.locations:
-            stringId, routeDetail = loc.printOnlyRoute(self.problem.distMatrix, self.problem.alpha, self.problem.beta)
+            stringId, routeDetail, costArray = loc.printOnlyRoute(self.problem.distMatrix, self.problem.alpha, self.problem.beta)
             locationRes.append(stringId)
             locationDetailRes.append(routeDetail)
-        return locationRes, locationDetailRes
+            locationCostDetailRes.append(costArray)
+        return locationRes, locationDetailRes, locationCostDetailRes
 
 
     def calculateTrolley(self, loc = list()) -> int:
@@ -617,8 +610,8 @@ class Route:
         if self.locations[0] != self.problem.depot or self.locations[-1] != self.problem.depot:
             return False
 
-        if len(self.locations) <= 2 and self.locations[0] == self.problem.depot and self.locations[
-            1] == self.problem.depot:
+        if (len(self.locations) <= 2 and self.locations[0] == self.problem.depot and
+                self.locations[1] == self.problem.depot):
             return False
 
         pickedUp = set()  # set with all requests that we picked up, used to check precedence
@@ -706,7 +699,7 @@ class Route:
                         minCost = cost
                         minDemand = afterInsertion.demand
 
-        if self.problem.globalIteration < 300 and convinent:
+        if self.problem.globalIteration < 200 and convinent:
             convinent = False
 
         if convinent:
@@ -1142,7 +1135,7 @@ class ALNS:
 
         self.time_best_objective_found = 0
         self.optimal_iteration_number = 0
-        # Presenting results
+        # Presenting results-grid
         self.register_weights_over_time = False
         self.removal_weights_per_iteration = []
         self.insertion_weights_per_iteration = []
@@ -1221,15 +1214,10 @@ class ALNS:
         # set vehicle in route
         self.bestSolution.setVehicle(self.problem.vehicles)
         endtime = time.time()  # get the end time
-        cpuTime = round(endtime - starttime, 3)
+        cpuTime = round(endtime - starttime, 1)
 
         print("ALNS - Final cost: " + str(self.bestSolution.distance) + ", cpuTime: " + str(
             cpuTime) + " seconds")
-
-        time_best_objective = self.time_best_objective_found - self.starttime_best_objective
-
-        # print(
-        #     f'Best objective value found after: {round(time_best_objective, 3) if self.optimal_iteration_number > 0 else 0} seconds and {self.optimal_iteration_number} iterations')
 
         solutionResult = self.bestSolution.printWithVehicle()
 
@@ -1381,8 +1369,6 @@ def read_instance(fileName, vehicleCount,
                   TrolleyImpactRate,
                   EarlinessPenalty,
                   TardinessPenalty) -> PDPTW:
-    # global alpha
-    # global beta
     """
     Method that reads an instance from a file and returns the instancesf
     """
