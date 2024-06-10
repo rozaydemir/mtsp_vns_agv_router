@@ -159,7 +159,7 @@ def read_data(fileName):
     s[len(P_all + D_all) + 1] = s[0]
 
 
-data = "Instances/lrc9-time-window-based.txt"
+data = "Instances/lrc15-servtime-based.txt"
 starttime = time.time()  # get the start time
 read_data(data)
 

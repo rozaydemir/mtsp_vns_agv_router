@@ -5,24 +5,24 @@ document.addEventListener('DOMContentLoaded', function () {
         columnDefs: [
             {
                 headerName: "", children: [
-                    {field: 'TEST ID', rowDrag: true, filter: 'agNumberColumnFilter', checkboxSelection: true,},
+                    {field: 'TEST_ID', rowDrag: true, filter: 'agNumberColumnFilter', checkboxSelection: true,},
                 ]
             },
             {
                 headerName: "TEST INSTANCES", children: [
-                    {headerName: "FILE NAME", field: "FILE NAME", rowGroup: true,},
-                    {headerName: "VEHICLE COUNT", field: "VEHICLE COUNT", filter: 'agNumberColumnFilter',},
-                    {headerName: "TROLLEY COUNT", field: "TROLLEY COUNT", filter: 'agNumberColumnFilter',},
+                    {headerName: "FILE NAME", field: "FILE_NAME", rowGroup: true,},
+                    {headerName: "VEHICLE COUNT", field: "VEHICLE_COUNT", filter: 'agNumberColumnFilter',},
+                    {headerName: "TROLLEY COUNT", field: "TROLLEY_COUNT", filter: 'agNumberColumnFilter',},
                     {
                         headerName: "TROLLEY IMPACT TIME",
-                        field: "TROLLEY IMPACT TIME",
+                        field: "TROLLEY_IMPACT_TIME",
                         sortable: true,
                         filter: 'agNumberColumnFilter',
 
                     },
                     {
                         headerName: "EARLINESS/TARDINESS PENALTY",
-                        field: "EARLINESS/TARDINESS PENALTY",
+                        field: "EARLINESSTARDINESS_PENALTY",
                         sortable: true,
                         filter: 'agNumberColumnFilter',
                     },
@@ -31,20 +31,35 @@ document.addEventListener('DOMContentLoaded', function () {
             {
                 headerName: "MATHEMATICAL FORMULATION", children: [
                     {
-                        headerName: "Math Form Is Optimal OR Feasible",
-                        field: "Math Form Is Optimal OR Feasible",
+                        headerName: "Optimal OR Feasible",
+                        field: "Math_Form_Is_Optimal_OR_Feasible",
                         sortable: true,
                         filter: true,
 
                     },
-                    {headerName: "Math CPU TIME", field: "Math CPU TIME", filter: 'agNumberColumnFilter',},
-                    {headerName: "Math RESULT", field: "Math RESULT", filter: 'agNumberColumnFilter',}
+                    {headerName: "Math CPU TIME", field: "Math_CPU_TIME", filter: 'agNumberColumnFilter',},
+                    {headerName: "Math RESULT", field: "Math_RESULT", filter: 'agNumberColumnFilter',},
+                    {headerName: "Math Distance Cost", field: "Math_Model_Distance_Cost", filter: 'agNumberColumnFilter',},
+                    {headerName: "Math EA Cost", field: "Math_Model_EA_Cost", filter: 'agNumberColumnFilter',},
+                    {headerName: "Math TA Cost", field: "Math_Model_TA_Cost", filter: 'agNumberColumnFilter',},
                 ]
             },
             {
                 headerName: "ALNS", children: [
-                    {headerName: "ALNS CPU TIME", field: "ALNS CPU TIME", filter: 'agNumberColumnFilter',},
-                    {headerName: "ALNS RESULT", field: "ALNS RESULT", filter: 'agNumberColumnFilter',}
+                    {headerName: "ALNS CPU TIME", field: "ALNS_CPU_TIME", filter: 'agNumberColumnFilter',},
+                    {headerName: "ALNS RESULT", field: "ALNS_RESULT", filter: 'agNumberColumnFilter',},
+                    {headerName: "ALNS Distance Cost", field: "ALNS_Distance_Cost", filter: 'agNumberColumnFilter',},
+                    {headerName: "ALNS EA Cost", field: "ALNS_EA_Cost", filter: 'agNumberColumnFilter',},
+                    {headerName: "ALNS TA Cost", field: "ALNS_TA_Cost", filter: 'agNumberColumnFilter',},
+                ]
+            },
+            {
+                headerName: "Rule Of Thumb", children: [
+                    {headerName: "ROTH CPU TIME", field: "ROTH_CPU_TIME", filter: 'agNumberColumnFilter',},
+                    {headerName: "ROTH RESULT", field: "ROTH_RESULT", filter: 'agNumberColumnFilter',},
+                    {headerName: "ROTH Distance Cost", field: "ROTH_Distance_Cost", filter: 'agNumberColumnFilter',},
+                    {headerName: "ROTH EA Cost", field: "ROTH_EA_Cost", filter: 'agNumberColumnFilter',},
+                    {headerName: "ROTH TA Cost", field: "ROTH_TA_Cost", filter: 'agNumberColumnFilter',},
                 ]
             },
             {

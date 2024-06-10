@@ -1,0 +1,21 @@
+StringID     Type         x            y            demand       ReadyTime    DueDate      ServiceTime  PartnerID
+D0           d            25.0         25.0         0.0          0.0          550.0        4.0          0
+C1           cp           20.0         30.0         65.0         25.0         222.0        5.0          C6
+C2           cp           41.0         27.0         60.0         22.0         233.0        3.0          C7
+C3           cp           28.0         29.0         60.0         27.0         225.0        6.0          C8
+C4           cp           35.0         24.0         65.0         23.0         242.0        4.0          C9
+C5           cp           36.0         59.0         65.0         25.0         239.0        7.0          C10
+C6           cp           21.0         23.0         65.0         22.0         260.0        5.0          C11
+C7           cd           30.0         42.0         -65.0        35.0         265.0        6.0          C1
+C8           cd           23.0         25.0         -60.0        33.0         263.0        5.0          C2
+C9           cd           37.0         31.0         -60.0        38.0         261.0        7.0          C3
+C10          cd           44.0         51.0         -65.0        34.0         265.0        5.0          C4
+C11          cd           35.0         41.0         -65.0        36.0         262.0        6.0          C5
+C12          cd           25.0         35.0         -65.0        33.0         266.0        4.0          C6
+
+VehicleCount : 3
+VehiclePerCapacity:   65
+VehicleMaxTrolleyCount : 3
+TrolleyImpactRate : 2.0
+EarlinessPenalty : 15
+TardinessPenalty : 90

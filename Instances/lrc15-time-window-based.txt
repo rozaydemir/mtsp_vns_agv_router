@@ -15,9 +15,9 @@ C12          cd           41.0         49.0         -45.0        104.0        26
 C13          cd           42.0         40.0         -50.0        105.0        262.0        14.0         C6
 C14          cd           48.0         22.0         -30.0        106.0        261.0        16.0         C7
 
-VehicleCount : 2
+VehicleCount : 3
 VehiclePerCapacity:   60
-VehicleMaxTrolleyCount : 2
-TrolleyImpactRate : 1.2
-EarlinessPenalty : 65
-TardinessPenalty : 65
+VehicleMaxTrolleyCount : 1
+TrolleyImpactRate : 20
+EarlinessPenalty : 20
+TardinessPenalty : 20

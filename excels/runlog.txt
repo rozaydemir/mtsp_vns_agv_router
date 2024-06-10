@@ -1,0 +1,2799 @@
+C:\Projects\GVNS\BasicVNS\.venv\Scripts\python.exe C:\Projects\GVNS\BasicVNS\main_scenario.py
+Scenario Started
+===============================================================================
+Iteration Number : 1
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 613.0000000000002, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 613.0, cpuTime: 18.6 seconds
+===============================================================================
+Iteration Number : 2
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1082.9999999999998, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 1083.0, cpuTime: 18.2 seconds
+===============================================================================
+Iteration Number : 3
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1552.999999999999, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 1553.0, cpuTime: 18.2 seconds
+===============================================================================
+Iteration Number : 4
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2849.999999999628, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 2850.0, cpuTime: 18.6 seconds
+===============================================================================
+Iteration Number : 5
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5704.0, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 5540.0, cpuTime: 18.6 seconds
+===============================================================================
+Iteration Number : 6
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8484.000000000007, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 8230.0, cpuTime: 18.3 seconds
+===============================================================================
+Iteration Number : 7
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6140.000000000007, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 6140.0, cpuTime: 18.8 seconds
+===============================================================================
+Iteration Number : 8
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 12120.000000000004, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 12120.0, cpuTime: 18.7 seconds
+===============================================================================
+Iteration Number : 9
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 18100.0, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 18100.0, cpuTime: 18.5 seconds
+===============================================================================
+Iteration Number : 10
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 788.9999999999999, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 613.0, cpuTime: 36.3 seconds
+===============================================================================
+Iteration Number : 11
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1397.000000000001, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 1083.0, cpuTime: 35.7 seconds
+===============================================================================
+Iteration Number : 12
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 20622.000000000065, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 1553.0, cpuTime: 32.7 seconds
+===============================================================================
+Iteration Number : 13
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 14667.00000000004, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 2850.0, cpuTime: 35.6 seconds
+===============================================================================
+Iteration Number : 14
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 28578.99999999987, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 5540.0, cpuTime: 35.6 seconds
+===============================================================================
+Iteration Number : 15
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8484.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 8230.0, cpuTime: 38.9 seconds
+===============================================================================
+Iteration Number : 16
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6458.999999999996, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 6140.0, cpuTime: 45.7 seconds
+===============================================================================
+Iteration Number : 17
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 49403.0000000001, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 12120.0, cpuTime: 33.6 seconds
+===============================================================================
+Iteration Number : 18
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 76860.99999999994, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 18100.0, cpuTime: 34.8 seconds
+===============================================================================
+Iteration Number : 19
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6981.999999999969, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 613.0, cpuTime: 41.0 seconds
+===============================================================================
+Iteration Number : 20
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1103.9999999999995, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 1083.0, cpuTime: 45.2 seconds
+===============================================================================
+Iteration Number : 21
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2635.9999999629476, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 1553.0, cpuTime: 44.8 seconds
+===============================================================================
+Iteration Number : 22
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 15229.999999999996, cpuTime: 1200.1 - Feasible Result
+ALNS - Final cost: 2850.0, cpuTime: 41.0 seconds
+===============================================================================
+Iteration Number : 23
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6051.000000000011, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 5540.0, cpuTime: 45.4 seconds
+===============================================================================
+Iteration Number : 24
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8835.999999999993, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 8230.0, cpuTime: 45.4 seconds
+===============================================================================
+Iteration Number : 25
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 27132.999999999956, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 6140.0, cpuTime: 35.1 seconds
+===============================================================================
+Iteration Number : 26
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 50483.999999975684, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 12120.0, cpuTime: 36.2 seconds
+===============================================================================
+Iteration Number : 27
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 18726.99999999998, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 18100.0, cpuTime: 46.5 seconds
+===============================================================================
+Iteration Number : 28
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 157.0, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 153.0, cpuTime: 7.5 seconds
+===============================================================================
+Iteration Number : 29
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 154.0, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 153.0, cpuTime: 7.7 seconds
+===============================================================================
+Iteration Number : 30
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 153.99999999999997, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 153.0, cpuTime: 7.8 seconds
+===============================================================================
+Iteration Number : 31
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 160.00000000000003, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 160.0, cpuTime: 7.2 seconds
+===============================================================================
+Iteration Number : 32
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 160.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 160.0, cpuTime: 7.3 seconds
+===============================================================================
+Iteration Number : 33
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 160.0, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 160.0, cpuTime: 7.3 seconds
+===============================================================================
+Iteration Number : 34
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 161.99999999999994, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 7.2 seconds
+===============================================================================
+Iteration Number : 35
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 165.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 7.2 seconds
+===============================================================================
+Iteration Number : 36
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 169.99999999999997, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 7.1 seconds
+===============================================================================
+Iteration Number : 37
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 155.99999999999997, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 18.8 seconds
+===============================================================================
+Iteration Number : 38
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 162.0, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 16.9 seconds
+===============================================================================
+Iteration Number : 39
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 160.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 16.2 seconds
+===============================================================================
+Iteration Number : 40
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 156.0, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 16.0 seconds
+===============================================================================
+Iteration Number : 41
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 165.0, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 16.3 seconds
+===============================================================================
+Iteration Number : 42
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 156.0, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 16.2 seconds
+===============================================================================
+Iteration Number : 43
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 720.0000000000001, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 17.3 seconds
+===============================================================================
+Iteration Number : 44
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1183.999999999995, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 17.0 seconds
+===============================================================================
+Iteration Number : 45
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 177.0, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 17.3 seconds
+===============================================================================
+Iteration Number : 46
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 147.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 15.2 seconds
+===============================================================================
+Iteration Number : 47
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 154.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 15.2 seconds
+===============================================================================
+Iteration Number : 48
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 147.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 15.0 seconds
+===============================================================================
+Iteration Number : 49
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 168.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 17.1 seconds
+===============================================================================
+Iteration Number : 50
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 173.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 17.4 seconds
+===============================================================================
+Iteration Number : 51
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 167.0, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 17.1 seconds
+===============================================================================
+Iteration Number : 52
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 656.0000000000357, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 17.4 seconds
+===============================================================================
+Iteration Number : 53
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1506.0000000000073, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 17.2 seconds
+===============================================================================
+Iteration Number : 54
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1494.999999999997, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 17.7 seconds
+===============================================================================
+Iteration Number : 55
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 154.0, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 153.0, cpuTime: 7.4 seconds
+===============================================================================
+Iteration Number : 56
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 162.0, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 153.0, cpuTime: 7.3 seconds
+===============================================================================
+Iteration Number : 57
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 154.0, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 153.0, cpuTime: 7.1 seconds
+===============================================================================
+Iteration Number : 58
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 162.99999999999997, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 160.0, cpuTime: 7.1 seconds
+===============================================================================
+Iteration Number : 59
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 163.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 160.0, cpuTime: 6.9 seconds
+===============================================================================
+Iteration Number : 60
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 159.99999999999997, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 160.0, cpuTime: 6.9 seconds
+===============================================================================
+Iteration Number : 61
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 173.99999999999997, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 6.8 seconds
+===============================================================================
+Iteration Number : 62
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 165.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 5.7 seconds
+===============================================================================
+Iteration Number : 63
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 171.0, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 6.7 seconds
+===============================================================================
+Iteration Number : 64
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 146.99999999999997, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 12.0 seconds
+===============================================================================
+Iteration Number : 65
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 153.0, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 12.0 seconds
+===============================================================================
+Iteration Number : 66
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 158.0, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 15.6 seconds
+===============================================================================
+Iteration Number : 67
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 170.0, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 18.6 seconds
+===============================================================================
+Iteration Number : 68
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 166.0, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 18.4 seconds
+===============================================================================
+Iteration Number : 69
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 155.99999999999997, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 18.2 seconds
+===============================================================================
+Iteration Number : 70
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 661.0000000000188, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 170.0, cpuTime: 15.4 seconds
+===============================================================================
+Iteration Number : 71
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1310.9999999999973, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 170.0, cpuTime: 16.6 seconds
+===============================================================================
+Iteration Number : 72
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 174.0, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 170.0, cpuTime: 15.5 seconds
+===============================================================================
+Iteration Number : 73
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 158.0, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 15.4 seconds
+===============================================================================
+Iteration Number : 74
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 159.0, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 15.6 seconds
+===============================================================================
+Iteration Number : 75
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 158.0, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 147.0, cpuTime: 18.4 seconds
+===============================================================================
+Iteration Number : 76
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 167.0, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 19.7 seconds
+===============================================================================
+Iteration Number : 77
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 164.99999999999997, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 20.7 seconds
+===============================================================================
+Iteration Number : 78
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 169.0, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 156.0, cpuTime: 20.8 seconds
+===============================================================================
+Iteration Number : 79
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 165.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 170.0, cpuTime: 15.7 seconds
+===============================================================================
+Iteration Number : 80
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 165.0, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 170.0, cpuTime: 15.4 seconds
+===============================================================================
+Iteration Number : 81
+INSTANCE: Instances/lrc15.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 199.99999999999997, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 170.0, cpuTime: 12.1 seconds
+===============================================================================
+Iteration Number : 82
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 18944.000000000033, cpuTime: 1349.4 - Feasible Result
+ALNS - Final cost: 18386.0, cpuTime: 19.5 seconds
+===============================================================================
+Iteration Number : 83
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 39195.0, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 35886.0, cpuTime: 19.3 seconds
+===============================================================================
+Iteration Number : 84
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 53385.99999999992, cpuTime: 1281.3 - Feasible Result
+ALNS - Final cost: 53386.0, cpuTime: 19.4 seconds
+===============================================================================
+Iteration Number : 85
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 25245.999999999964, cpuTime: 1205.3 - Feasible Result
+ALNS - Final cost: 22786.0, cpuTime: 19.2 seconds
+===============================================================================
+Iteration Number : 86
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 48111.99999999979, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 44686.0, cpuTime: 19.3 seconds
+===============================================================================
+Iteration Number : 87
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 74740.0, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 66586.0, cpuTime: 19.3 seconds
+===============================================================================
+Iteration Number : 88
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 30494.99999995849, cpuTime: 1250.6 - Feasible Result
+ALNS - Final cost: 27656.0, cpuTime: 19.2 seconds
+===============================================================================
+Iteration Number : 89
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 60559.999999998574, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 54426.0, cpuTime: 19.2 seconds
+===============================================================================
+Iteration Number : 90
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 89188.00000000017, cpuTime: 1266.6 - Feasible Result
+ALNS - Final cost: 81196.0, cpuTime: 19.4 seconds
+===============================================================================
+Iteration Number : 91
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 24415.999999999913, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 18386.0, cpuTime: 44.7 seconds
+===============================================================================
+Iteration Number : 92
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 50728.999999999985, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 35886.0, cpuTime: 44.4 seconds
+===============================================================================
+Iteration Number : 93
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 71275.00000000004, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 53386.0, cpuTime: 45.2 seconds
+===============================================================================
+Iteration Number : 94
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 37151.99999999982, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 22786.0, cpuTime: 45.8 seconds
+===============================================================================
+Iteration Number : 95
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 74375.99999999993, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 44686.0, cpuTime: 45.9 seconds
+===============================================================================
+Iteration Number : 96
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 107821.00000000019, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 66586.0, cpuTime: 45.9 seconds
+===============================================================================
+Iteration Number : 97
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 47278.00000000013, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 27656.0, cpuTime: 46.3 seconds
+===============================================================================
+Iteration Number : 98
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 104152.99999999517, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 54426.0, cpuTime: 44.5 seconds
+===============================================================================
+Iteration Number : 99
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 139602.9999999998, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 81196.0, cpuTime: 46.1 seconds
+===============================================================================
+Iteration Number : 100
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 26082.000000000004, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 18386.0, cpuTime: 48.7 seconds
+===============================================================================
+Iteration Number : 101
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 68691.99999999996, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 35886.0, cpuTime: 45.6 seconds
+===============================================================================
+Iteration Number : 102
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 73706.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 53386.0, cpuTime: 48.0 seconds
+===============================================================================
+Iteration Number : 103
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 36577.00000000204, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 22786.0, cpuTime: 47.1 seconds
+===============================================================================
+Iteration Number : 104
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 70864.00000000003, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 44686.0, cpuTime: 47.2 seconds
+===============================================================================
+Iteration Number : 105
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 118577.00000000016, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 66586.0, cpuTime: 45.7 seconds
+===============================================================================
+Iteration Number : 106
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 47541.999999999985, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 27656.0, cpuTime: 45.9 seconds
+===============================================================================
+Iteration Number : 107
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 111398.00000000079, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 54426.0, cpuTime: 43.2 seconds
+===============================================================================
+Iteration Number : 108
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 84012.99999999996, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 81196.0, cpuTime: 53.2 seconds
+===============================================================================
+Iteration Number : 109
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3143.9999999999873, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 3052.0, cpuTime: 7.4 seconds
+===============================================================================
+Iteration Number : 110
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5373.999999999963, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 5142.0, cpuTime: 7.4 seconds
+===============================================================================
+Iteration Number : 111
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 7435.999999999978, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 7225.0, cpuTime: 7.7 seconds
+===============================================================================
+Iteration Number : 112
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4885.000000000073, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 4452.0, cpuTime: 10.4 seconds
+===============================================================================
+Iteration Number : 113
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8173.999999999949, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 7942.0, cpuTime: 9.8 seconds
+===============================================================================
+Iteration Number : 114
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 12485.999999999953, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 11425.0, cpuTime: 11.2 seconds
+===============================================================================
+Iteration Number : 115
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6765.999999999998, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 6322.0, cpuTime: 9.6 seconds
+===============================================================================
+Iteration Number : 116
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 12536.9999999999, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 11682.0, cpuTime: 9.9 seconds
+===============================================================================
+Iteration Number : 117
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 18803.999999999567, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 17035.0, cpuTime: 8.0 seconds
+===============================================================================
+Iteration Number : 118
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3799.9999999995916, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 2438.0, cpuTime: 14.7 seconds
+===============================================================================
+Iteration Number : 119
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6008.999999998459, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 4068.0, cpuTime: 14.5 seconds
+===============================================================================
+Iteration Number : 120
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 10293.99999999998, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 5698.0, cpuTime: 14.3 seconds
+===============================================================================
+Iteration Number : 121
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 7489.999999999906, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 4452.0, cpuTime: 16.2 seconds
+===============================================================================
+Iteration Number : 122
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 17488.999999999996, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 7942.0, cpuTime: 17.1 seconds
+===============================================================================
+Iteration Number : 123
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 22313.000000000015, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 11432.0, cpuTime: 16.5 seconds
+===============================================================================
+Iteration Number : 124
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 11315.0, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 6322.0, cpuTime: 17.6 seconds
+===============================================================================
+Iteration Number : 125
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 19996.00000000583, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 11682.0, cpuTime: 17.3 seconds
+===============================================================================
+Iteration Number : 126
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 43164.999999999876, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 17035.0, cpuTime: 17.4 seconds
+===============================================================================
+Iteration Number : 127
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4291.999999999998, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 2438.0, cpuTime: 16.9 seconds
+===============================================================================
+Iteration Number : 128
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 7093.999999999993, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 4068.0, cpuTime: 17.0 seconds
+===============================================================================
+Iteration Number : 129
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 13878.999999999696, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 5698.0, cpuTime: 16.8 seconds
+===============================================================================
+Iteration Number : 130
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 9540.0, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 4452.0, cpuTime: 16.2 seconds
+===============================================================================
+Iteration Number : 131
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 16190.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 7942.0, cpuTime: 16.0 seconds
+===============================================================================
+Iteration Number : 132
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 22254.999999978434, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 11425.0, cpuTime: 16.8 seconds
+===============================================================================
+Iteration Number : 133
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 11158.999999999964, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 6322.0, cpuTime: 16.9 seconds
+===============================================================================
+Iteration Number : 134
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 30600.000000009564, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 11682.0, cpuTime: 15.5 seconds
+===============================================================================
+Iteration Number : 135
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 36151.99999999992, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 17035.0, cpuTime: 16.2 seconds
+===============================================================================
+Iteration Number : 136
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1082.9999999999998, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 1031.0, cpuTime: 5.3 seconds
+===============================================================================
+Iteration Number : 137
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1031.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 1031.0, cpuTime: 5.3 seconds
+===============================================================================
+Iteration Number : 138
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2094.999999967291, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 1031.0, cpuTime: 5.9 seconds
+===============================================================================
+Iteration Number : 139
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3102.99999999984, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 1031.0, cpuTime: 6.8 seconds
+===============================================================================
+Iteration Number : 140
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6702.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 1031.0, cpuTime: 5.2 seconds
+===============================================================================
+Iteration Number : 141
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1030.9999999999998, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 1031.0, cpuTime: 5.2 seconds
+===============================================================================
+Iteration Number : 142
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5173.999999382477, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 1501.0, cpuTime: 5.2 seconds
+===============================================================================
+Iteration Number : 143
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4543.999999999989, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 1971.0, cpuTime: 5.2 seconds
+===============================================================================
+Iteration Number : 144
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2446.9999999999955, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 2441.0, cpuTime: 5.2 seconds
+===============================================================================
+Iteration Number : 145
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 989.9999999999992, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 146
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2429.9999999998945, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 10.1 seconds
+===============================================================================
+Iteration Number : 147
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 890.0, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 9.8 seconds
+===============================================================================
+Iteration Number : 148
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 874.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 10.1 seconds
+===============================================================================
+Iteration Number : 149
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 842.9999999999999, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 10.1 seconds
+===============================================================================
+Iteration Number : 150
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8429.000000000085, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 10.0 seconds
+===============================================================================
+Iteration Number : 151
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5891.0, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 1486.0, cpuTime: 9.9 seconds
+===============================================================================
+Iteration Number : 152
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 25925.999999999956, cpuTime: 1200.1 - Feasible Result
+ALNS - Final cost: 1971.0, cpuTime: 9.6 seconds
+===============================================================================
+Iteration Number : 153
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 13238.999999999973, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 2441.0, cpuTime: 9.8 seconds
+===============================================================================
+Iteration Number : 154
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 880.0, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 10.6 seconds
+===============================================================================
+Iteration Number : 155
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 880.0, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 10.5 seconds
+===============================================================================
+Iteration Number : 156
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5421.999999999952, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 10.3 seconds
+===============================================================================
+Iteration Number : 157
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1790.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 158
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2706.9999999999454, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 159
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 836.0, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 836.0, cpuTime: 10.1 seconds
+===============================================================================
+Iteration Number : 160
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4969.999999998534, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 1486.0, cpuTime: 9.8 seconds
+===============================================================================
+Iteration Number : 161
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 9212.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 1971.0, cpuTime: 9.7 seconds
+===============================================================================
+Iteration Number : 162
+INSTANCE: Instances/lrc15-location-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 16034.999999999998, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 2441.0, cpuTime: 9.7 seconds
+===============================================================================
+Iteration Number : 163
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+No optimal solution was found.
+===============================================================================
+Iteration Number : 164
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+No optimal solution was found.
+===============================================================================
+Iteration Number : 165
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+No optimal solution was found.
+===============================================================================
+Iteration Number : 166
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+No optimal solution was found.
+===============================================================================
+Iteration Number : 167
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+No optimal solution was found.
+===============================================================================
+Iteration Number : 168
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+No optimal solution was found.
+===============================================================================
+Iteration Number : 169
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+No optimal solution was found.
+===============================================================================
+Iteration Number : 170
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+No optimal solution was found.
+===============================================================================
+Iteration Number : 171
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+No optimal solution was found.
+===============================================================================
+Iteration Number : 172
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6347.000000000004, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 6140.0, cpuTime: 18.4 seconds
+===============================================================================
+Iteration Number : 173
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 12120.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 12120.0, cpuTime: 18.5 seconds
+===============================================================================
+Iteration Number : 174
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 18372.999999999985, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 18100.0, cpuTime: 18.6 seconds
+===============================================================================
+Iteration Number : 175
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 14596.999999999978, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 14406.0, cpuTime: 18.7 seconds
+===============================================================================
+Iteration Number : 176
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 28645.999999999993, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 28646.0, cpuTime: 18.3 seconds
+===============================================================================
+Iteration Number : 177
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 44325.99999999994, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 42886.0, cpuTime: 18.6 seconds
+===============================================================================
+Iteration Number : 178
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 24080.999999999996, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 23726.0, cpuTime: 19.5 seconds
+===============================================================================
+Iteration Number : 179
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 47874.99999999986, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 47286.0, cpuTime: 19.2 seconds
+===============================================================================
+Iteration Number : 180
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 72916.0000000001, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 70846.0, cpuTime: 18.8 seconds
+===============================================================================
+Iteration Number : 181
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 15521.000000000051, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 6140.0, cpuTime: 27.3 seconds
+===============================================================================
+Iteration Number : 182
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 38432.00000000131, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 12120.0, cpuTime: 26.6 seconds
+===============================================================================
+Iteration Number : 183
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+No optimal solution was found.
+===============================================================================
+Iteration Number : 184
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 28906.99999999995, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 14406.0, cpuTime: 33.9 seconds
+===============================================================================
+Iteration Number : 185
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 57930.99999999988, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 28646.0, cpuTime: 35.2 seconds
+===============================================================================
+Iteration Number : 186
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 91997.99999999972, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 42886.0, cpuTime: 32.9 seconds
+===============================================================================
+Iteration Number : 187
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 44913.99999999999, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 23726.0, cpuTime: 37.6 seconds
+===============================================================================
+Iteration Number : 188
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+No optimal solution was found.
+===============================================================================
+Iteration Number : 189
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 71946.99999999984, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 70846.0, cpuTime: 40.3 seconds
+===============================================================================
+Iteration Number : 190
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+No optimal solution was found.
+===============================================================================
+Iteration Number : 191
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+No optimal solution was found.
+===============================================================================
+Iteration Number : 192
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+No optimal solution was found.
+===============================================================================
+Iteration Number : 193
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+No optimal solution was found.
+===============================================================================
+Iteration Number : 194
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+No optimal solution was found.
+===============================================================================
+Iteration Number : 195
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+No optimal solution was found.
+===============================================================================
+Iteration Number : 196
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+No optimal solution was found.
+===============================================================================
+Iteration Number : 197
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+No optimal solution was found.
+===============================================================================
+Iteration Number : 198
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+No optimal solution was found.
+===============================================================================
+Iteration Number : 199
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 169.99999999999997, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 7.1 seconds
+===============================================================================
+Iteration Number : 200
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 170.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 7.3 seconds
+===============================================================================
+Iteration Number : 201
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 162.0, cpuTime: 305.6 - Optimal Result
+ALNS - Final cost: 162.0, cpuTime: 7.2 seconds
+===============================================================================
+Iteration Number : 202
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1316.9999999890645, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 1065.0, cpuTime: 7.5 seconds
+===============================================================================
+Iteration Number : 203
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1964.9999999999893, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 1965.0, cpuTime: 7.6 seconds
+===============================================================================
+Iteration Number : 204
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3559.999999999968, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 2865.0, cpuTime: 7.6 seconds
+===============================================================================
+Iteration Number : 205
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4049.9999999999645, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 3909.0, cpuTime: 7.9 seconds
+===============================================================================
+Iteration Number : 206
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8268.999999999918, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 7649.0, cpuTime: 7.8 seconds
+===============================================================================
+Iteration Number : 207
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 12337.999999999261, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 11389.0, cpuTime: 7.7 seconds
+===============================================================================
+Iteration Number : 208
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 170.0, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 158.0, cpuTime: 11.4 seconds
+===============================================================================
+Iteration Number : 209
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1800.0000000000002, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 158.0, cpuTime: 11.3 seconds
+===============================================================================
+Iteration Number : 210
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 191.0, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 158.0, cpuTime: 11.1 seconds
+===============================================================================
+Iteration Number : 211
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1299.999999999999, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 1069.0, cpuTime: 14.8 seconds
+===============================================================================
+Iteration Number : 212
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2320.9999999999945, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 1965.0, cpuTime: 13.5 seconds
+===============================================================================
+Iteration Number : 213
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2864.999999999681, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 2865.0, cpuTime: 13.8 seconds
+===============================================================================
+Iteration Number : 214
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6911.9999999999745, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 3909.0, cpuTime: 15.4 seconds
+===============================================================================
+Iteration Number : 215
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 13535.999999998634, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 7649.0, cpuTime: 15.5 seconds
+===============================================================================
+Iteration Number : 216
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 19646.999999998618, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 11389.0, cpuTime: 15.6 seconds
+===============================================================================
+Iteration Number : 217
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+No optimal solution was found.
+===============================================================================
+Iteration Number : 218
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+No optimal solution was found.
+===============================================================================
+Iteration Number : 219
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+No optimal solution was found.
+===============================================================================
+Iteration Number : 220
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+No optimal solution was found.
+===============================================================================
+Iteration Number : 221
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+No optimal solution was found.
+===============================================================================
+Iteration Number : 222
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+No optimal solution was found.
+===============================================================================
+Iteration Number : 223
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+No optimal solution was found.
+===============================================================================
+Iteration Number : 224
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+No optimal solution was found.
+===============================================================================
+Iteration Number : 225
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+No optimal solution was found.
+===============================================================================
+Iteration Number : 226
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 178.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 7.1 seconds
+===============================================================================
+Iteration Number : 227
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2791.999999979096, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 7.0 seconds
+===============================================================================
+Iteration Number : 228
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2699.9999999782963, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 162.0, cpuTime: 7.1 seconds
+===============================================================================
+Iteration Number : 229
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 181.99999999999997, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 5.8 seconds
+===============================================================================
+Iteration Number : 230
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2417.000000000056, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 6.0 seconds
+===============================================================================
+Iteration Number : 231
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+No optimal solution was found.
+===============================================================================
+Iteration Number : 232
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4130.999999999993, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 642.0, cpuTime: 5.4 seconds
+===============================================================================
+Iteration Number : 233
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8687.99999999747, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 1102.0, cpuTime: 5.4 seconds
+===============================================================================
+Iteration Number : 234
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2009.9999999999995, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 1562.0, cpuTime: 5.5 seconds
+===============================================================================
+Iteration Number : 235
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 174.0, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 170.0, cpuTime: 8.4 seconds
+===============================================================================
+Iteration Number : 236
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 161.0, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 170.0, cpuTime: 8.1 seconds
+===============================================================================
+Iteration Number : 237
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 166.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 158.0, cpuTime: 10.3 seconds
+===============================================================================
+Iteration Number : 238
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2663.99999999999, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 9.3 seconds
+===============================================================================
+Iteration Number : 239
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2576.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 9.9 seconds
+===============================================================================
+Iteration Number : 240
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3906.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 9.1 seconds
+===============================================================================
+Iteration Number : 241
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1050.9999999999973, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 642.0, cpuTime: 9.9 seconds
+===============================================================================
+Iteration Number : 242
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6325.000000000047, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 1102.0, cpuTime: 9.6 seconds
+===============================================================================
+Iteration Number : 243
+INSTANCE: Instances/lrc15-demand-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 9090.99999999998, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 1562.0, cpuTime: 9.6 seconds
+===============================================================================
+Iteration Number : 244
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 9863.000000000015, cpuTime: 1434.2 - Feasible Result
+ALNS - Final cost: 8806.0, cpuTime: 19.2 seconds
+===============================================================================
+Iteration Number : 245
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 18130.000000000007, cpuTime: 1347.5 - Feasible Result
+ALNS - Final cost: 17446.0, cpuTime: 19.2 seconds
+===============================================================================
+Iteration Number : 246
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 26085.999999999993, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 26086.0, cpuTime: 19.4 seconds
+===============================================================================
+Iteration Number : 247
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 14306.00000000001, cpuTime: 1362.8 - Feasible Result
+ALNS - Final cost: 13726.0, cpuTime: 19.4 seconds
+===============================================================================
+Iteration Number : 248
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 27690.000000000022, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 27286.0, cpuTime: 19.6 seconds
+===============================================================================
+Iteration Number : 249
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 41569.99999999988, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 40846.0, cpuTime: 19.5 seconds
+===============================================================================
+Iteration Number : 250
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 19306.00000000001, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 18726.0, cpuTime: 19.7 seconds
+===============================================================================
+Iteration Number : 251
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 37769.99999999994, cpuTime: 1245.7 - Feasible Result
+ALNS - Final cost: 37286.0, cpuTime: 19.7 seconds
+===============================================================================
+Iteration Number : 252
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 57585.999999999854, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 55846.0, cpuTime: 19.4 seconds
+===============================================================================
+Iteration Number : 253
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 20894.000000000015, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 8806.0, cpuTime: 40.5 seconds
+===============================================================================
+Iteration Number : 254
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 41683.999999999985, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 17446.0, cpuTime: 41.8 seconds
+===============================================================================
+Iteration Number : 255
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 27730.99999999991, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 26086.0, cpuTime: 47.4 seconds
+===============================================================================
+Iteration Number : 256
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 33034.99999999987, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 13726.0, cpuTime: 37.9 seconds
+===============================================================================
+Iteration Number : 257
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 65321.99999999987, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 27286.0, cpuTime: 37.8 seconds
+===============================================================================
+Iteration Number : 258
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 43209.99999999997, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 40846.0, cpuTime: 49.6 seconds
+===============================================================================
+Iteration Number : 259
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 44764.00000000025, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 18726.0, cpuTime: 37.8 seconds
+===============================================================================
+Iteration Number : 260
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 87731.99999999994, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 37286.0, cpuTime: 38.3 seconds
+===============================================================================
+Iteration Number : 261
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 127411.00000000089, cpuTime: 1438.7 - Feasible Result
+ALNS - Final cost: 55846.0, cpuTime: 38.7 seconds
+===============================================================================
+Iteration Number : 262
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8806.000000000004, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 8806.0, cpuTime: 47.3 seconds
+===============================================================================
+Iteration Number : 263
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 43986.99999999958, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 17446.0, cpuTime: 39.7 seconds
+===============================================================================
+Iteration Number : 264
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 33567.00000000001, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 26086.0, cpuTime: 49.0 seconds
+===============================================================================
+Iteration Number : 265
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 14013.000000000007, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 13726.0, cpuTime: 49.7 seconds
+===============================================================================
+Iteration Number : 266
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 65292.00000000003, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 27286.0, cpuTime: 37.9 seconds
+===============================================================================
+Iteration Number : 267
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 42021.99999999994, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 40846.0, cpuTime: 49.4 seconds
+===============================================================================
+Iteration Number : 268
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 42285.999999999956, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 18726.0, cpuTime: 39.4 seconds
+===============================================================================
+Iteration Number : 269
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 88276.99999999997, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 37286.0, cpuTime: 38.3 seconds
+===============================================================================
+Iteration Number : 270
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 59673.999999999985, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 55846.0, cpuTime: 49.4 seconds
+===============================================================================
+Iteration Number : 271
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1306.9999999999204, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 1065.0, cpuTime: 7.6 seconds
+===============================================================================
+Iteration Number : 272
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2195.9999999999854, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 1965.0, cpuTime: 7.6 seconds
+===============================================================================
+Iteration Number : 273
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3628.0000000001237, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 2865.0, cpuTime: 7.6 seconds
+===============================================================================
+Iteration Number : 274
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3160.999999999877, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 2972.0, cpuTime: 7.9 seconds
+===============================================================================
+Iteration Number : 275
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5804.999999999965, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 5772.0, cpuTime: 8.0 seconds
+===============================================================================
+Iteration Number : 276
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8624.999999999927, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 8572.0, cpuTime: 8.1 seconds
+===============================================================================
+Iteration Number : 277
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4908.999999999916, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 4909.0, cpuTime: 7.9 seconds
+===============================================================================
+Iteration Number : 278
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 10084.999999999969, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 9649.0, cpuTime: 8.1 seconds
+===============================================================================
+Iteration Number : 279
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 15267.999999999964, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 14389.0, cpuTime: 12.0 seconds
+===============================================================================
+Iteration Number : 280
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1477.9999999998213, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 1065.0, cpuTime: 23.3 seconds
+===============================================================================
+Iteration Number : 281
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5669.999999999983, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 1965.0, cpuTime: 22.8 seconds
+===============================================================================
+Iteration Number : 282
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 11370.000000000071, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 2865.0, cpuTime: 16.9 seconds
+===============================================================================
+Iteration Number : 283
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3238.000000000002, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 2972.0, cpuTime: 16.7 seconds
+===============================================================================
+Iteration Number : 284
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6036.000000000001, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 5772.0, cpuTime: 17.1 seconds
+===============================================================================
+Iteration Number : 285
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8625.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 8572.0, cpuTime: 17.0 seconds
+===============================================================================
+Iteration Number : 286
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 10435.999999999776, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 4909.0, cpuTime: 15.9 seconds
+===============================================================================
+Iteration Number : 287
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 20840.99999999998, cpuTime: 1200.4 - Feasible Result
+ALNS - Final cost: 9649.0, cpuTime: 15.7 seconds
+===============================================================================
+Iteration Number : 288
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 62159.0, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 14389.0, cpuTime: 13.8 seconds
+===============================================================================
+Iteration Number : 289
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1368.9999999999982, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 1065.0, cpuTime: 17.6 seconds
+===============================================================================
+Iteration Number : 290
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5010.999999999996, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 1965.0, cpuTime: 17.5 seconds
+===============================================================================
+Iteration Number : 291
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3566.9999999999964, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 2865.0, cpuTime: 17.8 seconds
+===============================================================================
+Iteration Number : 292
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3381.9999999999986, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 2972.0, cpuTime: 16.7 seconds
+===============================================================================
+Iteration Number : 293
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8183.9999999999945, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 5772.0, cpuTime: 16.9 seconds
+===============================================================================
+Iteration Number : 294
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 9757.99999999981, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 8572.0, cpuTime: 17.1 seconds
+===============================================================================
+Iteration Number : 295
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8427.999999999998, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 4909.0, cpuTime: 16.6 seconds
+===============================================================================
+Iteration Number : 296
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 10044.999999999714, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 9649.0, cpuTime: 17.0 seconds
+===============================================================================
+Iteration Number : 297
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 17689.999999999927, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 14389.0, cpuTime: 22.7 seconds
+===============================================================================
+Iteration Number : 298
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 192.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 372.0, cpuTime: 7.0 seconds
+===============================================================================
+Iteration Number : 299
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 199.9999999999888, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 552.0, cpuTime: 6.6 seconds
+===============================================================================
+Iteration Number : 300
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 186.0, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 1061.0, cpuTime: 6.5 seconds
+===============================================================================
+Iteration Number : 301
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 856.9999999999949, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 690.0, cpuTime: 7.0 seconds
+===============================================================================
+Iteration Number : 302
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2947.999999999982, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 1190.0, cpuTime: 7.0 seconds
+===============================================================================
+Iteration Number : 303
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 18559.999999999287, cpuTime: 1364.7 - Feasible Result
+ALNS - Final cost: 1690.0, cpuTime: 6.7 seconds
+===============================================================================
+Iteration Number : 304
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2294.9999999999072, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 1242.0, cpuTime: 7.7 seconds
+===============================================================================
+Iteration Number : 305
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2827.9999999999673, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 2302.0, cpuTime: 6.9 seconds
+===============================================================================
+Iteration Number : 306
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3914.9999999999964, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 3362.0, cpuTime: 6.5 seconds
+===============================================================================
+Iteration Number : 307
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1600.9999999999811, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 186.0, cpuTime: 11.5 seconds
+===============================================================================
+Iteration Number : 308
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4144.999999999973, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 187.0, cpuTime: 15.1 seconds
+===============================================================================
+Iteration Number : 309
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3138.9999999999745, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 187.0, cpuTime: 14.1 seconds
+===============================================================================
+Iteration Number : 310
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1899.000000000015, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 690.0, cpuTime: 11.5 seconds
+===============================================================================
+Iteration Number : 311
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2693.9999999999955, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 1190.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 312
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2596.000000000011, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 1690.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 313
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2894.9999999999786, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 1242.0, cpuTime: 10.1 seconds
+===============================================================================
+Iteration Number : 314
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2674.999999998834, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 2302.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 315
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 11504.999999999996, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 3362.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 316
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 945.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 186.0, cpuTime: 10.9 seconds
+===============================================================================
+Iteration Number : 317
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 441.99999999999915, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 187.0, cpuTime: 10.7 seconds
+===============================================================================
+Iteration Number : 318
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4988.999999999988, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 187.0, cpuTime: 10.6 seconds
+===============================================================================
+Iteration Number : 319
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3992.0000000000045, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 690.0, cpuTime: 10.1 seconds
+===============================================================================
+Iteration Number : 320
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2130.99999999999, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 1190.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 321
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1819.999999999993, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 1690.0, cpuTime: 10.4 seconds
+===============================================================================
+Iteration Number : 322
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1515.9999999993995, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 1242.0, cpuTime: 10.4 seconds
+===============================================================================
+Iteration Number : 323
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 7143.9999999999845, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 2302.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 324
+INSTANCE: Instances/lrc15-time-window-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6846.999999999896, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 3362.0, cpuTime: 10.3 seconds
+===============================================================================
+Iteration Number : 325
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 12993.0, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 12870.0, cpuTime: 19.2 seconds
+===============================================================================
+Iteration Number : 326
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 26056.999999999956, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 25580.0, cpuTime: 18.7 seconds
+===============================================================================
+Iteration Number : 327
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 41290.999999999876, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 38290.0, cpuTime: 18.6 seconds
+===============================================================================
+Iteration Number : 328
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 17570.0, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 17336.0, cpuTime: 18.9 seconds
+===============================================================================
+Iteration Number : 329
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 34505.99999999993, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 34506.0, cpuTime: 18.8 seconds
+===============================================================================
+Iteration Number : 330
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 52575.000000000095, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 51676.0, cpuTime: 18.8 seconds
+===============================================================================
+Iteration Number : 331
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 22405.999999999964, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 21916.0, cpuTime: 19.1 seconds
+===============================================================================
+Iteration Number : 332
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 44137.000000000015, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 43666.0, cpuTime: 19.0 seconds
+===============================================================================
+Iteration Number : 333
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 66793.99999999994, cpuTime: 1327.8 - Feasible Result
+ALNS - Final cost: 65416.0, cpuTime: 19.3 seconds
+===============================================================================
+Iteration Number : 334
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 24925.000000000022, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 12870.0, cpuTime: 42.0 seconds
+===============================================================================
+Iteration Number : 335
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 47535.99999999997, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 25580.0, cpuTime: 42.7 seconds
+===============================================================================
+Iteration Number : 336
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 71397.99999999987, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 38290.0, cpuTime: 43.0 seconds
+===============================================================================
+Iteration Number : 337
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 34219.00000000002, cpuTime: 1235.3 - Feasible Result
+ALNS - Final cost: 17336.0, cpuTime: 42.9 seconds
+===============================================================================
+Iteration Number : 338
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 66903.99999999999, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 34506.0, cpuTime: 43.5 seconds
+===============================================================================
+Iteration Number : 339
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 110753.0000000002, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 51676.0, cpuTime: 40.3 seconds
+===============================================================================
+Iteration Number : 340
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 22147.00000000001, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 21916.0, cpuTime: 47.8 seconds
+===============================================================================
+Iteration Number : 341
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 92068.0, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 43666.0, cpuTime: 42.7 seconds
+===============================================================================
+Iteration Number : 342
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 69496.99999999939, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 65416.0, cpuTime: 48.2 seconds
+===============================================================================
+Iteration Number : 343
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 13524.0, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 12870.0, cpuTime: 54.5 seconds
+===============================================================================
+Iteration Number : 344
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 45844.999999999825, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 25580.0, cpuTime: 47.3 seconds
+===============================================================================
+Iteration Number : 345
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 68547.99999999999, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 38290.0, cpuTime: 46.6 seconds
+===============================================================================
+Iteration Number : 346
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 33904.999999999985, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 17336.0, cpuTime: 45.0 seconds
+===============================================================================
+Iteration Number : 347
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 34942.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 34506.0, cpuTime: 48.5 seconds
+===============================================================================
+Iteration Number : 348
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 53174.99999999999, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 51676.0, cpuTime: 48.5 seconds
+===============================================================================
+Iteration Number : 349
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 22590.000000000007, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 21916.0, cpuTime: 48.1 seconds
+===============================================================================
+Iteration Number : 350
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 47071.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 43666.0, cpuTime: 47.9 seconds
+===============================================================================
+Iteration Number : 351
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 142697.00000000023, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 65416.0, cpuTime: 43.0 seconds
+===============================================================================
+Iteration Number : 352
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 725.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 725.0, cpuTime: 7.5 seconds
+===============================================================================
+Iteration Number : 353
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1609.9999999999914, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 1285.0, cpuTime: 7.5 seconds
+===============================================================================
+Iteration Number : 354
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1855.9999999999798, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 1845.0, cpuTime: 7.5 seconds
+===============================================================================
+Iteration Number : 355
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5705.999999999976, cpuTime: 1126.6 - Feasible Result
+ALNS - Final cost: 1525.0, cpuTime: 7.1 seconds
+===============================================================================
+Iteration Number : 356
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2884.9999999999645, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 2885.0, cpuTime: 7.3 seconds
+===============================================================================
+Iteration Number : 357
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4468.9999999999845, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 4245.0, cpuTime: 7.2 seconds
+===============================================================================
+Iteration Number : 358
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2979.9999999999845, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 2899.0, cpuTime: 7.8 seconds
+===============================================================================
+Iteration Number : 359
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5628.999999999765, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 5629.0, cpuTime: 7.9 seconds
+===============================================================================
+Iteration Number : 360
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8844.999999994587, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 8359.0, cpuTime: 7.8 seconds
+===============================================================================
+Iteration Number : 361
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1265.0, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 725.0, cpuTime: 15.6 seconds
+===============================================================================
+Iteration Number : 362
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1348.9999999999957, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 1285.0, cpuTime: 15.7 seconds
+===============================================================================
+Iteration Number : 363
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1849.000000000005, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 1845.0, cpuTime: 15.7 seconds
+===============================================================================
+Iteration Number : 364
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3295.999999999939, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 1525.0, cpuTime: 15.6 seconds
+===============================================================================
+Iteration Number : 365
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6417.9999999999745, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 2885.0, cpuTime: 15.6 seconds
+===============================================================================
+Iteration Number : 366
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4951.999999999999, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 4245.0, cpuTime: 15.0 seconds
+===============================================================================
+Iteration Number : 367
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6577.000000000128, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 2899.0, cpuTime: 15.9 seconds
+===============================================================================
+Iteration Number : 368
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 13058.99999999937, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 5709.0, cpuTime: 16.0 seconds
+===============================================================================
+Iteration Number : 369
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 9158.000000000004, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 8479.0, cpuTime: 21.5 seconds
+===============================================================================
+Iteration Number : 370
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 728.9999999999977, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 725.0, cpuTime: 17.1 seconds
+===============================================================================
+Iteration Number : 371
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1530.9999999999964, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 1285.0, cpuTime: 16.3 seconds
+===============================================================================
+Iteration Number : 372
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4125.999999999984, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 1845.0, cpuTime: 19.3 seconds
+===============================================================================
+Iteration Number : 373
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1883.9999999999998, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 1525.0, cpuTime: 15.9 seconds
+===============================================================================
+Iteration Number : 374
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 7095.0, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 2885.0, cpuTime: 16.6 seconds
+===============================================================================
+Iteration Number : 375
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4244.999999999987, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 4245.0, cpuTime: 17.0 seconds
+===============================================================================
+Iteration Number : 376
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6335.999999999984, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 2899.0, cpuTime: 17.0 seconds
+===============================================================================
+Iteration Number : 377
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5954.999999999738, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 5709.0, cpuTime: 16.8 seconds
+===============================================================================
+Iteration Number : 378
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8797.99999999761, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 8479.0, cpuTime: 16.8 seconds
+===============================================================================
+Iteration Number : 379
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 179.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 6.0 seconds
+===============================================================================
+Iteration Number : 380
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 190.99999999999997, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 6.1 seconds
+===============================================================================
+Iteration Number : 381
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 179.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 5.6 seconds
+===============================================================================
+Iteration Number : 382
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 189.99999999999886, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 5.6 seconds
+===============================================================================
+Iteration Number : 383
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 178.99999999999997, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 5.6 seconds
+===============================================================================
+Iteration Number : 384
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 179.0, cpuTime: 1200.0 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 5.6 seconds
+===============================================================================
+Iteration Number : 385
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 830.9999999999975, cpuTime: 1200.6 - Feasible Result
+ALNS - Final cost: 332.0, cpuTime: 5.4 seconds
+===============================================================================
+Iteration Number : 386
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 518.999999999996, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 482.0, cpuTime: 5.3 seconds
+===============================================================================
+Iteration Number : 387
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 648.9999999999939, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 632.0, cpuTime: 5.3 seconds
+===============================================================================
+Iteration Number : 388
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 179.0, cpuTime: 1199.3 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 10.5 seconds
+===============================================================================
+Iteration Number : 389
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 198.0, cpuTime: 1200.9 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 10.8 seconds
+===============================================================================
+Iteration Number : 390
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 204.0, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 10.7 seconds
+===============================================================================
+Iteration Number : 391
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1602.9999999999925, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 10.9 seconds
+===============================================================================
+Iteration Number : 392
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2881.9999999999814, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 10.6 seconds
+===============================================================================
+Iteration Number : 393
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4229.999999999425, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 10.7 seconds
+===============================================================================
+Iteration Number : 394
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 370.9999999999994, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 328.0, cpuTime: 10.0 seconds
+===============================================================================
+Iteration Number : 395
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 5545.0, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 478.0, cpuTime: 10.0 seconds
+===============================================================================
+Iteration Number : 396
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 701.0000000006701, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 628.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 397
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 391.9999999999136, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 10.9 seconds
+===============================================================================
+Iteration Number : 398
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 185.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 11.1 seconds
+===============================================================================
+Iteration Number : 399
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 183.0, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 10.9 seconds
+===============================================================================
+Iteration Number : 400
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1444.999999999784, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 10.9 seconds
+===============================================================================
+Iteration Number : 401
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 179.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 10.8 seconds
+===============================================================================
+Iteration Number : 402
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4725.9999999883585, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 173.0, cpuTime: 10.8 seconds
+===============================================================================
+Iteration Number : 403
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2814.0, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 328.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 404
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1144.0000000000664, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 478.0, cpuTime: 10.2 seconds
+===============================================================================
+Iteration Number : 405
+INSTANCE: Instances/lrc15-servtime-based.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 7640.999999999998, cpuTime: 1199.4 - Feasible Result
+ALNS - Final cost: 628.0, cpuTime: 10.1 seconds
+===============================================================================
+Iteration Number : 406
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 483.0000000000135, cpuTime: 5.4 - Optimal Result
+ALNS - Final cost: 483.0, cpuTime: 6.1 seconds
+===============================================================================
+Iteration Number : 407
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 773.0000000001735, cpuTime: 7.0 - Optimal Result
+ALNS - Final cost: 773.0, cpuTime: 6.2 seconds
+===============================================================================
+Iteration Number : 408
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 1063.0000000000414, cpuTime: 4.4 - Optimal Result
+ALNS - Final cost: 1063.0, cpuTime: 6.2 seconds
+===============================================================================
+Iteration Number : 409
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 1483.0000000000118, cpuTime: 6.6 - Optimal Result
+ALNS - Final cost: 1483.0, cpuTime: 6.2 seconds
+===============================================================================
+Iteration Number : 410
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 2772.999999999968, cpuTime: 5.0 - Optimal Result
+ALNS - Final cost: 2773.0, cpuTime: 6.1 seconds
+===============================================================================
+Iteration Number : 411
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 4062.9999999999063, cpuTime: 4.1 - Optimal Result
+ALNS - Final cost: 4063.0, cpuTime: 6.2 seconds
+===============================================================================
+Iteration Number : 412
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 3127.0000000000045, cpuTime: 4.3 - Optimal Result
+ALNS - Final cost: 3127.0, cpuTime: 6.0 seconds
+===============================================================================
+Iteration Number : 413
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 6037.000000000051, cpuTime: 5.1 - Optimal Result
+ALNS - Final cost: 6037.0, cpuTime: 6.1 seconds
+===============================================================================
+Iteration Number : 414
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 8947.000000000013, cpuTime: 4.8 - Optimal Result
+ALNS - Final cost: 8947.0, cpuTime: 6.0 seconds
+===============================================================================
+Iteration Number : 415
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 482.99999999785246, cpuTime: 1199.5 - Feasible Result
+ALNS - Final cost: 483.0, cpuTime: 9.7 seconds
+===============================================================================
+Iteration Number : 416
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 772.9999999985729, cpuTime: 1206.3 - Feasible Result
+ALNS - Final cost: 773.0, cpuTime: 9.6 seconds
+===============================================================================
+Iteration Number : 417
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 7963.999999999964, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 1063.0, cpuTime: 9.4 seconds
+===============================================================================
+Iteration Number : 418
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1566.9999999999998, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 1483.0, cpuTime: 12.3 seconds
+===============================================================================
+Iteration Number : 419
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2773.0000000001546, cpuTime: 1199.9 - Feasible Result
+ALNS - Final cost: 2773.0, cpuTime: 12.6 seconds
+===============================================================================
+Iteration Number : 420
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 19612.00000000008, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 4063.0, cpuTime: 10.5 seconds
+===============================================================================
+Iteration Number : 421
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 12077.000000000016, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 3127.0, cpuTime: 11.0 seconds
+===============================================================================
+Iteration Number : 422
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6036.9999999999945, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 6037.0, cpuTime: 13.4 seconds
+===============================================================================
+Iteration Number : 423
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8946.999999998503, cpuTime: 1207.7 - Feasible Result
+ALNS - Final cost: 8947.0, cpuTime: 13.3 seconds
+===============================================================================
+Iteration Number : 424
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 482.9999999998892, cpuTime: 1199.2 - Feasible Result
+ALNS - Final cost: 483.0, cpuTime: 14.5 seconds
+===============================================================================
+Iteration Number : 425
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 773.0000000006503, cpuTime: 1199.6 - Feasible Result
+ALNS - Final cost: 773.0, cpuTime: 23.0 seconds
+===============================================================================
+Iteration Number : 426
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1127.0000000000055, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 1063.0, cpuTime: 20.0 seconds
+===============================================================================
+Iteration Number : 427
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 1482.9999999988167, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 1483.0, cpuTime: 15.7 seconds
+===============================================================================
+Iteration Number : 428
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 2773.0, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 2773.0, cpuTime: 15.6 seconds
+===============================================================================
+Iteration Number : 429
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 4062.9999999999973, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 4063.0, cpuTime: 15.4 seconds
+===============================================================================
+Iteration Number : 430
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 3336.999999999998, cpuTime: 1199.8 - Feasible Result
+ALNS - Final cost: 3127.0, cpuTime: 15.3 seconds
+===============================================================================
+Iteration Number : 431
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 6036.999999999995, cpuTime: 1199.0 - Feasible Result
+ALNS - Final cost: 6037.0, cpuTime: 15.3 seconds
+===============================================================================
+Iteration Number : 432
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 1, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 8947.0, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 8947.0, cpuTime: 15.2 seconds
+===============================================================================
+Iteration Number : 433
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 204.0, cpuTime: 7.9 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 3.1 seconds
+===============================================================================
+Iteration Number : 434
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 204.0, cpuTime: 8.3 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 3.2 seconds
+===============================================================================
+Iteration Number : 435
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 203.99999999999997, cpuTime: 8.4 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 3.1 seconds
+===============================================================================
+Iteration Number : 436
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 203.99999999999994, cpuTime: 12.8 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 3.2 seconds
+===============================================================================
+Iteration Number : 437
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 204.0, cpuTime: 6.9 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 3.1 seconds
+===============================================================================
+Iteration Number : 438
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 203.99999999999997, cpuTime: 8.0 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 3.1 seconds
+===============================================================================
+Iteration Number : 439
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 203.99999999999994, cpuTime: 7.4 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 3.2 seconds
+===============================================================================
+Iteration Number : 440
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 203.99999999999997, cpuTime: 7.1 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 3.1 seconds
+===============================================================================
+Iteration Number : 441
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 204.0, cpuTime: 8.9 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 3.2 seconds
+===============================================================================
+Iteration Number : 442
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 182.0, cpuTime: 24.6 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 4.9 seconds
+===============================================================================
+Iteration Number : 443
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 182.0, cpuTime: 28.9 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 4.8 seconds
+===============================================================================
+Iteration Number : 444
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 181.99999999999997, cpuTime: 52.7 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 5.0 seconds
+===============================================================================
+Iteration Number : 445
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 200.0, cpuTime: 92.9 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.7 seconds
+===============================================================================
+Iteration Number : 446
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 200.0, cpuTime: 73.4 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.7 seconds
+===============================================================================
+Iteration Number : 447
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 199.99999999999997, cpuTime: 389.7 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.8 seconds
+===============================================================================
+Iteration Number : 448
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 199.99999999999997, cpuTime: 56.4 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.6 seconds
+===============================================================================
+Iteration Number : 449
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 200.0, cpuTime: 68.0 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.8 seconds
+===============================================================================
+Iteration Number : 450
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 200.0, cpuTime: 123.0 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.7 seconds
+===============================================================================
+Iteration Number : 451
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 182.0, cpuTime: 163.3 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 6.3 seconds
+===============================================================================
+Iteration Number : 452
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 182.0, cpuTime: 48.8 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 6.1 seconds
+===============================================================================
+Iteration Number : 453
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 181.99999999999997, cpuTime: 107.6 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 6.2 seconds
+===============================================================================
+Iteration Number : 454
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 200.0, cpuTime: 191.2 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 6.2 seconds
+===============================================================================
+Iteration Number : 455
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 200.0, cpuTime: 229.8 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 6.2 seconds
+===============================================================================
+Iteration Number : 456
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 199.99999999999997, cpuTime: 120.1 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 6.2 seconds
+===============================================================================
+Iteration Number : 457
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 200.0, cpuTime: 157.3 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 6.1 seconds
+===============================================================================
+Iteration Number : 458
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 200.0, cpuTime: 926.7 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 6.3 seconds
+===============================================================================
+Iteration Number : 459
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 2, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 200.0, cpuTime: 167.7 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 6.2 seconds
+===============================================================================
+Iteration Number : 460
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 204.0, cpuTime: 8.9 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 3.0 seconds
+===============================================================================
+Iteration Number : 461
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 204.0, cpuTime: 9.5 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 3.0 seconds
+===============================================================================
+Iteration Number : 462
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 204.0, cpuTime: 11.3 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 2.9 seconds
+===============================================================================
+Iteration Number : 463
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 204.0, cpuTime: 20.8 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 2.9 seconds
+===============================================================================
+Iteration Number : 464
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 204.0, cpuTime: 8.3 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 2.9 seconds
+===============================================================================
+Iteration Number : 465
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 204.0, cpuTime: 18.8 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 2.9 seconds
+===============================================================================
+Iteration Number : 466
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 203.99999999999994, cpuTime: 16.3 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 2.9 seconds
+===============================================================================
+Iteration Number : 467
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 203.99999999999943, cpuTime: 11.3 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 2.9 seconds
+===============================================================================
+Iteration Number : 468
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 1, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 204.0, cpuTime: 11.1 - Optimal Result
+ALNS - Final cost: 204.0, cpuTime: 2.9 seconds
+===============================================================================
+Iteration Number : 469
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 181.99999999999997, cpuTime: 64.7 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 4.6 seconds
+===============================================================================
+Iteration Number : 470
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 182.0, cpuTime: 82.5 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 4.5 seconds
+===============================================================================
+Iteration Number : 471
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 182.0, cpuTime: 69.8 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 4.4 seconds
+===============================================================================
+Iteration Number : 472
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 200.0, cpuTime: 212.0 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.5 seconds
+===============================================================================
+Iteration Number : 473
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 200.0, cpuTime: 100.3 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.3 seconds
+===============================================================================
+Iteration Number : 474
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 200.0, cpuTime: 796.8 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.4 seconds
+===============================================================================
+Iteration Number : 475
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 200.0, cpuTime: 689.9 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.3 seconds
+===============================================================================
+Iteration Number : 476
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 199.99999999999997, cpuTime: 160.6 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.3 seconds
+===============================================================================
+Iteration Number : 477
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 2, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 199.99999999999997, cpuTime: 1199.7 - Feasible Result
+ALNS - Final cost: 200.0, cpuTime: 5.4 seconds
+===============================================================================
+Iteration Number : 478
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 182.0, cpuTime: 63.1 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 6.0 seconds
+===============================================================================
+Iteration Number : 479
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 182.0, cpuTime: 163.4 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 5.8 seconds
+===============================================================================
+Iteration Number : 480
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 20, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 182.0, cpuTime: 124.2 - Optimal Result
+ALNS - Final cost: 182.0, cpuTime: 5.8 seconds
+===============================================================================
+Iteration Number : 481
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 199.99999999999994, cpuTime: 285.5 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.9 seconds
+===============================================================================
+Iteration Number : 482
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 199.99999999999997, cpuTime: 834.5 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.8 seconds
+===============================================================================
+Iteration Number : 483
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 30, EARLINESS_TARDINESS_PENALTY: 30
+MATH - Final Cost: 200.0, cpuTime: 583.9 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 6.1 seconds
+===============================================================================
+Iteration Number : 484
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 10
+MATH - Final Cost: 200.0, cpuTime: 100.3 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.9 seconds
+===============================================================================
+Iteration Number : 485
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 20
+MATH - Final Cost: 200.0, cpuTime: 170.7 - Optimal Result
+ALNS - Final cost: 200.0, cpuTime: 5.9 seconds
+===============================================================================
+Iteration Number : 486
+INSTANCE: Instances/lrc9.txt, VEHICLE_COUNT : 3, TROLLEY_COUNT: 3, TROLLEY_IMPACT_RATE: 40, EARLINESS_TARDINESS_PENALTY: 30
+Geçerli bir çözüm bulundu, ancak optimal olmayabilir.
+MATH - Final Cost: 200.0, cpuTime: 1199.1 - Feasible Result
+ALNS - Final cost: 200.0, cpuTime: 5.9 seconds
+===============================================================================
+
+Process finished with exit code -1

@@ -2,42 +2,62 @@ import matplotlib.pyplot as plt
 
 # Verilen koordinat listesi
 coor = [
-    [0.0, 1.0],
-    [55.0, -63.0],
-    [98.0, 21.0],
-    [66.0, -19.0],
-    [53.0, 25.0],
-    [41.0, -33.0],
-    [97.0, 27.0],
-    [52.0, 30.0],
-    [74.0, 77.0],
-    [11.0, -13.0],
-    [30.0, 67.0],
-    [12.0, 77.0],
-    [65.0, -37.0],
-    [14.0, 11.0],
-    [27.0, 99.0],
+    ["C0", 35.0, 35.0],
+    ["C1", 41.0, 49.0],
+    ["C2", 55.0, 22.0],
+    ["C3", 20.0, 13.0],
+    ["C4", 40.0, 20.0],
+    ["C5", 38.0, 12.0],
+    ["C6", 17.0, 10.0],
+    ["C7", 25.0, 19.0],
+    ["C8", 12.0, 27.0],
+    ["C9", 40.0, 14.0],
+    ["C10", 36.0, 10.0]
 ]
 
-# Koordinatları x ve y listelerine ayırma
-x = [point[0] for point in coor]
-y = [point[1] for point in coor]
+# Araç rotaları
+vehicle_0_route = ["C0", "C1", "C6", "C3", "C8", "C0"]
+vehicle_1_route = ["C0", "C4", "C9", "C5", "C10", "C2", "C7", "C0"]
+
+# Koordinatları ayırma
+names = [point[0] for point in coor]
+x = [point[1] for point in coor]
+y = [point[2] for point in coor]
+
+# Noktaların renkleri
+colors = ['black'] + ['red']*5 + ['green']*5
 
 # Plotlama işlemi
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(12, 8))
 
-# İlk nokta siyah
-plt.scatter(x[0], y[0], color='black', label='Point 1')
+# Noktaları plot etme
+for i in range(len(coor)):
+    plt.scatter(x[i], y[i], color=colors[i], label=names[i] if i == 0 else "")
+    plt.text(x[i], y[i], names[i], fontsize=12, ha='right')
 
-# Sonraki 4 nokta kırmızı
-plt.scatter(x[1:7], y[1:7], color='red', label='Next 4 Points')
+# Araç 0 rotasını çizme
+for i in range(len(vehicle_0_route) - 1):
+    start_index = names.index(vehicle_0_route[i])
+    end_index = names.index(vehicle_0_route[i + 1])
+    plt.plot([x[start_index], x[end_index]], 'r--')
 
-# Son 4 nokta yeşil
-plt.scatter(x[7:], y[7:], color='green', label='Last 4 Points')
+# Araç 1 rotasını çizme
+for i in range(len(vehicle_1_route) - 1):
+    start_index = names.index(vehicle_1_route[i])
+    end_index = names.index(vehicle_1_route[i + 1])
+    plt.plot([x[start_index], x[end_index]], 'g--')
 
 plt.xlabel('X Coordinate')
 plt.ylabel('Y Coordinate')
-plt.title('Coordinate Plot')
+plt.title('Vehicle Routes')
 plt.legend()
 plt.grid(True)
 plt.show()
+
+
+
+
+
+
+
+
