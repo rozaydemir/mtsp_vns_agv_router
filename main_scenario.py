@@ -20,10 +20,10 @@ class ScenarioAnalysis:
             # "Instances/lrc15-time-window-based.txt",
             # "Instances/lrc15-servtime-based.txt",
             "Instances/lrc19.txt",
-            # "Instances/lrc19-location-based.txt",
-            # "Instances/lrc19-demand-based.txt",
-            # "Instances/lrc19-time-window-based.txt",
-            # "Instances/lrc19-servtime-based.txt",
+            "Instances/lrc19-location-based.txt",
+            "Instances/lrc19-demand-based.txt",
+            "Instances/lrc19-time-window-based.txt",
+            "Instances/lrc19-servtime-based.txt",
         ]
         self.VEHICLE_COUNT = [
             1
@@ -36,22 +36,22 @@ class ScenarioAnalysis:
             1
             ,
             2
-            # ,
-            # 3
+            ,
+            3
         ]
         self.TROLLEY_IMPACT_RATE = [
             20
-            # ,
-            # 30
-            # ,
-            # 40
+            ,
+            30
+            ,
+            40
         ]
         self.EARLINESS_TARDINESS_PENALTY = [
             10
-            # ,
-            # 20
-            # ,
-            # 30
+            ,
+            20
+            ,
+            30
         ]
 
     def parse_route_math_model(self, solutionResult_MATH_MODEL, depotNode):
