@@ -19,11 +19,11 @@ class ScenarioAnalysis:
             # "Instances/lrc15-demand-based.txt",
             # "Instances/lrc15-time-window-based.txt",
             # "Instances/lrc15-servtime-based.txt",
-            "Instances/lrc19.txt",
-            "Instances/lrc19-location-based.txt",
-            "Instances/lrc19-demand-based.txt",
+            # "Instances/lrc19.txt",
+            # "Instances/lrc19-location-based.txt",
             "Instances/lrc19-time-window-based.txt",
             "Instances/lrc19-servtime-based.txt",
+            "Instances/lrc19-demand-based.txt"
         ]
         self.VEHICLE_COUNT = [
             1
@@ -93,8 +93,8 @@ class ScenarioAnalysis:
 
     def cost_detail_math_model(self, routesCostDetailResult):
         distCost = sum(item[0] for item in routesCostDetailResult)
-        EAPenalty = sum(item[1] for item in routesCostDetailResult if item[1] > 0)
-        TAPenalty = sum(item[2] for item in routesCostDetailResult if item[2] > 0)
+        EAPenalty = sum(item[1] for item in routesCostDetailResult if item[1] >= 0)
+        TAPenalty = sum(item[2] for item in routesCostDetailResult if item[2] >= 0)
         return distCost, EAPenalty, TAPenalty
 
     def cost_detail_heuristic(self, solutionResult_ALNS):
@@ -123,9 +123,11 @@ class ScenarioAnalysis:
 
     def parse_detail_excel(self, worksheetDetail, iterationNumber, trolleyCount, trolleyImpactRate,
                            earlinessTardinessPenalty,
-                           bestCost_MATH_MODEL, bestCost_ALNS, gap, cpuTime_MATH_MODEL, routesDetailResult,
-                           cpuTime_ALNS, solutionResult_ALNS, instance,
-                           cpuTime_RULE_OF_THUMB, bestCost_RULE_OF_THUMB, solutionResult_RULE_OF_THUMB
+                           bestCost_MATH_MODEL,  cpuTime_MATH_MODEL, routesDetailResult,
+                           # bestCost_ALNS, cpuTime_ALNS, solutionResult_ALNS,
+                           instance,
+                           # cpuTime_RULE_OF_THUMB, bestCost_RULE_OF_THUMB, solutionResult_RULE_OF_THUMB,
+                           # gap
                            ):
         worksheetDetail.append(
             ["ID", 'TROLLEY_COUNT', 'TROLLEY_IMPACT_RATE', 'EARLINESS/TARDINESS PENALTY'])
@@ -133,27 +135,27 @@ class ScenarioAnalysis:
                                 earlinessTardinessPenalty])
         worksheetDetail.append([instance, "Mathematical Formulation", "ALNS", "RULE OF THUMB", "GAP"])
         worksheetDetail.append(
-            ["Result", round(bestCost_MATH_MODEL), round(bestCost_ALNS), round(bestCost_RULE_OF_THUMB), gap])
-        worksheetDetail.append(["cpuTime", cpuTime_MATH_MODEL, cpuTime_ALNS, cpuTime_RULE_OF_THUMB])
+            ["Result", bestCost_MATH_MODEL, round(0), round(0), 0])
+        worksheetDetail.append(["cpuTime", cpuTime_MATH_MODEL, 0, 0])
         worksheetDetail.append(["Mathematical Formulation"])
         for rd in range(0, len(routesDetailResult)):
             worksheetDetail.append(["", routesDetailResult[rd]])
 
-        worksheetDetail.append(["ALNS Algorithm"])
-        for k in range(0, len(solutionResult_ALNS)):
-            if len(solutionResult_ALNS[k]) > 0:
-                vehicle_info_alns = f"Vehicle {k} - Trolley Count: {solutionResult_ALNS[k]['trolleyCount']}"
-                worksheetDetail.append(["", vehicle_info_alns])
-                for rda in range(0, len(solutionResult_ALNS[k]["routeDetail"])):
-                    worksheetDetail.append(["", solutionResult_ALNS[k]["routeDetail"][rda]])
-
-        worksheetDetail.append(["Rule Of Thumb Algorithm"])
-        for kr in range(0, len(solutionResult_RULE_OF_THUMB)):
-            if len(solutionResult_RULE_OF_THUMB[kr]) > 0:
-                vehicle_info_alns = f"Vehicle {kr} - Trolley Count: {solutionResult_RULE_OF_THUMB[kr]['trolleyCount']}"
-                worksheetDetail.append(["", vehicle_info_alns])
-                for rdaT in range(0, len(solutionResult_RULE_OF_THUMB[kr]["routeDetail"])):
-                    worksheetDetail.append(["", solutionResult_RULE_OF_THUMB[kr]["routeDetail"][rdaT]])
+        # worksheetDetail.append(["ALNS Algorithm"])
+        # for k in range(0, len(solutionResult_ALNS)):
+        #     if len(solutionResult_ALNS[k]) > 0:
+        #         vehicle_info_alns = f"Vehicle {k} - Trolley Count: {solutionResult_ALNS[k]['trolleyCount']}"
+        #         worksheetDetail.append(["", vehicle_info_alns])
+        #         for rda in range(0, len(solutionResult_ALNS[k]["routeDetail"])):
+        #             worksheetDetail.append(["", solutionResult_ALNS[k]["routeDetail"][rda]])
+        #
+        # worksheetDetail.append(["Rule Of Thumb Algorithm"])
+        # for kr in range(0, len(solutionResult_RULE_OF_THUMB)):
+        #     if len(solutionResult_RULE_OF_THUMB[kr]) > 0:
+        #         vehicle_info_alns = f"Vehicle {kr} - Trolley Count: {solutionResult_RULE_OF_THUMB[kr]['trolleyCount']}"
+        #         worksheetDetail.append(["", vehicle_info_alns])
+        #         for rdaT in range(0, len(solutionResult_RULE_OF_THUMB[kr]["routeDetail"])):
+        #             worksheetDetail.append(["", solutionResult_RULE_OF_THUMB[kr]["routeDetail"][rdaT]])
 
         worksheetDetail.append([])
 
@@ -182,10 +184,10 @@ class ScenarioAnalysis:
     def execute(self):
         start_time = time.time()
         print("Scenario Started")
-        iterationNumber = 810
+        iterationNumber = 972
         iterationCount = 6000
         capacityOfTrolley = 60
-        timeLimit = (60900 * 20)
+        timeLimit = (60000 * 20)
 
         for ins in range(0, len(self.INSTANCES)):
             infeasibleData = list()
@@ -199,27 +201,27 @@ class ScenarioAnalysis:
             workbook.remove(workbook.active)  # Remove default sheet
             worksheet = workbook.create_sheet(title=f'Test Result')
             worksheetRot = workbookROTDetail.create_sheet(title=f'ROT Result')
-            worksheetRot.append(
-                [
-                    "", "TEST INSTANCES", "", "", "", "",
-                    "Min Rule Of Thumb", "", "", "", "", "",
-                    "", "", "", "", "", "", ""
-                ])
-            worksheetRot.append(
-                [
-                    "TEST ID", "FILE NAME", "VEHICLE COUNT", 'TROLLEY COUNT', 'TROLLEY IMPACT TIME',
-                    "EARLINESS/TARDINESS PENALTY",
-                    "CPU TIME", "RESULT",
-                    "ROTH Distance Cost", "ROTH EA Cost", "ROTH TA Cost", "ROUTES", "MIN ALGO NAME",
-                    "SORTED BY COST", "GREEDY", "SORTED BY DIST", "SORTED BY DUE DATE", "MILP Result", "ALNS result"
-                ])
+            # worksheetRot.append(
+            #     [
+            #         "", "TEST INSTANCES", "", "", "", "",
+            #         "Min Rule Of Thumb", "", "", "", "", "",
+            #         "", "", "", "", "", "", ""
+            #     ])
+            # worksheetRot.append(
+            #     [
+            #         "TEST ID", "FILE NAME", "VEHICLE COUNT", 'TROLLEY COUNT', 'TROLLEY IMPACT TIME',
+            #         "EARLINESS/TARDINESS PENALTY",
+            #         "CPU TIME", "RESULT",
+            #         "ROTH Distance Cost", "ROTH EA Cost", "ROTH TA Cost", "ROUTES", "MIN ALGO NAME",
+            #         "SORTED BY COST", "GREEDY", "SORTED BY DIST", "SORTED BY DUE DATE", "MILP Result", "ALNS result"
+            #     ])
             worksheet.append(
                 [
                     "", "TEST INSTANCES", "", "", "", "",
                     "MATHEMATICAL FORMULATION", "", "", "", "", "", "",
-                    "ALNS", "", "", "", "", "",
-                    "Min Rule Of Thumb", "", "", "", "", "", "",
-                    "GAP"
+                    # "ALNS", "", "", "", "", "",
+                    # "Min Rule Of Thumb", "", "", "", "", "", "",
+                    # "GAP"
                 ])
             worksheet.append(
                 [
@@ -227,11 +229,11 @@ class ScenarioAnalysis:
                     "EARLINESS/TARDINESS PENALTY",
                     "Math Form Is Optimal OR Feasible", "CPU TIME", "RESULT", "Math Model Distance Cost",
                     "Math Model EA Cost", "Math Model TA Cost", "ROUTES",
-                    "CPU TIME", "RESULT",
-                    "ALNS Distance Cost", "ALNS EA Cost", "ALNS TA Cost", "ROUTES",
-                    "CPU TIME", "RESULT",
-                    "ROTH Distance Cost", "ROTH EA Cost", "ROTH TA Cost", "ROUTES", "MIN ALGO NAME",
-                    ""
+                    # "CPU TIME", "RESULT",
+                    # "ALNS Distance Cost", "ALNS EA Cost", "ALNS TA Cost", "ROUTES",
+                    # "CPU TIME", "RESULT",
+                    # "ROTH Distance Cost", "ROTH EA Cost", "ROTH TA Cost", "ROUTES", "MIN ALGO NAME",
+                    # ""
                 ])
 
             workbookDetail.remove(workbookDetail.active)  # Remove default sheet
@@ -267,38 +269,43 @@ class ScenarioAnalysis:
                                          trolleyImpactRate) + ", EARLINESS_TARDINESS_PENALTY: " + str(
                                          earlinessTardinessPenalty)
                                      ])
-                                continue
+                                optimalOrFeasible = "NON-FEASIBLE"
+                                bestCost_MATH_MODEL = 0
+                                cpuTime_MATH_MODEL = 0
+                                solutionResult_MATH_MODEL = []
+                                routesDetailResult = []
+                                routesCostDetailResult = [[0, 0, 0]]
 
-                            heuristic = Heuristic(instance, vehicleCount, capacityOfTrolley, trolleyCount,
-                                                  trolleyImpactRate, earlinessTardinessPenalty,
-                                                  earlinessTardinessPenalty, iterationCount, 200)
-                            bestCost_ALNS, cpuTime_ALNS, solutionResult_ALNS = heuristic.execute()
+                            # heuristic = Heuristic(instance, vehicleCount, capacityOfTrolley, trolleyCount,
+                            #                       trolleyImpactRate, earlinessTardinessPenalty,
+                            #                       earlinessTardinessPenalty, iterationCount, 200)
+                            # bestCost_ALNS, cpuTime_ALNS, solutionResult_ALNS = heuristic.execute()
+                            #
+                            # ruleOfThumb = RuleOfThumb(instance, vehicleCount, capacityOfTrolley, trolleyCount,
+                            #                           trolleyImpactRate, earlinessTardinessPenalty,
+                            #                           earlinessTardinessPenalty, 0, bestCost_ALNS)
+                            # bestCost_RULE_OF_THUMB, bestDistance_TWO, bestDistance_THREE, bestDistance_FOUR, minResult = ruleOfThumb.execute()
 
-                            ruleOfThumb = RuleOfThumb(instance, vehicleCount, capacityOfTrolley, trolleyCount,
-                                                      trolleyImpactRate, earlinessTardinessPenalty,
-                                                      earlinessTardinessPenalty, 0, bestCost_ALNS)
-                            bestCost_RULE_OF_THUMB, bestDistance_TWO, bestDistance_THREE, bestDistance_FOUR, minResult = ruleOfThumb.execute()
-
-                            gap = ((round(bestCost_ALNS) - round(bestCost_MATH_MODEL)) / round(bestCost_ALNS)) * 100
-                            if gap > 1 or gap < 0:
-                                infeasibleData.append(
-                                    ["TEST_ID: " + str(iterationNumber), "INSTANCE: " + str(
-                                        instance) + ", VEHICLE_COUNT: " + str(
-                                        vehicleCount) + ", TROLLEY_COUNT: " + str(
-                                        trolleyCount) + ", TROLLEY_IMPACT_RATE: " + str(
-                                        trolleyImpactRate) + ", EARLINESS_TARDINESS_PENALTY: " + str(
-                                        earlinessTardinessPenalty), gap])
+                            # gap = ((round(bestCost_ALNS) - round(bestCost_ALNS)) / round(bestCost_ALNS)) * 100
+                            # if gap > 1 or gap < 0:
+                            #     infeasibleData.append(
+                            #         ["TEST_ID: " + str(iterationNumber), "INSTANCE: " + str(
+                            #             instance) + ", VEHICLE_COUNT: " + str(
+                            #             vehicleCount) + ", TROLLEY_COUNT: " + str(
+                            #             trolleyCount) + ", TROLLEY_IMPACT_RATE: " + str(
+                            #             trolleyImpactRate) + ", EARLINESS_TARDINESS_PENALTY: " + str(
+                            #             earlinessTardinessPenalty), gap])
 
                             math_model_routes = self.parse_route_math_model(solutionResult_MATH_MODEL, depotNode)
-                            heuristic_routes = self.parse_route_alns(solutionResult_ALNS)
-                            rule_of_thumb_routes = self.parse_route_alns(minResult[3])
+                            # heuristic_routes = self.parse_route_alns(solutionResult_ALNS)
+                            # rule_of_thumb_routes = self.parse_route_alns(minResult[3])
 
                             mathModel_dist_cost, mathModel_EACost, mathModel_TAcost = self.cost_detail_math_model(
                                 routesCostDetailResult)
-                            heuristic_dist_cost, heuristic_EACost, heuristic_TAcost = self.cost_detail_heuristic(
-                                solutionResult_ALNS)
-                            rule_of_thumb_dist_cost, rule_of_thumb_EACost, rule_of_thumb_TAcost = self.cost_detail_heuristic(
-                                minResult[3])
+                            # heuristic_dist_cost, heuristic_EACost, heuristic_TAcost = self.cost_detail_heuristic(
+                            #     solutionResult_ALNS)
+                            # rule_of_thumb_dist_cost, rule_of_thumb_EACost, rule_of_thumb_TAcost = self.cost_detail_heuristic(
+                            #     minResult[3])
                             worksheet.append(
                                 [
                                     iterationNumber, file_name, vehicleCount, trolleyCount, trolleyImpactRate,
@@ -307,53 +314,54 @@ class ScenarioAnalysis:
                                     cpuTime_MATH_MODEL, round(bestCost_MATH_MODEL), round(mathModel_dist_cost),
                                     round(mathModel_EACost), round(mathModel_TAcost),
                                     math_model_routes,
-                                    cpuTime_ALNS, round(bestCost_ALNS), round(heuristic_dist_cost),
-                                    round(heuristic_EACost), round(heuristic_TAcost), heuristic_routes,
-                                    minResult[2], round(minResult[1]),
-                                    round(rule_of_thumb_dist_cost),
-                                    round(rule_of_thumb_EACost), round(rule_of_thumb_TAcost), rule_of_thumb_routes,
-                                    minResult[0],
-                                    gap,
+                                    # cpuTime_ALNS, round(bestCost_ALNS), round(heuristic_dist_cost),
+                                    # round(heuristic_EACost), round(heuristic_TAcost), heuristic_routes,
+                                    # minResult[2], round(minResult[1]),
+                                    # round(rule_of_thumb_dist_cost),
+                                    # round(rule_of_thumb_EACost), round(rule_of_thumb_TAcost), rule_of_thumb_routes,
+                                    # minResult[0],
+                                    # gap,
 
                                 ])
                             self.parse_detail_excel(worksheetDetail, iterationNumber, trolleyCount,
                                                     trolleyImpactRate, earlinessTardinessPenalty,
-                                                    bestCost_MATH_MODEL, bestCost_ALNS, gap, cpuTime_MATH_MODEL,
-                                                    routesDetailResult,
-                                                    cpuTime_ALNS, solutionResult_ALNS, instance,
-                                                    minResult[2], minResult[1],
-                                                    minResult[3])
-                            self.parse_roth_detail_excel(worksheetRot, file_name, vehicleCount, iterationNumber,
-                                                         trolleyCount,
-                                                         trolleyImpactRate, earlinessTardinessPenalty,
-                                                         minResult,
-                                                         round(rule_of_thumb_dist_cost),
-                                                         round(rule_of_thumb_EACost), round(rule_of_thumb_TAcost),
-                                                         rule_of_thumb_routes,
-                                                         round(bestCost_RULE_OF_THUMB),
-                                                         round(bestDistance_TWO),
-                                                         round(bestDistance_THREE),
-                                                         round(bestDistance_FOUR), round(bestCost_MATH_MODEL),
-                                                         round(bestCost_ALNS))
+                                                    bestCost_MATH_MODEL,  cpuTime_MATH_MODEL, routesDetailResult,
+                                                    # bestCost_ALNS, cpuTime_ALNS, solutionResult_ALNS,
+                                                    instance,
+                                                    # minResult[2], minResult[1],
+                                                    # minResult[3], gap
+                                                    )
+                            # self.parse_roth_detail_excel(worksheetRot, file_name, vehicleCount, iterationNumber,
+                            #                              trolleyCount,
+                            #                              trolleyImpactRate, earlinessTardinessPenalty,
+                            #                              minResult,
+                            #                              round(rule_of_thumb_dist_cost),
+                            #                              round(rule_of_thumb_EACost), round(rule_of_thumb_TAcost),
+                            #                              rule_of_thumb_routes,
+                            #                              round(bestCost_RULE_OF_THUMB),
+                            #                              round(bestDistance_TWO),
+                            #                              round(bestDistance_THREE),
+                            #                              round(bestDistance_FOUR), round(0),
+                            #                              round(bestCost_ALNS))
 
-            workbook.save(f'excels/{file_name}.xlsx')
-            workbookDetail.save(f'excels/details/{file_name}-details.xlsx')
-            workbookROTDetail.save(f'excels/rot-detail/{file_name}-roth-details.xlsx')
+            workbook.save(f'excels/{file_name}-MATH.xlsx')
+            workbookDetail.save(f'excels/details/{file_name}-MATH-details.xlsx')
+            # workbookROTDetail.save(f'excels/rot-detail/{file_name}-roth-details.xlsx')
 
-            if len(infeasibleData) > 0:
-                workbookInFeasible = Workbook()
-                workbookInFeasible.remove(workbookInFeasible.active)
-                worksheetInFeasible = workbookInFeasible.create_sheet(title="Gap Data")
-                worksheetInFeasible.append(["TEST_ID", "TEST INSTANCE", "GAP"])
-                for inf in range(0, len(infeasibleData)):
-                    worksheetInFeasible.append(infeasibleData[inf])
-                workbookInFeasible.save(f'excels/gap/{file_name}-gap.xlsx')
+            # if len(infeasibleData) > 0:
+            #     workbookInFeasible = Workbook()
+            #     workbookInFeasible.remove(workbookInFeasible.active)
+            #     worksheetInFeasible = workbookInFeasible.create_sheet(title="Gap Data")
+            #     worksheetInFeasible.append(["TEST_ID", "TEST INSTANCE", "GAP"])
+            #     for inf in range(0, len(infeasibleData)):
+            #         worksheetInFeasible.append(infeasibleData[inf])
+            #     workbookInFeasible.save(f'excels/gap/{file_name}-gap.xlsx')
 
             if len(nonOptimalSolution) > 0:
                 workbookNonOptimal = Workbook()
                 workbookNonOptimal.remove(workbookNonOptimal.active)
                 worksheetNonOptimal = workbookNonOptimal.create_sheet(title="Non-optimal Data")
-                worksheetInFeasible.append(["TEST_ID", "TEST INSTANCE"])
+                worksheetNonOptimal.append(["TEST_ID", "TEST INSTANCE"])
                 for f in range(0, len(nonOptimalSolution)):
                     worksheetNonOptimal.append(nonOptimalSolution[f])
                 workbookNonOptimal.save(f'excels/non-optimal/{file_name}-non-optimal.xlsx')

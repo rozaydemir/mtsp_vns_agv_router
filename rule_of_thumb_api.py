@@ -1070,10 +1070,9 @@ class ALNS:
         self.bestSolution.setVehicle(self.problem.vehicles)
 
 
-
         solutionResult = self.bestSolution.printWithVehicle()
 
-        return self.bestSolution.distance, cpuTime, solutionResult
+        return self.bestSolution.distance, solutionResult
 
 
     def checkIfAcceptNewSol(self):
@@ -1302,7 +1301,7 @@ class RuleOfThumb:
                     self.maxPercentageNHB, self.decayParameter,
                     self.noise, self.convinentInterval)
         prevNode = 0
-        bestDistance, cpuTime, solutionResult = alnsONE.execute(1)
+        bestDistance, solutionResult = alnsONE.execute(1)
         endtimeOne = time.time()  # get the end time
         cpuTimeOne = round(endtimeOne - starttimeOne, 3)
         result.append(["SORTED BY COST", bestDistance, cpuTimeOne, solutionResult])
@@ -1314,7 +1313,7 @@ class RuleOfThumb:
                     self.maxPercentageNHB, self.decayParameter,
                     self.noise, self.convinentInterval)
         prevNode = 0
-        bestDistance_TWO, cpuTime_TWO, solutionResult_TWO = alnsTWO.execute(2)
+        bestDistance_TWO, solutionResult_TWO = alnsTWO.execute(2)
         endtimeTWO = time.time()  # get the end time
         cpuTimeTWO = round(endtimeTWO - starttimeTWO, 3)
         result.append(["GREEDY INSERT", bestDistance_TWO, cpuTimeTWO, solutionResult_TWO])
@@ -1326,7 +1325,7 @@ class RuleOfThumb:
                     self.maxPercentageNHB, self.decayParameter,
                     self.noise, self.convinentInterval)
         prevNode = 0
-        bestDistance_THREE, cpuTime_THREE, solutionResult_THREE = alnsTHREE.execute(3)
+        bestDistance_THREE, solutionResult_THREE = alnsTHREE.execute(3)
         endtimeTHREE = time.time()  # get the end time
         cpuTimeTHREE = round(endtimeTHREE - starttimeTHREE, 3)
         result.append(["SORTED BY WORST DISTANCE", bestDistance_THREE, cpuTimeTHREE, solutionResult_THREE])
@@ -1338,7 +1337,7 @@ class RuleOfThumb:
                     self.maxPercentageNHB, self.decayParameter,
                     self.noise, self.convinentInterval)
         prevNode = 0
-        bestDistance_FOUR, cpuTime_FOUR, solutionResult_FOUR = alnsfour.execute(4)
+        bestDistance_FOUR, solutionResult_FOUR = alnsfour.execute(4)
         endtimeFOUR = time.time()  # get the end time
         cpuTimeFOUR = round(endtimeFOUR - starttimeFOUR, 3)
         result.append(["SORTED BY DUE DATE", bestDistance_FOUR, cpuTimeFOUR, solutionResult_FOUR])

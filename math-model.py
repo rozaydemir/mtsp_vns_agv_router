@@ -159,7 +159,7 @@ def read_data(fileName):
     s[len(P_all + D_all) + 1] = s[0]
 
 
-data = "Instances/lrc15-servtime-based.txt"
+data = "Instances/lrc19.txt"
 starttime = time.time()  # get the start time
 read_data(data)
 
@@ -300,7 +300,7 @@ for k in K:
     solver.Add(Mmax >= Y[k])
     solver.Add(Y[k] >= 1)
 
-solver.SetTimeLimit(60000 * 20)
+solver.SetTimeLimit(10000 * 10)
 
 # Çözümü hesapla ve sonuçları yazdır
 # callback = MiddleSolution()
