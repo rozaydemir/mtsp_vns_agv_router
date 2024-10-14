@@ -107,9 +107,9 @@ C104         cd           0.0          45.0         -30.0        567.0        62
 C105         cd           88.0         35.0         -30.0        109.0        170.0        9.0          C52
 C106         cd           26.0         32.0         -30.0        0.0          1123.0       9.0          C53
 
-VehicleCount : 40
-VehiclePerCapacity:   30
+VehicleCount : 10
+VehiclePerCapacity:   60
 VehicleMaxTrolleyCount : 3
-TrolleyImpactRate : 2.2
-EarlinessPenalty : 15
-TardinessPenalty : 25
+TrolleyImpactRate : 20
+EarlinessPenalty : 10
+TardinessPenalty : 10

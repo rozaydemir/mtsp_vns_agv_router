@@ -687,8 +687,8 @@ class Route:
                         minCost = cost
                         minDemand = afterInsertion.demand
 
-        if convinent and self.problem.globalIterationNumber < 3000:
-            convinent = False
+        # if convinent and self.problem.globalIterationNumber < 1:
+        #     convinent = False
 
         if convinent:
             if bestInsert != None:
@@ -1051,9 +1051,8 @@ class PDPTW:
         self.requests = requests
         self.depot = depot
         self.TIR = TIR
-        self.TValue = sys.maxsize
-        self.TValueMin = 0
-        self.bestDistanceProblem = 1
+        self.TValue = 1500
+        self.TValueMin = 150
         self.globalIterationNumber = 0
         self.convProblem = 1
         self.vehicles = vehicles
@@ -1073,6 +1072,8 @@ class PDPTW:
             for j in self.locations:
                 distItoJ = Location.getDistance(i, j)
                 distMatrix[i.nodeID, j.nodeID] = distItoJ
+
+        print('bitti')
     def print(self):
         print(" MCVRPPDPTW problem " + self.name + " with " + str(
             len(self.requests)) + " requests and a vehicle capacity of " + str(self.capacity))
@@ -1127,12 +1128,12 @@ class ALNS:
         self.time_best_objective_found = 0
         self.optimal_iteration_number = 0
         # Presenting results-grid
-        self.register_weights_over_time = False
+        self.register_weights_over_time = True
         self.removal_weights_per_iteration = []
         self.insertion_weights_per_iteration = []
         self.insertion_weights_per_iteration = []
 
-        self.register_objective_value_over_time = False
+        self.register_objective_value_over_time = True
         self.list_objective_values = []
         self.list_objective_values_demand = []
         self.destroyList = {
@@ -1158,17 +1159,14 @@ class ALNS:
         self.bestSolution = self.currentSolution.copy()
         self.bestDistance = self.currentSolution.distance
         self.bestDemand = self.currentSolution.demand
-        self.problem.TValue = self.bestDistance + (self.bestDistance * 0.4)
-        self.problem.TValueMin = (self.bestDistance - (self.problem.TValue - self.bestDistance)) // len(self.problem.vehicles)
-        self.problem.bestDistanceProblem = self.problem.TValueMin
-        self.problem.convProblem = 192
+        self.problem.TValue = 1500
+        self.problem.TValueMin = 150
 
         print(f"convergent interval : {self.problem.TValueMin} - {self.problem.TValue}")
         print(f"Initial Solution Value : {self.bestDistance}")
 
-        # Print initial solution
-        # self.maxSizeNBH = len(self.problem.requests)
         number_of_request = len(self.problem.requests)
+        # self.maxSizeNBH = max(1, int(np.floor(self.maxPercentageNHB / 100 * number_of_request)))
         self.maxSizeNBH = number_of_request
 
     def execute(self):
@@ -1186,6 +1184,7 @@ class ALNS:
             self.max_arc_length = self.currentSolution.calculateMaxArc()
             # Simulated annealing
             self.iteration_number = i
+            print("Iteration No : " + str(i + 1))
             self.problem.globalIterationNumber = i
             self.checkIfAcceptNewSol()
             # Print solution per iteration
@@ -1257,7 +1256,6 @@ class ALNS:
             objective_values = {
                 "Iteration": [int(valuei) for valuei in iterations_list],
                 "Distance": [int(value) for value in self.list_objective_values],
-                "Demand": [int(valued) for valued in self.list_objective_values_demand]
             }
 
 
@@ -1271,7 +1269,6 @@ class ALNS:
 
             plt.xlabel('Iteration number', fontsize=12)
             plt.ylabel('Objective Distance value', fontsize=12)
-            plt.ylabel('Objective Demand value', fontsize=12)
             plt.show()
     def checkIfAcceptNewSol(self):
         """
@@ -1280,7 +1277,7 @@ class ALNS:
         # Copy the current solution
         self.tempSolution = self.currentSolution.copy()
         # decide on the size of the neighbourhood
-        sizeNBH = self.randomGen.randint(self.maxSizeNBH, self.maxSizeNBH * 2)
+        sizeNBH = self.randomGen.randint(self.maxSizeNBH, self.maxSizeNBH + 1)
         destroyOpNr = self.determineDestroyOpNr()  # çeşitlilik sağlanmak istenirse 9 a çıkar
         repairOpNr = self.determineRepairOpNr()  # çeşitlilik sağlanmak istenirse yorum satırından kaldır
 
@@ -1305,7 +1302,6 @@ class ALNS:
                 new_real_dist, new_real_demand = self.tempSolution.computeDistance()
                 if new_real_dist < self.real_dist:
                     self.real_dist = new_real_dist
-                    self.problem.bestDistanceProblem = new_real_dist
                     self.real_demand = new_real_demand
                     print(f'New best global solution found: distance :{self.real_dist}, demand : {self.real_demand}, iteration : {self.iteration_number}')
                     print(f'Destroy operator: {self.destroyList[destroyOpNr]}, Repair Operator : {self.repairList[repairOpNr]}')
@@ -1507,17 +1503,17 @@ def read_instance(fileName) -> PDPTW:
 
     return PDPTW(fileName, requests, depot, vehicles, TIR)
 
-data = "Instances/lrc19.txt"
+data = "Instances/lrc11.txt"
 problem = read_instance(data)
 
 # Static parameters
 nDestroyOps = 7  #number of destroy operations, çeşitlilik sağlanmak istenirse 9 a çıkar
 nRepairOps = 2  # number of repair operations # çeşitlilik sağlanmak istenirse 3 e çıkar
 minSizeNBH = 1  #Minimum size of neighborhood
-nIterations = 5000  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
+nIterations = 6000  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
 
 # Parameters to tune:
-maxPercentageNHB = 5000  #Maximum Percentage for Neighborhood
+maxPercentageNHB = 100  #Maximum Percentage for Neighborhood
 decayParameter = 0.15
 noise = 0.015  #gürültü ekleme, çözüm uzayında daha çeşitli noktaları keşfetmeye yardımcı olur.
 

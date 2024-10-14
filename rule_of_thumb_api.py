@@ -619,6 +619,55 @@ class Repair:
         return self.problem.distMatrix[preNode.nodeID][insertNode.nodeID] + self.problem.distMatrix[afterNode.nodeID][
             insertNode.nodeID] - self.problem.distMatrix[preNode.nodeID][afterNode.nodeID]
 
+    def executeGreedyInsertion2(self, destroyNumber):
+        """
+        Method that greedily inserts the unserved requests in the solution
+
+        This is repair method number 1 in the ALNS
+
+        """
+        routeLength = len(self.solution.routes)
+        ind = 0
+        while len(self.solution.notServed) > 0:
+            for req in self.solution.notServed:
+                inserted = False
+                minCost = sys.maxsize  # initialize as extremely large number
+                minDemand = sys.maxsize  # initialize as extremely large number
+                bestInsert = None  # if infeasible the bestInsert will be None
+                removedRoute = None  # if infeasible the bestInsert will be None
+                choseRoute = self.solution.routes[ind]
+
+                afterInsertion, cost, demand = choseRoute.greedyInsert(req, True, destroyNumber)
+
+
+                if afterInsertion == None:
+                    continue
+                    ind += ind + 1
+                    if ind >= routeLength:
+                        ind = 0
+
+                if cost < minCost:
+                    inserted = True
+                    removedRoute = choseRoute
+                    bestInsert = afterInsertion
+                    minDemand = demand
+                    minCost = cost
+
+            # if we were not able to insert, create a new route
+                if not inserted:
+                    self.solution.manage_routes(req)
+                else:
+                    self.solution.updateRoute(removedRoute, bestInsert, minCost, minDemand)
+
+            # update the lists with served and notServed requests
+                self.solution.served.append(req)
+                self.solution.notServed.remove(req)
+
+                ind += ind + 1
+                if ind >= routeLength:
+                    ind = 0
+
+
     def executeGreedyInsertion(self, destroyNumber):
         """
         Method that greedily inserts the unserved requests in the solution
@@ -704,8 +753,19 @@ class Repair:
             vehiclesLength = len(self.problem.vehicles)
             startFor = vehiclesLength - routesLength
             if startFor > 0:
-                for i in range(startFor, vehiclesLength):
-                    self.solution.createNewRoute(randomGen.choice(self.solution.served))
+                for i in range(0, startFor):
+                    randReq = randomGen.choice(self.solution.served)
+                    self.solution.createNewRoute(randReq)
+                    self.solution.removeRequest(randReq)
+
+            # for k in range(0, routesLength):
+            #     c = self.solution.routes[k]
+            #     for request in c.requests:
+            #         self.solution.removeRequest(request)
+
+
+
+
 
 class Parameters:
     randomSeed = 1234  # value of the random seed
@@ -889,15 +949,18 @@ class Solution:
         if destroyNumber != 2:
             sortSolution = Destroy(self.problem, solution)
             if destroyNumber == 1:
-                sortSolution.executeWorstCostRemoval(30)
-            if destroyNumber == 2:
-                sortSolution.executeWorstTimeRemoval(30)
+                sortSolution.executeWorstCostRemoval(106)
+                repairSol.executeGreedyInsertion2(destroyNumber)
             if destroyNumber == 3:
                 sortSolution.executeWorstDistanceRemoval(30)
+                repairSol.executeGreedyInsertion2(destroyNumber)
             if destroyNumber == 4:
                 sortSolution.executeWorstDueDateRemoval(30)
+                repairSol.executeGreedyInsertion2(destroyNumber),
+        else:
+            repairSol.executeGreedyInsertion(destroyNumber)
 
-        repairSol.executeGreedyInsertion(destroyNumber)
+
 
 
     def setVehicle(self, vehicles):
@@ -947,8 +1010,8 @@ class PDPTW:
         self.requests = requests
         self.depot = depot
         self.TIR = TIR
-        self.TValue = -1
-        self.TValueMin = 0
+        self.TValue = 150
+        self.TValueMin = 1
         self.bestDistanceProblem = 1
         self.globalIterationNumber = 0
         self.convProblem = 1
@@ -1045,7 +1108,7 @@ class ALNS:
         Method that constructs an initial solution using random insertion
         """
 
-        self.currentSolution = Solution(self.problem, list(), list(), list(self.problem.requests.copy()))
+        self.currentSolution = Solution(self.problem, [] * len(self.problem.vehicles), list(), list(self.problem.requests.copy()))
         self.currentSolution.initialInsert(self.currentSolution.problem, self.currentSolution, destroyNumber, self.randomGen)
         self.currentSolution.computeDistance()
         self.bestSolution = self.currentSolution.copy()

@@ -363,8 +363,8 @@ class Route:
                         minDemand = afterInsertion.demand
 
         # diff = ( ( int(self.problem.bestDistanceProblem) - int(self.problem.convProblem) )  /  int(self.problem.bestDistanceProblem) ) * 100
-        if convinent and self.problem.globalIterationNumber < 100:
-            convinent = False
+        # if convinent and self.problem.globalIterationNumber < 100:
+        #     convinent = False
 
         if convinent:
             if bestInsert != None:
@@ -678,8 +678,8 @@ class PDPTW:
         self.requests = requests
         self.depot = depot
         self.TIR = TIR
-        self.TValue = sys.maxsize
-        self.TValueMin = 0
+        self.TValue = 1500
+        self.TValueMin = 150
         self.bestDistanceProblem = 1
         self.globalIterationNumber = 0
         self.convProblem = 1
@@ -949,7 +949,7 @@ def read_instance(fileName) -> PDPTW:
         if infoLine.startswith("VehicleMaxTrolleyCount"):
             Mmax = int(infoLine[-2:-1].strip())
         if infoLine.startswith("TrolleyImpactRate"):
-            TIR = float(infoLine[-5:-1].strip())
+            TIR = float(infoLine[-4:-1].strip())
         if infoLine.startswith("EarlinessPenalty"):
             alpha = float(infoLine[-3:-1].strip())
         if infoLine.startswith("TardinessPenalty"):
@@ -1021,7 +1021,7 @@ def read_instance(fileName) -> PDPTW:
 
     return PDPTW(fileName, requests, depot, vehicles, TIR)
 
-data = "Instances/lrc11.txt"
+data = "Instances/lc102.txt"
 problem = read_instance(data)
 
 # Static parameters

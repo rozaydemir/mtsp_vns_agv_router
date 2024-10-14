@@ -1,63 +1,146 @@
 import matplotlib.pyplot as plt
 
 # Verilen koordinat listesi
-coor = [
-    ["C0", 35.0, 35.0],
-    ["C1", 41.0, 49.0],
-    ["C2", 55.0, 22.0],
-    ["C3", 20.0, 13.0],
-    ["C4", 40.0, 20.0],
-    ["C5", 38.0, 12.0],
-    ["C6", 17.0, 10.0],
-    ["C7", 25.0, 19.0],
-    ["C8", 12.0, 27.0],
-    ["C9", 40.0, 14.0],
-    ["C10", 36.0, 10.0]
+coords = [
+    ["D0", "d", 50.0, 40.0],
+    ["C1", "cp", 40.0, 50.0],
+    ["C2", "cp", 40.0, 54.0],
+    ["C3", "cp", 40.0, 54.0],
+    ["C4", "cp", 40.0, 58.0],
+    ["C5", "cp", 42.0, 54.0],
+    ["C6", "cp", 42.0, 58.0],
+    ["C7", "cp", 42.0, 50.0],
+    ["C8", "cp", 38.0, 54.0],
+    ["C9", "cp", 45.0, 54.0],
+    ["C10", "cp", 38.0, 58.0],
+    ["C11", "cp", 28.0, 73.0],
+    ["C12", "cp", 45.0, 54.0],
+    ["C13", "cp", 30.0, 54.0],
+    ["C14", "cp", 28.0, 58.0],
+    ["C15", "cp", 42.0, 54.0],
+    ["C16", "cp", 25.0, 54.0],
+    ["C17", "cp", 44.0, 58.0],
+    ["C18", "cp", 28.0, 77.0],
+    ["C19", "cp", 50.0, 70.0],
+    ["C20", "cp", 40.0, 70.0],
+    ["C21", "cp", 43.0, 77.0],
+    ["C22", "cp", 50.0, 77.0],
+    ["C23", "cp", 47.0, 73.0],
+    ["C24", "cp", 40.0, 73.0],
+    ["C25", "cp", 28.0, 85.0],
+    ["C26", "cp", 30.0, 90.0],
+    ["C27", "cp", 25.0, 90.0],
+    ["C28", "cp", 25.0, 85.0],
+    ["C29", "cp", 20.0, 85.0],
+    ["C30", "cp", 30.0, 77.0],
+    ["C31", "cp", 28.0, 77.0],
+    ["C32", "cp", 30.0, 58.0],
+    ["C33", "cp", 45.0, 50.0],
+    ["C34", "cp", 42.0, 50.0],
+    ["C35", "cp", 28.0, 73.0],
+    ["C36", "cp", 44.0, 58.0],
+    ["C37", "cp", 40.0, 70.0],
+    ["C38", "cp", 30.0, 50.0],
+    ["C39", "cp", 28.0, 50.0],
+    ["C40", "cp", 40.0, 90.0],
+    ["C41", "cp", 40.0, 90.0],
+    ["C42", "cp", 44.0, 90.0],
+    ["C43", "cp", 25.0, 70.0],
+    ["C44", "cp", 28.0, 85.0],
+    ["C45", "cp", 38.0, 54.0],
+    ["C46", "cp", 38.0, 58.0],
+    ["C47", "cp", 33.0, 54.0],
+    ["C48", "cp", 33.0, 58.0],
+    ["C49", "cp", 25.0, 85.0],
+    ["C50", "cp", 43.0, 77.0],
+    ["C51", "cp", 28.0, 58.0],
+    ["C52", "cp", 47.0, 73.0],
+    ["C53", "cp", 20.0, 80.0],
+    ["C54", "cd", 42.0, 90.0],
+    ["C55", "cd", 44.0, 90.0],
+    ["C56", "cd", 48.0, 90.0],
+    ["C57", "cd", 44.0, 85.0],
+    ["C58", "cd", 44.0, 85.0],
+    ["C59", "cd", 40.0, 85.0],
+    ["C60", "cd", 28.0, 50.0],
+    ["C61", "cd", 25.0, 50.0],
+    ["C62", "cd", 33.0, 54.0],
+    ["C63", "cd", 43.0, 73.0],
+    ["C64", "cd", 28.0, 73.0],
+    ["C65", "cd", 30.0, 77.0],
+    ["C66", "cd", 30.0, 54.0],
+    ["C67", "cd", 28.0, 58.0],
+    ["C68", "cd", 30.0, 85.0],
+    ["C69", "cd", 25.0, 54.0],
+    ["C70", "cd", 20.0, 85.0],
+    ["C71", "cd", 28.0, 77.0],
+    ["C72", "cd", 50.0, 70.0],
+    ["C73", "cd", 40.0, 70.0],
+    ["C74", "cd", 43.0, 77.0],
+    ["C75", "cd", 40.0, 77.0],
+    ["C76", "cd", 30.0, 73.0],
+    ["C77", "cd", 25.0, 73.0],
+    ["C78", "cd", 28.0, 85.0],
+    ["C79", "cd", 25.0, 90.0],
+    ["C80", "cd", 25.0, 44.0],
+    ["C81", "cd", 20.0, 85.0],
+    ["C82", "cd", 20.0, 85.0],
+    ["C83", "cd", 33.0, 77.0],
+    ["C84", "cd", 23.0, 50.0],
+    ["C85", "cd", 25.0, 58.0],
+    ["C86", "cd", 33.0, 73.0],
+    ["C87", "cd", 30.0, 44.0],
+    ["C88", "cd", 33.0, 77.0],
+    ["C89", "cd", 23.0, 77.0],
+    ["C90", "cd", 45.0, 77.0],
+    ["C91", "cd", 25.0, 58.0],
+    ["C92", "cd", 30.0, 44.0],
+    ["C93", "cd", 20.0, 70.0],
+    ["C94", "cd", 40.0, 73.0],
+    ["C95", "cd", 44.0, 90.0],
+    ["C96", "cd", 25.0, 70.0],
+    ["C97", "cd", 28.0, 85.0],
+    ["C98", "cd", 30.0, 73.0],
+    ["C99", "cd", 25.0, 50.0],
+    ["C100", "cd", 28.0, 54.0],
+    ["C101", "cd", 28.0, 54.0],
+    ["C102", "cd", 25.0, 85.0],
+    ["C103", "cd", 43.0, 77.0],
+    ["C104", "cd", 28.0, 58.0],
+    ["C105", "cd", 47.0, 73.0],
+    ["C106", "cd", 20.0, 80.0],
+
 ]
 
-# Araç rotaları
-vehicle_0_route = ["C0", "C1", "C6", "C3", "C8", "C0"]
-vehicle_1_route = ["C0", "C4", "C9", "C5", "C10", "C2", "C7", "C0"]
+coor = []
+exist = [
+    "D0", "C47", "C100", "C42", "C95", "C5", "C58", "C46",
+    "C99", "C1", "C54", "C19", "C72", "C24", "C77"]
+
+for c in range(0, len(coords)):
+    # if coords[c][0] in exist:
+    coor.append(coords[c])
+
 
 # Koordinatları ayırma
 names = [point[0] for point in coor]
-x = [point[1] for point in coor]
-y = [point[2] for point in coor]
-
-# Noktaların renkleri
-colors = ['black'] + ['red']*5 + ['green']*5
+type = [point[1] for point in coor]
+x = [point[2] for point in coor]
+y = [point[3] for point in coor]
 
 # Plotlama işlemi
 plt.figure(figsize=(12, 8))
 
 # Noktaları plot etme
 for i in range(len(coor)):
-    plt.scatter(x[i], y[i], color=colors[i], label=names[i] if i == 0 else "")
+    plt.scatter(x[i], y[i],
+                color="yellow" if type[i] == "d" else "green" if type[i] == "cp" else "red" if type[i] == "cd" else "",
+                label=names[i] if i == 0 else "")
     plt.text(x[i], y[i], names[i], fontsize=12, ha='right')
-
-# Araç 0 rotasını çizme
-for i in range(len(vehicle_0_route) - 1):
-    start_index = names.index(vehicle_0_route[i])
-    end_index = names.index(vehicle_0_route[i + 1])
-    plt.plot([x[start_index], x[end_index]], 'r--')
-
-# Araç 1 rotasını çizme
-for i in range(len(vehicle_1_route) - 1):
-    start_index = names.index(vehicle_1_route[i])
-    end_index = names.index(vehicle_1_route[i + 1])
-    plt.plot([x[start_index], x[end_index]], 'g--')
 
 plt.xlabel('X Coordinate')
 plt.ylabel('Y Coordinate')
-plt.title('Vehicle Routes')
+plt.title('Refrigerator Factory Layout')
 plt.legend()
 plt.grid(True)
 plt.show()
-
-
-
-
-
-
-
-
