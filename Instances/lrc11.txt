@@ -11,7 +11,7 @@ C8           cd           12.0         27.0         -50.0        44.0         46
 C9           cd           40.0         14.0         -35.0        45.0         461.0        12.0         C4
 C10          cd           36.0         10.0         -35.0        46.0         463.0        14.0         C5
 
-VehicleCount : 1
+VehicleCount : 2
 VehiclePerCapacity:   60
 VehicleMaxTrolleyCount : 3
 TrolleyImpactRate : 20.0

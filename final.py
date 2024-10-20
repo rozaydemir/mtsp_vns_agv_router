@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import sys
 from numpy import log as ln
+from heuristic import Heuristic
 
 distMatrix = None
 prevNode = 0
@@ -687,9 +688,6 @@ class Route:
                         minCost = cost
                         minDemand = afterInsertion.demand
 
-        # if convinent and self.problem.globalIterationNumber < 1:
-        #     convinent = False
-
         if convinent:
             if bestInsert != None:
                 routeCost = bestInsert.distance
@@ -1159,8 +1157,8 @@ class ALNS:
         self.bestSolution = self.currentSolution.copy()
         self.bestDistance = self.currentSolution.distance
         self.bestDemand = self.currentSolution.demand
-        self.problem.TValue = 1500
-        self.problem.TValueMin = 150
+        self.problem.TValue = 100
+        self.problem.TValueMin = 100
 
         print(f"convergent interval : {self.problem.TValueMin} - {self.problem.TValue}")
         print(f"Initial Solution Value : {self.bestDistance}")
@@ -1184,7 +1182,7 @@ class ALNS:
             self.max_arc_length = self.currentSolution.calculateMaxArc()
             # Simulated annealing
             self.iteration_number = i
-            print("Iteration No : " + str(i + 1))
+            # print("Iteration No : " + str(i + 1))
             self.problem.globalIterationNumber = i
             self.checkIfAcceptNewSol()
             # Print solution per iteration
@@ -1520,4 +1518,13 @@ noise = 0.015  #gürültü ekleme, çözüm uzayında daha çeşitli noktaları 
 alns = ALNS(problem, nDestroyOps, nRepairOps, nIterations, minSizeNBH, maxPercentageNHB, decayParameter, noise)
 
 alns.execute()
+
+
+# heuristic = Heuristic("Instances/lrc11.txt", 2, 60, 3,
+#                       20, 10,
+#                       10, 5000, 180)
+#
+# bestCost_ALNS, cpuTime_ALNS, solutionResult_ALNS = heuristic.execute()
+#
+# print(bestCost_ALNS, cpuTime_ALNS, solutionResult_ALNS)
 
