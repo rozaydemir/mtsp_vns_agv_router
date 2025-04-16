@@ -13,40 +13,9 @@ C10          cd           44.0         51.0         -35.0        34.0         26
 C11          cd           35.0         41.0         -45.0        36.0         262.0        6.0          C5
 C12          cd           25.0         35.0         -45.0        33.0         266.0        4.0          C6
 
-VehicleCount : 2
-VehiclePerCapacity:   35
+VehicleCount : 3
+VehiclePerCapacity:   90
 VehicleMaxTrolleyCount : 3
-TrolleyImpactRate : 2.0
-EarlinessPenalty : 15
-TardinessPenalty : 90
-
-
-TEST_ID: 568,
-TEST_ID: 569,
-TEST_ID: 570,
-TEST_ID: 571,
-TEST_ID: 572,
-TEST_ID: 573,
-TEST_ID: 574,
-TEST_ID: 575,
-TEST_ID: 576,
-TEST_ID: 595,
-TEST_ID: 596,
-TEST_ID: 597,
-TEST_ID: 598,
-TEST_ID: 599,
-TEST_ID: 600,
-TEST_ID: 601,
-TEST_ID: 602,
-TEST_ID: 603,
-TEST_ID: 622,
-TEST_ID: 623,
-TEST_ID: 624,
-TEST_ID: 625,
-TEST_ID: 626,
-TEST_ID: 627,
-TEST_ID: 628,
-TEST_ID: 629,
-TEST_ID: 630,
-
-
+TrolleyImpactRate : 20.0
+EarlinessPenalty : 10
+TardinessPenalty : 10

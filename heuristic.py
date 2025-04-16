@@ -1,10 +1,18 @@
 import random, time
 import math
+from typing import Tuple
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import sys
+import os
 from numpy import log as ln
+
+from datetime import datetime
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
+
+
 
 prevNode = 0
 
@@ -474,7 +482,7 @@ class Route:
         self.feasible = self.isFeasible()
         self.calculateServiceStartTime()
         if self.feasible:
-            self.distance, self.demand = self.computeDistanceRoute()
+            self.distance, self.demand, a, b, c = self.computeDistanceRoute()
         else:
             self.distance, self.demand = sys.maxsize, sys.maxsize  # extremely large number
 
@@ -489,35 +497,42 @@ class Route:
             curTime = max(0, curTime + prevNode.servTime + dist + (trolley_count_needed * self.problem.TIR))
             self.locations[i].servStartTime = curTime
 
-    def computeDistanceRoute(self) -> int:
+    def computeDistanceRoute(self) -> tuple[int, int, int, int, int]:
         """
         Method that computes and returns the distance of the route
         """
         # global alpha
         # global beta
-        totDist = 0
+        totPenalty = 0
         totDemand = 0
         curTime = 0
+        totalDist = 0
         trolley_count_needed = self.calculateTrolley(self.locations)
+        EPenaltyG = 0
+        TPenaltyG = 0
         for i in range(1, len(self.locations)):
             prevNode = self.locations[i - 1]
             curNode = self.locations[i]
             dist = self.problem.distMatrix[prevNode.nodeID][curNode.nodeID]
             curTime = max(0, curTime + prevNode.servTime + dist + (trolley_count_needed * self.problem.TIR))
 
+            totalDist += dist
             if curNode.typeLoc == 'pickup':
                 totDemand += curNode.demand
 
-            ETPenalty = 0
+            EPenalty = 0
+            TPenalty = 0
             if curNode.typeLoc == "delivery":
                 if curTime < curNode.startTW:
-                    ETPenalty += (curNode.startTW - curTime) * self.problem.alpha
+                    EPenalty += (curNode.startTW - curTime) * self.problem.alpha
 
                 if curTime > curNode.endTW:
-                    ETPenalty += (curTime - curNode.endTW) * self.problem.beta
-            totDist += dist + ETPenalty
+                    TPenalty += (curTime - curNode.endTW) * self.problem.beta
+            totPenalty += dist + EPenalty + TPenalty
+            EPenaltyG += EPenalty
+            TPenaltyG += TPenalty
 
-        return totDist, totDemand
+        return totPenalty, totalDist, EPenaltyG, TPenaltyG, trolley_count_needed
 
     def computeDiff(self, preNode, afterNode, insertNode) -> int:
         '''
@@ -669,11 +684,6 @@ class Route:
         request : Request
             the request that should be inserted.
 
-        Returns
-        -------
-        bestInsert : Route
-            Route with the best insertion.
-
         """
         requestsCopy = self.requests.copy()
         requestsCopy.add(request)
@@ -698,9 +708,6 @@ class Route:
                         bestInsert = afterInsertion
                         minCost = cost
                         minDemand = afterInsertion.demand
-
-        # if self.problem.globalIteration < 200 and convinent:
-        #     convinent = False
 
         if convinent:
             if bestInsert != None:
@@ -871,7 +878,8 @@ class Solution:
         self.distance = 0
         self.demand = 0
         for route in self.routes:
-            self.distance += route.distance
+            totalPenalty, b, c, d, e = route.computeDistanceRoute()
+            self.distance += totalPenalty
             self.demand += route.demand
         return self.distance, self.demand
 
@@ -884,7 +892,8 @@ class Solution:
         self.normal_distance = 0
         self.normal_demand = 0
         for route in self.routes:
-            self.normal_distance += route.distance
+            totalPenalty, b, c, d, e = route.computeDistanceRoute()
+            self.normal_distance += totalPenalty
             self.normal_demand += route.demand
         maxN = noise * max_arc_dist
         random_noise = randomGen.uniform(-maxN, maxN)
@@ -1052,22 +1061,22 @@ class PDPTW:
 
     """
 
-    def __init__(self, name, requests, depot, vehicles, TIR, EarlinessPenalty, TardinessPenalty):
+    def __init__(self, name, requests, depot, vehicles, TIR, EarlinessPenalty, TardinessPenalty, vehicleCount, fName, instancefileName):
         self.name = name
+        self.fName = fName
         self.requests = requests
+        self.vehicleCount = vehicleCount
         self.depot = depot
         self.TIR = TIR
         self.TValue = 1000
         self.TValueMin = 100
-        self.bestDistanceProblem = 1
-        self.globalIteration = 1
-        self.convProblem = 1
         self.vehicles = vehicles
         self.alpha = EarlinessPenalty
         self.beta = TardinessPenalty
         ##construct the set with all locations
         self.locations = set()
         self.locations.add(depot)
+        self.instancefileName = instancefileName
         for r in self.requests:
             self.locations.add(r.pickUpLoc)
             self.locations.add(r.deliveryLoc)
@@ -1109,8 +1118,7 @@ class ALNS:
     """
 
     def __init__(self, problem, nDestroyOps, nRepairOps, nIterations, minSizeNBH, maxPercentageNHB, decayParameter,
-                 noise, convinentInterval):
-        self.bestDemand = -1
+                 noise):
         self.bestDistance = -1
         self.bestSolution = None
         self.problem = problem
@@ -1124,7 +1132,6 @@ class ALNS:
         self.repairUseTimes = [0 for i in range(nRepairOps)]  # The number of times the repair operator has been used
         self.destroyScore = [1 for i in range(nDestroyOps)]  # the score of destroy operators
         self.repairScore = [1 for i in range(nRepairOps)]  # the score of repair operators
-        self.convinentStarter = convinentInterval
 
         # Parameters for tuning
         self.nIterations = nIterations
@@ -1133,30 +1140,49 @@ class ALNS:
         self.decayParameter = decayParameter
         self.noise = noise
 
-        self.time_best_objective_found = 0
-        self.optimal_iteration_number = 0
         # Presenting results-grid
         self.register_weights_over_time = False
         self.removal_weights_per_iteration = []
         self.insertion_weights_per_iteration = []
-        self.insertion_weights_per_iteration = []
 
         self.register_objective_value_over_time = False
         self.list_objective_values = []
-        self.list_objective_values_demand = []
+        self.list_objective_destroy = []
+        self.list_objective_repair = []
+        self.list_objective_cputime = []
         self.destroyList = {
-            0: "Random request removal",
-            1: "Worst-cost",
-            2: "Worst-time",
-            3: "Time based",
-            4: "Demand Based",
-            5: "Random Route removal",
-            6: "Worst Neightbourhood removal",
+            0: "Random Request Destroy",
+            1: "Worst Cost Destroy",
+            2: "Worst Time Destroy",
+            3: "Time Based Request Destroy",
+            4: "Demand Based Request Destroy",
+            5: "Random Route Destroy",
+            6: "Worst Neighborhood Destroy",
         }
         self.repairList = {
-            0: "Greedy Insert",
-            1: "Random Insert"
+            0: "Greedy Insertion",
+            1: "Random Insertion"
         }
+        self.training_data_path_time = datetime.now().strftime("%Y%m%d%H%M%S")
+        self.selector_model = None  # Başlangıçta None
+        self.selector_scaler = None
+        self.prev_result = {
+            "iteration_number": 1,
+            "local_improve": 0,
+            "global_improve": 0,
+            "penalty_total": 0,
+            "penalty_dist": 0,
+            "penalty_early": 0,
+            "penalty_late": 0,
+            "trolley_count": 0
+        }
+        self.mlp_result = []
+        self.write_mlp_result = True
+
+        self.actions = [(i, j) for i in range(7) for j in range(2)]
+        self.context_dim = 8
+        self.bandit_model = LinUCB(self.actions, self.context_dim, alpha=1.0)
+
 
     def constructInitialSolution(self):
         """
@@ -1167,41 +1193,28 @@ class ALNS:
         self.currentSolution.computeDistance()
         self.bestSolution = self.currentSolution.copy()
         self.bestDistance = self.currentSolution.distance
-        self.bestDemand = self.currentSolution.demand
-        # self.problem.TValue = self.bestDistance + (self.bestDistance * 0.3)
-        # self.problem.TValueMin = (self.convinentStarter * .5) // len(self.problem.vehicles)
-        # self.problem.bestDistanceProblem = self.problem.TValueMin
-        # self.problem.convProblem = self.problem.TValueMin
-        # print(f"convergent interval : {self.problem.TValueMin} - {self.problem.TValue}")
-        # print(f"Initial Solution Value : {self.bestDistance}")
-
-        # Print initial solution
-        # self.maxSizeNBH = len(self.problem.requests)
         self.maxSizeNBH = max(1, int(np.floor(self.maxPercentageNHB / 100 * len(self.problem.requests))))
-        # number_of_request = len(self.problem.requests)
-        # self.maxSizeNBH = len(self.problem.requests)
 
     def execute(self):
         """
         Method that executes the ALNS
         """
         starttime = time.time()  # get the start time
-        self.starttime_best_objective = time.time()
         self.real_dist = np.inf
         self.real_demand = np.inf
 
         self.constructInitialSolution()
 
         for i in range(self.nIterations):  # Iteration count
+            starttimeOneIteration = time.time()  # get the start time
             self.max_arc_length = self.currentSolution.calculateMaxArc()
             # Simulated annealing
             self.iteration_number = i
-            #print("Iteration No : " + str(i + 1))
-            self.problem.globalIteration = i
             self.checkIfAcceptNewSol()
+            endtimeOneIteration = time.time()  # get the start time
+            cpuTimeOneIteration = round(endtimeOneIteration - starttimeOneIteration, 3)
             # Print solution per iteration
             objective_value = self.tempSolution.distance
-            objective_value_demand = self.tempSolution.demand
 
             # To plot weights of the operators over time
             if self.register_weights_over_time:
@@ -1211,7 +1224,32 @@ class ALNS:
             # To plot objective values over time
             if self.register_objective_value_over_time:
                 self.list_objective_values.append(objective_value)
-                self.list_objective_values_demand.append(objective_value_demand)
+
+        if self.register_objective_value_over_time:
+            iterations_list = np.arange(0, self.nIterations)
+            objective_values = {
+                "Iteration": [(int(valuei) + 1) for valuei in iterations_list],
+                "FILE_NAME": [str(self.problem.name) for valuek in iterations_list],
+                "VEHICLE_COUNT": [str(self.problem.vehicleCount) for valuej in iterations_list],
+                "TROLLEY_COUNT": [str(self.problem.vehicles[0].maxTrolleyCount) for valueh in iterations_list],
+                "EARLINESS_TARDINESS_PENALTY": [str(self.problem.alpha) for valueg in iterations_list],
+                "RESULT": [int(value) for value in self.list_objective_values],
+                "Insert_Operation": [str(value) for value in self.list_objective_repair],
+                "Destroy_Operation": [str(value) for value in self.list_objective_destroy],
+            }
+            fileName = 'oValues/' + str(self.problem.fName) + '-objective-values.xlsx'
+            df = pd.DataFrame(objective_values)
+            writer = pd.ExcelWriter(fileName, engine='xlsxwriter')
+            df.to_excel(writer, sheet_name='1', index=False)
+            writer._save()
+
+        if self.write_mlp_result:
+            fileName = 'excels/selector-model/' + str(self.problem.instancefileName) + '-'+str(self.problem.vehicleCount)+'-'+str(self.problem.vehicles[0].maxTrolleyCount)+'-'+str(self.problem.TIR)+'-'+str(self.problem.alpha)+'-mlp-result.xlsx'
+            df = pd.DataFrame(self.mlp_result)
+            writer = pd.ExcelWriter(fileName, engine='xlsxwriter')
+            df.to_excel(writer, sheet_name='1', index=False)
+            writer._save()
+
 
         # set vehicle in route
         self.bestSolution.setVehicle(self.problem.vehicles)
@@ -1225,21 +1263,180 @@ class ALNS:
 
         return self.bestSolution.distance, cpuTime, solutionResult
 
+    def select_operator_with_linucb(self):
+        features = [
+            self.iteration_number,
+            self.prev_result["local_improve"],
+            self.prev_result["global_improve"],
+            self.prev_result["penalty_total"],
+            self.prev_result["penalty_dist"],
+            self.prev_result["penalty_early"],
+            self.prev_result["penalty_late"],
+            self.prev_result["trolley_count"]
+        ]
+        features = np.array(features, dtype=np.float32)
+        return self.bandit_model.select_action(features)
+    def safe_float(self, val, default=0.0):
+        try:
+            if isinstance(val, tuple):
+                return float(val[0])
+            return float(val)
+        except:
+            return default
+    def predict_best_operator_from_prev(self, model, scaler, prev_result, iteration_number):
+        """
+        model: sklearn MLPClassifier
+        scaler: StandardScaler
+        prev_result: dict (önceki iterasyona ait ölçümler)
+        iteration_number: mevcut iterasyon
+        """
+        best_score = float('-inf')
+        best_remove_op, best_repair_op = 0, 0
 
+        for remove_op in range(7):
+            for repair_op in range(2):
+                features = [
+                    iteration_number,
+                    self.safe_float(prev_result["local_improve"]),
+                    self.safe_float(prev_result["global_improve"]),
+                    self.safe_float(prev_result["penalty_total"]),
+                    self.safe_float(prev_result["penalty_dist"]),
+                    self.safe_float(prev_result["penalty_early"]),
+                    self.safe_float(prev_result["penalty_late"]),
+                    self.safe_float(prev_result["trolley_count"])
+                ]
+
+                feature_names = [
+                    "iteration_number",
+                    "local_improve",
+                    "global_improve",
+                    "penalty_total",
+                    "penalty_dist",
+                    "penalty_early",
+                    "penalty_late",
+                    "trolley_count"
+                ]
+                df_features = pd.DataFrame([features], columns=feature_names)
+                features_scaled = scaler.transform(df_features)
+                proba = model.predict_proba(features_scaled)[0]
+                score = proba[remove_op * 2 + repair_op]
+
+                if score > best_score:
+                    best_score = score
+                    best_remove_op = remove_op
+                    best_repair_op = repair_op
+
+        return best_remove_op, best_repair_op
+    def clean_cell(self, val):
+        try:
+            # Tuple gibi gelen değerler için
+            if isinstance(val, tuple):
+                return float(val[0])
+            # String olarak gelen tuple gibi '(123.0,)' => 123.0
+            if isinstance(val, str) and val.startswith("(") and val.endswith(",)"):
+                return float(val[1:-2])
+            # Direkt sayıysa çevir
+            return float(val)
+        except:
+            return np.nan  # ya da 0
     def checkIfAcceptNewSol(self):
         """
         Method that checks if we accept the newly found solution
         """
         # Copy the current solution
         self.tempSolution = self.currentSolution.copy()
-        # decide on the size of the neighbourhood
         sizeNBH = self.randomGen.randint(self.maxSizeNBH, self.maxSizeNBH + 1)
-        destroyOpNr = self.determineDestroyOpNr()  # çeşitlilik sağlanmak istenirse 9 a çıkar
-        repairOpNr = self.determineRepairOpNr()  # çeşitlilik sağlanmak istenirse yorum satırından kaldır
+
+        # if self.iteration_number == 250:
+        #     log_file_path = f"excels/selector-model/predict_best_operator_{self.training_data_path_time}.csv"
+        #     df = pd.read_csv(log_file_path)
+        #
+        #     df = df.applymap(self.clean_cell)
+        #     df = df.replace([np.inf], 1e7)  # Büyük sayıya çevir
+        #     df = df.fillna(0)  # NaN kalanları temizle
+        #
+        #     df["combo_class"] = df["remove_op"] * 2 + df["repair_op"]
+        #     X = df[["iteration", "local_improve", "global_improve", "penalty_total", "penalty_dist",
+        #             "penalty_early", "penalty_late", "trolley_count", "route_count"]].replace([float("inf")], 1e7)
+        #     y = df["combo_class"]
+        #
+        #     scaler = StandardScaler()
+        #     X_scaled = scaler.fit_transform(X)
+        #
+        #     clf = MLPClassifier(hidden_layer_sizes=(64, 64), max_iter=300, random_state=42)
+        #     clf.fit(X_scaled, y)
+        #
+        #     self.selector_model = clf
+        #     self.selector_scaler = scaler
+
+        # if self.iteration_number < 250 or self.selector_model is None:
+        #     destroyOpNr = random.randint(0, len(self.wDestroy) - 1) #self.determineDestroyOpNr()  # çeşitlilik sağlanmak istenirse 9 a çıkar
+        #     repairOpNr = random.randint(0, len(self.wRepair) - 1) # self.determineRepairOpNr()  # çeşitlilik sağlanmak istenirse yorum satırından kaldır
+        # else:
+        #
+        #     destroyOpNr, repairOpNr = self.predict_best_operator_from_prev(
+        #         self.selector_model, self.selector_scaler, self.prev_result, self.iteration_number
+        #     )
+
+        destroyOpNr, repairOpNr = self.select_operator_with_linucb()
+        # print(
+        #     f'Iteration Number: {self.iteration_number}, Destroy operator: {destroyOpNr} - {self.destroyList[destroyOpNr]}, Repair Operator : {repairOpNr} - {self.repairList[repairOpNr]}')
 
         self.destroyAndRepair(destroyOpNr, repairOpNr, sizeNBH)
 
         self.tempSolution.computeDistanceWithNoise(self.max_arc_length, self.noise, self.randomGen)
+
+        total_penalty = 0
+        dist_penalty = 0
+        early_penalty = 0
+        late_penalty = 0
+        totalTrolley = 0
+        for r in self.tempSolution.routes:
+            a, b, c, d, e = r.computeDistanceRoute()
+            total_penalty += a
+            dist_penalty += b
+            early_penalty += c
+            late_penalty += d
+            totalTrolley += e
+
+        local_improve = max(0.0, self.tempSolution.distance - self.currentSolution.distance) / (
+                self.tempSolution.distance + 1e-5)
+
+        global_improvement = max(0.0, self.tempSolution.distance - self.bestDistance) / (
+                self.tempSolution.distance + 1e-5)
+
+        self.prev_result = {
+            "iteration_number": self.iteration_number,
+            "local_improve": local_improve,
+            "global_improve": global_improvement,
+            "penalty_total": total_penalty,
+            "penalty_dist": dist_penalty,
+            "penalty_early": early_penalty,
+            "penalty_late": late_penalty,
+            "trolley_count": totalTrolley
+        }
+
+        reward = (
+                + 1.2 * abs(local_improve)
+                + 1.5 * abs(global_improvement)
+        )
+        context = np.array(list(self.prev_result.values()))
+        self.bandit_model.update((destroyOpNr, repairOpNr), context, reward)
+
+        # if self.iteration_number < 250:
+        self.log_iteration_data(
+            self.iteration_number,
+            self.destroyList[destroyOpNr],
+            self.repairList[repairOpNr],
+            reward,
+            self.tempSolution.distance - self.currentSolution.distance,
+            self.tempSolution.distance - self.bestDistance,
+            total_penalty,
+            dist_penalty,
+            early_penalty,
+            late_penalty,
+            totalTrolley
+        )
 
         if self.tempSolution.distance < self.currentSolution.distance:
             if self.tempSolution.distanceType == 0:
@@ -1250,21 +1447,18 @@ class ALNS:
             # we found a global best solution
             if self.tempSolution.distance < self.bestDistance:  # update best solution
                 self.bestDistance = self.tempSolution.distance
-                self.bestDemand = self.tempSolution.demand
                 self.bestSolution = self.tempSolution.copy()
                 self.destroyScore[destroyOpNr] += Parameters.w1
                 self.repairScore[repairOpNr] += Parameters.w1  # the new solution is a new global best, 1.5
                 new_real_dist, new_real_demand = self.tempSolution.computeDistance()
                 if new_real_dist < self.real_dist:
-                    self.problem.bestDistanceProblem = new_real_dist
                     self.real_dist = new_real_dist
+                    self.bestDistance = new_real_dist
                     self.real_demand = new_real_demand
                     print(
                         f'New best global solution found: distance :{self.real_dist}, demand : {self.real_demand}, iteration : {self.iteration_number}')
                     print(
                         f'Destroy operator: {self.destroyList[destroyOpNr]}, Repair Operator : {self.repairList[repairOpNr]}')
-                    self.time_best_objective_found = time.time()
-                    self.optimal_iteration_number = self.iteration_number
             else:
                 self.destroyScore[destroyOpNr] += Parameters.w2
                 self.repairScore[repairOpNr] += Parameters.w2  # the new solution is better than the current one 1.2
@@ -1278,6 +1472,7 @@ class ALNS:
                 self.destroyScore[destroyOpNr] += Parameters.w4  # the new solution is rejected 0.6
                 self.repairScore[repairOpNr] += Parameters.w4
 
+
         # Update the ALNS weights
         self.updateWeights(destroyOpNr, repairOpNr)
 
@@ -1287,6 +1482,9 @@ class ALNS:
         """
         self.destroyUseTimes[destroyOpNr] += 1
         self.repairUseTimes[repairOpNr] += 1
+
+        self.list_objective_destroy.append(self.destroyList[destroyOpNr])
+        self.list_objective_repair.append(self.repairList[repairOpNr])
 
         self.wDestroy[destroyOpNr] = self.wDestroy[destroyOpNr] * (1 - self.decayParameter) + self.decayParameter * (
                 self.destroyScore[destroyOpNr] / self.destroyUseTimes[destroyOpNr])
@@ -1311,6 +1509,31 @@ class ALNS:
                 destroyOperator = i
                 break
         return destroyOperator
+
+    def log_iteration_data(self, iteration, remove_op, repair_op, reward, local_imp, global_imp,
+                           total_penalty, dist_penalty, early_penalty, late_penalty,
+                           trolley_count):
+
+
+
+        data = {
+            "iteration": iteration,
+            "remove_op": remove_op,
+            "repair_op": repair_op,
+            "reward": reward,
+            "local_improve": local_imp,
+            "global_improve": global_imp,
+            "penalty_total": total_penalty,
+            "penalty_dist": dist_penalty,
+            "penalty_early": early_penalty,
+            "penalty_late": late_penalty,
+            "trolley_count": trolley_count
+        }
+        self.mlp_result.append(data)
+
+        # df = pd.DataFrame([data])
+        # write_header = not os.path.exists(path)
+        # df.to_csv(path, mode='a', header=write_header, index=False)
 
     def determineRepairOpNr(self):
         """
@@ -1370,11 +1593,10 @@ def read_instance(fileName, vehicleCount,
                   VehicleMaxTrolleyCount,
                   TrolleyImpactRate,
                   EarlinessPenalty,
-                  TardinessPenalty) -> PDPTW:
+                  TardinessPenalty, fName, instancefileName) -> PDPTW:
     """
     Method that reads an instance from a file and returns the instancesf
     """
-    f = open(fileName)
     requests = list()
     unmatchedPickups = dict()
     unmatchedDeliveries = dict()
@@ -1419,7 +1641,6 @@ def read_instance(fileName, vehicleCount,
                                       nodeCount, lID)
                     nodeCount += 1
                     requestCount += 1
-                    # lID -> partnerID
                     unmatchedPickups[lID] = pickup
             elif lType == "cd":  # cp ise pickup, #cd ise delivery point
                 if partnerID in unmatchedPickups:
@@ -1436,19 +1657,15 @@ def read_instance(fileName, vehicleCount,
                     requestCount += 1
                     unmatchedDeliveries[lID] = deliv
 
-    # Constraints 2
-    if len(unmatchedDeliveries) + len(unmatchedPickups) > 0:
-        raise Exception("Not all matched")
-
     vehicles = list()
     for i in range(vehicleCount):
         vehicles.append(Vehicles(i, VehicleMaxTrolleyCount, VehiclePerCapacity))
 
-    return PDPTW(fileName, requests, depot, vehicles, TrolleyImpactRate, EarlinessPenalty, TardinessPenalty)
+    return PDPTW(fileName, requests, depot, vehicles, TrolleyImpactRate, EarlinessPenalty, TardinessPenalty, vehicleCount, fName, instancefileName)
 
 
 class Heuristic:
-    def __init__(self, fileName, vehicleCount, VehiclePerCapacity, VehicleMaxTrolleyCount, TrolleyImpactRate, EarlinessPenalty, TardinessPenalty, iterationCount, convinentInterval):
+    def __init__(self, fileName, vehicleCount, VehiclePerCapacity, VehicleMaxTrolleyCount, TrolleyImpactRate, EarlinessPenalty, TardinessPenalty, iterationCount, convinentInterval, fName, instancefileName):
         self.fileName = fileName
         self.nDestroyOps = 7
         self.nRepairOps = 2
@@ -1457,6 +1674,8 @@ class Heuristic:
         self.maxPercentageNHB = 30
         self.decayParameter = 0.15
         self.noise = 0.015
+        self.fName = fName
+        self.instancefileName = instancefileName
 
         self.vehicleCount = vehicleCount
         self.VehiclePerCapacity = VehiclePerCapacity
@@ -1474,11 +1693,41 @@ class Heuristic:
                                 self.VehicleMaxTrolleyCount,
                                 self.TrolleyImpactRate,
                                 self.EarlinessPenalty,
-                                self.TardinessPenalty)
+                                self.TardinessPenalty, self.fName, self.instancefileName)
 
         alns = ALNS(problem, self.nDestroyOps, self.nRepairOps, self.nIterations, self.minSizeNBH,
                     self.maxPercentageNHB, self.decayParameter,
-                    self.noise, self.convinentInterval)
+                    self.noise)
         prevNode = 0
         bestDistance, cpuTime, solutionResult = alns.execute()
         return round(bestDistance), cpuTime, solutionResult
+
+class LinUCB:
+    def __init__(self, actions, context_dim, alpha=1.0):
+        self.actions = actions  # [(remove_op, repair_op)]
+        self.d = context_dim
+        self.alpha = alpha
+
+        self.A = {a: np.identity(self.d) for a in actions}
+        self.b = {a: np.zeros((self.d, 1)) for a in actions}
+
+    def select_action(self, context):
+        context = context.reshape(-1, 1)
+        best_action = None
+        max_p = float("-inf")
+
+        for a in self.actions:
+            A_inv = np.linalg.inv(self.A[a])
+            theta = A_inv @ self.b[a]
+            p = float(theta.T @ context + self.alpha * np.sqrt(context.T @ A_inv @ context))
+
+            if p > max_p:
+                max_p = p
+                best_action = a
+
+        return best_action
+
+    def update(self, action, context, reward):
+        context = context.reshape(-1, 1)
+        self.A[action] += context @ context.T
+        self.b[action] += reward * context

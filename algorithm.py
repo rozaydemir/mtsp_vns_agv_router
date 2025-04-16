@@ -262,6 +262,12 @@ class Algorithm:
             solver.Add(Mmax >= Y[k])
             solver.Add(Y[k] >= 1)
 
+        for k in K:
+            solver.Add(
+                solver.Sum(j * x[(o[k], j, k)] for j in P[k] if (o[k], j, k) in x) >=
+                solver.Sum(j * x[(o[k], j, k + 1)] for j in P[k] if (o[k], j, k + 1) in x)
+            )
+
         solver.SetTimeLimit(self.timeLimit)
 
         # Çözümü hesapla ve sonuçları yazdır

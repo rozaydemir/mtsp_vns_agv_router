@@ -1126,7 +1126,7 @@ class ALNS:
         self.time_best_objective_found = 0
         self.optimal_iteration_number = 0
         # Presenting results-grid
-        self.register_weights_over_time = True
+        self.register_weights_over_time = False
         self.removal_weights_per_iteration = []
         self.insertion_weights_per_iteration = []
         self.insertion_weights_per_iteration = []
@@ -1508,7 +1508,7 @@ problem = read_instance(data)
 nDestroyOps = 7  #number of destroy operations, çeşitlilik sağlanmak istenirse 9 a çıkar
 nRepairOps = 2  # number of repair operations # çeşitlilik sağlanmak istenirse 3 e çıkar
 minSizeNBH = 1  #Minimum size of neighborhood
-nIterations = 6000  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
+nIterations = 100  #Algoritma 100 kez tekrarlanacak(100 kez destroy ve rerair işlemlerini tekrarlayacak)
 
 # Parameters to tune:
 maxPercentageNHB = 100  #Maximum Percentage for Neighborhood
@@ -1519,12 +1519,4 @@ alns = ALNS(problem, nDestroyOps, nRepairOps, nIterations, minSizeNBH, maxPercen
 
 alns.execute()
 
-
-# heuristic = Heuristic("Instances/lrc11.txt", 2, 60, 3,
-#                       20, 10,
-#                       10, 5000, 180)
-#
-# bestCost_ALNS, cpuTime_ALNS, solutionResult_ALNS = heuristic.execute()
-#
-# print(bestCost_ALNS, cpuTime_ALNS, solutionResult_ALNS)
 

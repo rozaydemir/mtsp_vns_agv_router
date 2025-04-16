@@ -110,6 +110,6 @@ C106         cd           20.0         80.0         -35.0        0.0          57
 VehicleCount : 10
 VehiclePerCapacity:   60
 VehicleMaxTrolleyCount : 3
-TrolleyImpactRate : 20
-EarlinessPenalty : 10
-TardinessPenalty : 10
+TrolleyImpactRate :  30
+EarlinessPenalty : 20
+TardinessPenalty : 20

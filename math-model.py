@@ -159,7 +159,7 @@ def read_data(fileName):
     s[len(P_all + D_all) + 1] = s[0]
 
 
-data = "Instances/lrc19.txt"
+data = "Instances/lrc11.txt"
 starttime = time.time()  # get the start time
 read_data(data)
 
@@ -265,16 +265,6 @@ for k in K:
     # Ensuring trolley count is adjusted based on the load
     solver.Add(Y[k] * C >= L[(o[k], k)])  # o[k] is the origin node for vehicle k
 
-# # Constraint 21a-21b Dynamic Load Adjustment According to Vehicle Capacity
-# for k in K:
-#     for i in range(len(P[k])):
-#         # 21a - Maximum load that vehicle, node i can carry before pickup
-#         solver.Add(L[(P[k][i], k)] <= Y[k] * C)
-#         # (21b) For every pickup except the first pickup
-#         if i > 0:
-#             # (21b) The remaining load before pickup of i and after delivery of i-1
-#             solver.Add((L[(P[k][i], k)] - L[(D[k][i-1], k)]) <= Y[k] * C)
-
 # Constaint 14 ensure vehicle dependent capacity restrictions at pick-up points
 for k in K:
     for i in P[k]:
@@ -299,6 +289,20 @@ for k in K:
 for k in K:
     solver.Add(Mmax >= Y[k])
     solver.Add(Y[k] >= 1)
+
+
+# for k in K:
+#     solver.Add(
+#         solver.Sum(j * x[(0, j, k)] for j in P[k] if (0, j, k) in x) >=
+#         solver.Sum(j * x[(0, j, k + 1)] for j in P[k] if (0, j, k + 1) in x)
+#     )
+
+for k in K:
+    solver.Add(
+        solver.Sum(j * x[(o[k], j, k)] for j in P[k] if (o[k], j, k) in x) >=
+        solver.Sum(j * x[(o[k], j, k + 1)] for j in P[k] if (o[k], j, k + 1) in x)
+    )
+
 
 solver.SetTimeLimit(10000 * 10)
 
